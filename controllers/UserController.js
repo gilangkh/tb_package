@@ -63,6 +63,7 @@ const updateUser = async (req, res) => {
       user.email = data.email;
       user.password = hashedPassword; // Menggunakan hashedPassword yang sudah di-hash
       user.alamat = data.alamat;
+      user.updated_at= new Date();
 
       await user.save();
       let response = {
@@ -107,5 +108,5 @@ const deleteUser = async (req, res) => {
     res.status(500).json(response); // Menggunakan status 500 untuk Internal Server Error
   }
 };
-
+//https://docs.google.com/document/d/1kb6nUP83WG7QOerfNksHncvmE1lwP7tIdnwwG0W3kAA/edit?pli=1
 module.exports = { getAllUser, createUser, updateUser, deleteUser };
