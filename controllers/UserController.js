@@ -1,16 +1,14 @@
-/** @format */
-
-const { where } = require("sequelize");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
 const success = "Data berhasil ditambahkan";
-const err = "data gagal ditambahkan";
+const err = "Data gagal ditambahkan";
+
 const getAllUser = async (req, res) => {
   try {
     var users = await User.findAll();
     console.log(users);
-    res.json(users);
+    res.status(200).json(users); // Menggunakan status 200 untuk OK
   } catch (error) {
     console.log("getAllUserError = " + error);
   }
@@ -18,8 +16,7 @@ const getAllUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const {nama,email,password,telp,alamat,picture} = req.body
-   
+    const { nama, email, password, telp, alamat, picture } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
@@ -37,39 +34,78 @@ const createUser = async (req, res) => {
       data: newUser,
       success: success,
     };
-    res.json(response);
+    res.status(201).json(response); // Menggunakan status 201 untuk Created
     console.log(response);
   } catch (error) {
     let response = {
       error: err,
     };
     console.log("createUser Error + ", error);
-    res.json(response);
+    res.status(500).json(response); // Menggunakan status 500 untuk Internal Server Error
   }
 };
 
-const updateUser = async(req,res)=>{
-    try {
-        const user_id=req.params.user_id
-        let 
-        const hashedPassword = await bcrypt.hash(password, 10);
+const updateUser = async (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+    let data = req.body;
+    const hashedPassword = await bcrypt.hash(data.password, 10); // Menyimpan password yang sudah di-hash
 
-        const user = User.findOne({where:{user_id:user_id}})
+    const user = await User.findOne({ where: { user_id: user_id } });
 
-        if (!user) {
-          let response={
-            error:"data tidak di temukan"
-          }
-          res.json(response)
-        } else {
-          
+    if (!user) {
+      let response = {
+        error: "Data tidak ditemukan",
+      };
+      res.status(404).json(response); // Menggunakan status 404 untuk Not Found
+    } else {
+      user.nama = data.nama;
+      user.email = data.email;
+      user.password = hashedPassword; // Menggunakan hashedPassword yang sudah di-hash
+      user.alamat = data.alamat;
 
-          asd
-        }
-
-        
-    } catch (error) {
-        
+      await user.save();
+      let response = {
+        success: "Data berhasil diupdate",
+        data: user,
+      };
+      res.status(200).json(response); // Menggunakan status 200 untuk OK
     }
-}
-module.exports = { getAllUser, createUser,updateUser };
+  } catch (error) {
+    let response = {
+      error: err,
+    };
+    console.log("updateUser Error + ", error);
+    res.status(500).json(response); // Menggunakan status 500 untuk Internal Server Error
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+
+    const user = await User.findOne({ where: { user_id: user_id } });
+
+    if (!user) {
+      let response = {
+        error: "Data tidak ditemukan",
+      };
+      res.status(404).json(response); // Menggunakan status 404 untuk Not Found
+    } else {
+      await user.destroy();
+
+      let response = {
+        success: "Data berhasil dihapus",
+      };
+      res.status(200).json(response); // Menggunakan status 200 untuk OK
+    }
+  } catch (error) {
+    let response = {
+      error: err,
+    };
+    console.log("deleteUser Error + ", error);
+    res.status(500).json(response); // Menggunakan status 500 untuk Internal Server Error
+  }
+};
+
+module.exports = { getAllUser, createUser, updateUser, deleteUser };
