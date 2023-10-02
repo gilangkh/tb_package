@@ -12,7 +12,7 @@ const Produk = sequelize.define(
     nama_produk: {
       type: DataTypes.STRING, 
       allowNull: false,
-    },
+    },  
     harga: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -22,9 +22,6 @@ const Produk = sequelize.define(
       allowNull: false,
     },
     gambar_produk: {
-      type: DataTypes.STRING, 
-    },
-    logo: {
       type: DataTypes.STRING, 
     },
     created_at:{

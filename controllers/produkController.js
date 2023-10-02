@@ -16,14 +16,13 @@ const getAllProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const { nama_produk, harga, deskripsi, gambar_produk, logo } = req.body;
+    const { nama_produk, harga, deskripsi, gambar_produk, } = req.body;
 
     const newProduct = await Produk.create({
       nama_produk: nama_produk,
       harga: harga,
       deskripsi: deskripsi,
       gambar_produk: gambar_produk,
-      logo: logo,
     });
 
     let response = {
@@ -55,7 +54,6 @@ const updateProduct = async (req, res) => {
       product.harga = data.harga;
       product.deskripsi = data.deskripsi;
       product.gambar_produk = data.gambar_produk;
-      product.logo = data.logo;
       product.updated_at = new Date();
 
       await product.save();
