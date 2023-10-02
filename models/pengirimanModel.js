@@ -14,18 +14,17 @@ const Pengiriman = sequelize.define(
     },
     created_at: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      defaultValue: DataTypes.NOW,
+      onUpdate: DataTypes.NOW,
     },
   },
   {
     tableName: "pengiriman",
-    timestamps: false, // Tidak perlu mengaktifkan timestamps karena sudah ada created_at dan updated_at.
+    timestamps: true, // Tidak perlu mengaktifkan timestamps karena sudah ada created_at dan updated_at.
     createdAt: "created_at",
     updatedAt: "updated_at",
    }

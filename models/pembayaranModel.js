@@ -16,18 +16,17 @@ const Pembayaran = sequelize.define(
     },
     created_at: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), // Menetapkan nilai awal ke saat ini
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), // Menetapkan nilai awal ke saat ini dan memperbarui nilai setiap kali data diubah
+      defaultValue: DataTypes.NOW,
+      onUpdate: DataTypes.NOW,
     },
   },
   {
     tableName: "pembayaran", // Nama tabel di database
-    timestamps: false, // Tidak menggunakan timestamps bawaan Sequelize
+    timestamps: true, // Tidak menggunakan timestamps bawaan Sequelize
     createdAt: "created_at",
     updatedAt: "updated_at",
 }

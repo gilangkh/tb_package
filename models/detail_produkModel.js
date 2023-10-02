@@ -13,24 +13,26 @@ const DetailProduk = sequelize.define(
       allowNull: false,
     },
     harga: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     created_at: {
       type: DataTypes.DATE,
-      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
-      allowNull: false,
+      defaultValue: DataTypes.NOW,
+      onUpdate: DataTypes.NOW,
     },
   },
   {
     tableName: "detail_produk",
-    timestamps: true,
+    timestamps: true, 
     createdAt: "created_at",
-    updatedAt: "updated_at",
-  }
+    updatedAt: "updated_at",}
 );
+
+DetailProduk.removeAttribute('id'); // Menghapus kolom id yang biasanya ada secara default
 
 module.exports = DetailProduk;

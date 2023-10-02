@@ -24,18 +24,19 @@ const Produk = sequelize.define(
     gambar_produk: {
       type: DataTypes.STRING, 
     },
-    created_at:{
-        type:DataTypes.DATE,
-        allowNull:false
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
-    updated_at:{
-        type:DataTypes.DATE,
-        allowNull:false
-    }
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      onUpdate: DataTypes.NOW,
+    },
   },
   {
     tableName: "produk", 
-    timestamps: false, 
+    timestamps: true, 
     createdAt: "created_at",
     updatedAt: "updated_at",
   }

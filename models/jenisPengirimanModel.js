@@ -15,10 +15,13 @@ const JenisPengiriman = sequelize.define(
       allowNull: false,
     },
     created_at: {
-      type: DataTypes.TIMESTAMP,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
-      type: DataTypes.TIMESTAMP,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      onUpdate: DataTypes.NOW,
     },
   },
   {
