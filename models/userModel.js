@@ -23,6 +23,10 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    status:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
     telp: {
       type: DataTypes.STRING,
       allowNull: false,

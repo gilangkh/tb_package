@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const {getAllUser,createUser} = require('../controllers/UserController')
+const {getAllUser,createUser,updateUser,deleteUser} = require('../controllers/UserController')
+const {getAllOrder,updateOrder,createOrder,deleteOrder} =require('../controllers/orderController')
 
 /* GET home page. */
 

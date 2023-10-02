@@ -5,23 +5,23 @@ const DetailOrder = sequelize.define(
   "DetailOrder",
   {
     order_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true, // Menjadikan order_id sebagai bagian dari primary key
-      unique: "compositeKey", // Menetapkan unique constraint
-    },
-    produk_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true, // Menjadikan produk_id sebagai bagian dari primary key
-      unique: "compositeKey", // Menetapkan unique constraint
-    },
-    ukuran_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true, // Menjadikan ukuran_id sebagai bagian dari primary key
-      unique: "compositeKey", // Menetapkan unique constraint
-    },
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true, // Menjadikan order_id sebagai bagian dari primary key
+        unique: "compositeKey", // Menetapkan unique constraint
+      },
+      produk_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true, // Menjadikan produk_id sebagai bagian dari primary key
+        unique: "compositeKey", // Menetapkan unique constraint
+      },
+      ukuran_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true, // Menjadikan ukuran_id sebagai bagian dari primary key
+        unique: "compositeKey", // Menetapkan unique constraint
+      },
     jumlah_pesanan: {
       type: DataTypes.INTEGER,
       allowNull: false,
