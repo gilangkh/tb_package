@@ -1,4 +1,4 @@
-const DetailPengiriman = require("../models/DetailPengiriman");
+const DetailPengiriman = require("../models/detaiL_pengirimanModel");
 
 const success = "Data berhasil ditambahkan";
 const err = "Data gagal ditambahkan";

@@ -1,4 +1,4 @@
-const DetailProduk = require("../models/DetailProduk");
+const DetailProduk = require("../models/detail_produkModel");
 
 const success = "Data berhasil ditambahkan";
 const err = "Data gagal ditambahkan";

@@ -16,10 +16,9 @@ const getAllPengiriman = async (req, res) => {
 
 const createPengiriman = async (req, res) => {
   try {
-    const { pengiriman_id, nama } = req.body;
+    const { nama } = req.body;
 
     const newPengiriman = await Pengiriman.create({
-      pengiriman_id,
       nama,
     });
 

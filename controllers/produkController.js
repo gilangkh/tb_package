@@ -16,9 +16,10 @@ const getAllProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const { nama_produk, harga, deskripsi, gambar_produk, } = req.body;
+    const {produk_id, nama_produk, harga, deskripsi, gambar_produk, } = req.body;
 
     const newProduct = await Produk.create({
+      produk_id:produk_id,
       nama_produk: nama_produk,
       harga: harga,
       deskripsi: deskripsi,
@@ -39,7 +40,7 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const produk_id = req.params.produk_id;
+    const produk_id = req.params.product_id;
     let data = req.body;
 
     const product = await Produk.findByPk(produk_id); // Menggunakan findByPk untuk mencari berdasarkan primary key
@@ -71,7 +72,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const produk_id = req.params.produk_id;
+    const produk_id = req.params.product_id;
 
     const product = await Produk.findByPk(produk_id); // Menggunakan findByPk untuk mencari berdasarkan primary key
 

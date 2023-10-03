@@ -36,7 +36,7 @@ const createSize = async (req, res) => {
 
 const updateSize = async (req, res) => {
   try {
-    const ukuran_id = req.params.ukuran_id;
+    const ukuran_id = req.params.size_id;
     let data = req.body;
 
     const size = await Ukuran.findByPk(ukuran_id);
@@ -65,7 +65,7 @@ const updateSize = async (req, res) => {
 
 const deleteSize = async (req, res) => {
   try {
-    const ukuran_id = req.params.ukuran_id;
+    const ukuran_id = req.params.size_id;
 
     const size = await Ukuran.findByPk(ukuran_id);
 

@@ -7,6 +7,8 @@ const Pengiriman = sequelize.define(
     pengiriman_id: {
       type: DataTypes.STRING,
       primaryKey: true,
+      autoIncrement:true, 
+      allowNull: false,
     },
     nama: {
       type: DataTypes.STRING(20),
@@ -15,11 +17,13 @@ const Pengiriman = sequelize.define(
     created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
+      allowNull: false,
     },
     updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
       onUpdate: DataTypes.NOW,
+      allowNull: false,
     },
   },
   {

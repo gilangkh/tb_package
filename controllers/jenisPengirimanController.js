@@ -1,4 +1,4 @@
-const JenisPengiriman = require("../models/JenisPengiriman");
+const JenisPengiriman = require("../models/jenisPengirimanModel");
 
 const success = "Data berhasil ditambahkan";
 const err = "Data gagal ditambahkan";

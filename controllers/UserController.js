@@ -16,7 +16,7 @@ const getAllUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { nama, email, password, telp, alamat, picture } = req.body;
+    const { nama, email, password, status,telp, alamat, picture } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
@@ -25,6 +25,7 @@ const createUser = async (req, res) => {
       nama: nama,
       email: email,
       password: hashedPassword,
+      status:status,
       telp: telp,
       alamat: alamat,
       picture: picture,

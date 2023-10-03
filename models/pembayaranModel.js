@@ -9,6 +9,7 @@ const Pembayaran = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement:true
     },
     metode: {
       type: DataTypes.STRING(20), // Menggunakan panjang maksimal 20 karakter
