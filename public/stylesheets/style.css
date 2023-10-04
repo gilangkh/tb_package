@@ -1,8 +1,63 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #FFEDCE;
 }
 
-a {
-  color: #00B7FF;
+.top-head {
+  background: #FFF;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.qua {
+  color: #090973;
+  text-align: center;
+  font-family: 'Lekton',system-ui;
+  font-size: 57px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 9.69px;
+}
+
+
+.ket {
+  color: #EF9F22;
+  font-family: Lekton;
+  font-size: 57px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 9.69px;
+}
+
+.greeting {
+  color: #090973;
+  font-family: Poppins;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.login {
+  width: 541px;
+  height: 58px;
+  flex-shrink: 0;
+
+  border-radius: 32px;
+  background: #FFF;
+  color: #46351D;
+
+}
+
+.login a{
+  color: #46351D;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
