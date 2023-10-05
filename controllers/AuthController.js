@@ -17,38 +17,35 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     let datetime = new Date().toISOString()
     if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
+      return res.status(400).json({ error: "Email and password are required" });
     }
 
-    const user = await User.findOne({ where: { email: email } });
+    const user = await User.findOne({ where: { email :email} });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    } else {
-
-      const match = await bcrypt.compare(password, user.password);
-
-      if (!match) {
-        return res.status(401).json({ message: "password atau email salah" });
-      } else {
-
-        const token = generateToken(user);
-        let response = {
-          token: token,
-          datetime: datetime,
-          message: "login succes"
-        }
-
-        res.setHeader('authorization', token)
-        res.status(200).json(response);
-      }
+      return res.status(404).json({ error: "User not found" });
     }
-  }
-  catch (error) {
+   
+    
+    if (user.password != password) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const token = generateToken(user);
+    let response ={
+      token : token,
+      message:"login succes",
+      user :user.password
+    }
+
+    res.setHeader('authorization',token)
+    res.status(200).json({ response });
+  } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 // JWT
 
