@@ -10,7 +10,7 @@ function getAllProducts() {
       headers: myHeaders,
     };
   
-    fetch(url + "/produk", requestOptions)
+    fetch(url + "/product", requestOptions)
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -38,7 +38,7 @@ function getAllProducts() {
       redirect: 'follow'
     };
   
-    fetch(url + "/produk/create", requestOptions)
+    fetch(url + "/product/create", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -67,7 +67,7 @@ function getAllProducts() {
       redirect: 'follow'
     };
   
-    fetch(url + `/produk/${produk_id}/update`, requestOptions)
+    fetch(url + `/product/${produk_id}/update`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -85,7 +85,7 @@ function getAllProducts() {
       redirect: 'follow'
     };
   
-    fetch(url + `/produk/${produk_id}/delete`, requestOptions)
+    fetch(url + `/product/${produk_id}/delete`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));

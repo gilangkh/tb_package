@@ -9,7 +9,7 @@ function getAllSizes() {
       redirect: 'follow'
     };
   
-    fetch(url + "/ukuran", requestOptions)
+    fetch(url + "/size", requestOptions)
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -34,7 +34,7 @@ function getAllSizes() {
       redirect: 'follow'
     };
   
-    fetch(url + "/ukuran/create", requestOptions)
+    fetch(url + "/size/create", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -54,7 +54,7 @@ function getAllSizes() {
       redirect: 'follow'
     };
   
-    fetch(url + "/ukuran/2/update", requestOptions)
+    fetch(url + "/size/2/update", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
@@ -70,7 +70,7 @@ function getAllSizes() {
       redirect: 'follow'
     };
   
-    fetch(url + "/ukuran/2/delete", requestOptions)
+    fetch(url + "/size/2/delete", requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));

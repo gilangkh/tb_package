@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+
+const {login} = require('../controllers/AuthController')
+
 const { getAllUser, createUser, updateUser, deleteUser } = require('../controllers/UserController')
 const { getAllOrder, updateOrder, createOrder, deleteOrder } = require('../controllers/orderController')
 const { getAllProducts, updateProduct, createProduct, deleteProduct } = require('../controllers/produkController');
@@ -25,7 +28,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-
+router.post('/login', login)
 
 /* GET home page. */
 
@@ -54,10 +57,10 @@ router.post('/size/create', createSize);
 router.post('/size/:size_id/update', updateSize);
 router.post('/size/:size_id/delete', deleteSize);
 
-router.get('/jenis-pengiriman', getAllJenisPengiriman);
-router.post('/jenis-pengiriman/create', createJenisPengiriman);
-router.post('/jenis-pengiriman/:jenis_pengiriman_id/update', updateJenisPengiriman);
-router.post('/jenis-pengiriman/:jenis_pengiriman_id/delete', deleteJenisPengiriman);
+router.get('/jenis_pengiriman', getAllJenisPengiriman);
+router.post('/jenis_pengiriman/create', createJenisPengiriman);
+router.post('/jenis_pengiriman/:jenis_pengiriman_id/update', updateJenisPengiriman);
+router.post('/jenis_pengiriman/:jenis_pengiriman_id/delete', deleteJenisPengiriman);
 
 router.get('/payment', getAllPayments);
 router.post('/payment/create', createPayment);

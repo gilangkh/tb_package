@@ -9,7 +9,7 @@ function getAllPayments() {
     headers: myHeaders,
   };
 
-  fetch(url + "/pembayaran", requestOptions)
+  fetch(url + "/payment", requestOptions)
     .then(response => response.json())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
@@ -31,7 +31,7 @@ function createPayment() {
     redirect: 'follow'
   };
 
-  fetch(url + "/pembayaran/create", requestOptions)
+  fetch(url + "/payment/create", requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
@@ -54,7 +54,7 @@ function updatePayment() {
     redirect: 'follow'
   };
 
-  fetch(url + `/pembayaran/${pembayaran_id}/update`, requestOptions)
+  fetch(url + `/payment/${pembayaran_id}/update`, requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
@@ -72,7 +72,7 @@ function deletePayment() {
     redirect: 'follow'
   };
 
-  fetch(url + `/pembayaran/${pembayaran_id}/delete`, requestOptions)
+  fetch(url + `/payment/${pembayaran_id}/delete`, requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));

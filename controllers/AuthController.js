@@ -1,10 +1,8 @@
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const User = require("../models/users");
+const User = require("../models/userModel");
 const dotenv = require('dotenv');
-
-const session = require("express-session");
 
 dotenv.config();
 
@@ -22,30 +20,30 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Email and password are required" });
     }
 
-    const user = await User.findOne({ where: { email :email} });
+    const user = await User.findOne({ where: { email: email } });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
-    }else{
+    } else {
 
-    const match = await bcrypt.compare(password, user.password);
+      const match = await bcrypt.compare(password, user.password);
 
-    if (!match) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }else {
-  
-    const token = generateToken(user);
-    let response ={
-      token : token,
-      datetime :datetime,
-      message:"login succes"
+      if (!match) {
+        return res.status(401).json({ message: "password atau email salah" });
+      } else {
+
+        const token = generateToken(user);
+        let response = {
+          token: token,
+          datetime: datetime,
+          message: "login succes"
+        }
+
+        res.setHeader('authorization', token)
+        res.status(200).json(response);
+      }
     }
-
-    res.setHeader('authorization',token)
-    res.status(200).json(response );
-    }
-    }   
-    } 
+  }
   catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });
@@ -58,7 +56,7 @@ const getProfile = async (req, res) => {
 
   try {
     const { user_id } = req.user;
-    const user = await User.findOne({ where: { user_id:user_id } });
+    const user = await User.findOne({ where: { user_id: user_id } });
 
     if (!user) {
       return res.status(400).json({ message: "tidak ketemu" });
@@ -79,7 +77,7 @@ const getProfile = async (req, res) => {
 
 const logout = async (req, res) => {
   const token = req.headers.authorization || req.body.token;
-console.log(token)
+  console.log(token)
 };
 
 
