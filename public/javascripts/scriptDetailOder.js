@@ -1,4 +1,3 @@
-const url = "http://localhost:3000";
 
 function getAllDetailOrder() {
   var myHeaders = new Headers();

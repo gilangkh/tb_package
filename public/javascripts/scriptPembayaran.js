@@ -1,4 +1,3 @@
-const url = "http://localhost:3000";
 
 function getAllPayments() {
   var myHeaders = new Headers();

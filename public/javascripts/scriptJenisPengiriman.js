@@ -1,4 +1,3 @@
-const url = "http://localhost:3000";
 
 function getAllJenisPengiriman() {
   var myHeaders = new Headers();

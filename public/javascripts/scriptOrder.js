@@ -1,6 +1,5 @@
-const url = "http://localhost:3000";
 
-function getAllDetailPengiriman() {
+function getAllOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -10,24 +9,34 @@ function getAllDetailPengiriman() {
     headers: myHeaders,
   };
 
-  fetch(url + "/detail_pengiriman", requestOptions)
+  fetch(url + "/order", requestOptions)
     .then(response => response.json())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
 
-function createDetailPengiriman() {
+function createOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
+  let pembayaran_id = document.getElementById("pembayaran_id").value;
+  let user_id = document.getElementById("user_id").value;
   let pengiriman_id = document.getElementById("pengiriman_id").value;
   let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
-  let biaya_pengiriman = document.getElementById("biaya_pengiriman").value;
+  let desain_produk = document.getElementById("desain_produk").value;
+  let tanggal_order = document.getElementById("tanggal_order").value;
+  let status_order = document.getElementById("status_order").value;
+  let tanggal_bayar = document.getElementById("tanggal_bayar").value;
 
   var formData = new FormData();
+  formData.append("pembayaran_id", pembayaran_id);
+  formData.append("user_id", user_id);
   formData.append("pengiriman_id", pengiriman_id);
   formData.append("jenis_pengiriman_id", jenis_pengiriman_id);
-  formData.append("biaya_pengiriman", biaya_pengiriman);
+  formData.append("desain_produk", desain_produk);
+  formData.append("tanggal_order", tanggal_order);
+  formData.append("status_order", status_order);
+  formData.append("tanggal_bayar", tanggal_bayar);
 
   var requestOptions = {
     method: 'POST',
@@ -36,25 +45,35 @@ function createDetailPengiriman() {
     redirect: 'follow'
   };
 
-  fetch(url + "/detail_pengiriman/create", requestOptions)
+  fetch(url + "/order/create", requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
 
-function updateDetailPengiriman() {
+function updateOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-  let detail_pengiriman_id = document.getElementById("detail_pengiriman_id").value;
+  let order_id = document.getElementById("order_id").value;
+  let pembayaran_id = document.getElementById("pembayaran_id").value;
+  let user_id = document.getElementById("user_id").value;
   let pengiriman_id = document.getElementById("pengiriman_id").value;
   let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
-  let biaya_pengiriman = document.getElementById("biaya_pengiriman").value;
+  let desain_produk = document.getElementById("desain_produk").value;
+  let tanggal_order = document.getElementById("tanggal_order").value;
+  let status_order = document.getElementById("status_order").value;
+  let tanggal_bayar = document.getElementById("tanggal_bayar").value;
 
   var formData = new FormData();
+  formData.append("pembayaran_id", pembayaran_id);
+  formData.append("user_id", user_id);
   formData.append("pengiriman_id", pengiriman_id);
   formData.append("jenis_pengiriman_id", jenis_pengiriman_id);
-  formData.append("biaya_pengiriman", biaya_pengiriman);
+  formData.append("desain_produk", desain_produk);
+  formData.append("tanggal_order", tanggal_order);
+  formData.append("status_order", status_order);
+  formData.append("tanggal_bayar", tanggal_bayar);
 
   var requestOptions = {
     method: 'POST',
@@ -63,17 +82,17 @@ function updateDetailPengiriman() {
     redirect: 'follow'
   };
 
-  fetch(url + `/detail_pengiriman/${detail_pengiriman_id}/update`, requestOptions)
+  fetch(url + `/order/${order_id}/update`, requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
 
-function deleteDetailPengiriman() {
+function deleteOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-  let detail_pengiriman_id = document.getElementById("detail_pengiriman_id").value;
+  let order_id = document.getElementById("order_id").value;
 
   var requestOptions = {
     method: 'POST',
@@ -81,7 +100,7 @@ function deleteDetailPengiriman() {
     redirect: 'follow'
   };
 
-  fetch(url + `/detail_pengiriman/${detail_pengiriman_id}/delete`, requestOptions)
+  fetch(url + `/order/${order_id}/delete`, requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
