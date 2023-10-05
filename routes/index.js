@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const {getAllUser,createUser,updateUser,deleteUser} = require('../controllers/UserController')
-const {getAllOrder,updateOrder,createOrder,deleteOrder} =require('../controllers/orderController')
+const { getAllUser, createUser, updateUser, deleteUser } = require('../controllers/UserController')
+const { getAllOrder, updateOrder, createOrder, deleteOrder } = require('../controllers/orderController')
 const { getAllProducts, updateProduct, createProduct, deleteProduct } = require('../controllers/produkController');
 const { getAllPengiriman, updatePengiriman, createPengiriman, deletePengiriman } = require('../controllers/pengirimanController');
 const { getAllSizes, updateSize, createSize, deleteSize } = require('../controllers/ukuranController');
@@ -11,12 +11,28 @@ const { getAllDetailPengiriman, updateDetailPengiriman, createDetailPengiriman, 
 const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder } = require('../controllers/detailOrderController');
 const { getAllPayments, createPayment, updatePayment, deletePayment } = require('../controllers/pembayaranController');
 
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images'); // Direktori penyimpanan gambar
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = new Date().getTime() + '-' + file.originalname;
+        cb(null, uniqueSuffix);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+
+
+
 /* GET home page. */
 
-router.get('/user',getAllUser)
-router.post('/user/create',createUser)
-router.post('/user/:user_id/update',updateUser)
-router.post('/user/:user_id/delete',deleteUser)
+router.get('/user', getAllUser)
+router.post('/user/create',upload.single('picture'), createUser)
+router.post('/user/:user_id/update',upload.single('picture'), updateUser)
+router.post('/user/:user_id/delete', deleteUser)
 
 router.get('/order', getAllOrder);
 router.post('/order/create', createOrder);
@@ -47,5 +63,5 @@ router.get('/payment', getAllPayments);
 router.post('/payment/create', createPayment);
 router.post('/payment/:pembayaran_id/update', updatePayment);
 router.post('/payment/:pembayaran_id/delete', deletePayment);
- 
+
 module.exports = router;

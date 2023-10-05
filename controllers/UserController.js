@@ -16,19 +16,13 @@ const getAllUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { nama, email, password, status,telp, alamat, picture } = req.body;
-
+    const { nama, email, password, status,telp, alamat,  } = req.body;
+    const picture = req.file.filename
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
 
     const newUser = await User.create({
-      nama: nama,
-      email: email,
-      password: hashedPassword,
-      status:status,
-      telp: telp,
-      alamat: alamat,
-      picture: picture,
+      nama,email,password: hashedPassword,status,telp,alamat,picture:picture,
     });
 
     let response = {
@@ -65,7 +59,7 @@ const updateUser = async (req, res) => {
       user.password = hashedPassword; // Menggunakan hashedPassword yang sudah di-hash
       user.alamat = data.alamat;
       user.updated_at= new Date();
-
+      user.picture = req.file.filename  
       await user.save();
       let response = {
         success: "Data berhasil diupdate",
