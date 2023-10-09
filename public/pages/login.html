@@ -20,14 +20,14 @@
     <div class="section">
         <div class="link">
             <a href="signup">Sign Up</a>
-            <a href="login">Login</a>
+
         </div>  
-        <input type="email" name="email" id="email">
-        <input type="password" name="password" id="password">
+        <input type="email" name="email" id="email" required>
+        <input type="password" name="password" id="password" required>
     </div>
     <a href=""> Forger Password?</a>
 
-    <button class="authen"> Login</button>
+    <button onclick=login() class="authen"> Login</button>
 </div>
 </div>
 </body>
@@ -43,6 +43,7 @@
 <script src="../javascripts/scriptDetailPengiriman.js"></script>
 <script src="../javascripts/scriptDetailOder.js"></script>
 <script src="../javascripts/scriptDetailProduk.js"></script>
+<script src="../javascripts/scriptAuth.js"></script>
 <script>
     getAllUser();
     getAllSizes();

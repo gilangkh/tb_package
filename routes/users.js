@@ -16,6 +16,9 @@ router.get('/register',(req,res)=>{
   res.sendFile(link+'register.html')
 })
 
+router.get('/produk',(req,res)=>{
+  res.sendFile(link+'produk.html')
+})
 
 
 module.exports = router;

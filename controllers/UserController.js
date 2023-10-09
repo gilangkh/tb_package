@@ -1,7 +1,5 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const argon2 = require('argon2')
-
 const success = "Data berhasil ditambahkan";
 const err = "Data gagal ditambahkan";
 
@@ -23,7 +21,7 @@ const createUser = async (req, res) => {
     console.log(hashedPassword);
 
     const newUser = await User.create({
-      nama,email,password: password,status,telp,alamat,picture:picture,
+      nama,email,password: hashedPassword,status,telp,alamat,picture:picture,
     });
 
     let response = {

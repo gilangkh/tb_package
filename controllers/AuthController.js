@@ -23,12 +23,13 @@ const login = async (req, res) => {
     const user = await User.findOne({ where: { email :email} });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "Email Salah" });
     }
-   
+
+    const macth = await bcrypt.compare(password,user.password)
     
-    if (user.password != password) {
-      return res.status(401).json({ error: "Invalid credentials" });
+    if (!macth) {
+      return res.status(401).json({ error: "password salah" });
     }
 
     const token = generateToken(user);
@@ -42,7 +43,10 @@ const login = async (req, res) => {
     res.status(200).json({ response });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    let response ={
+     error : "Internal Server Error"
+    }
+    return res.status(500).json(response);
   }
 };
 
