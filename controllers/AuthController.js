@@ -23,13 +23,15 @@ const login = async (req, res) => {
     const user = await User.findOne({ where: { email :email} });
 
     if (!user) {
-      return res.status(404).json({ error: "Email Salah" });
+      let response ={ error: "Email Salah" }
+      return res.status(404).json(response);
     }
 
     const macth = await bcrypt.compare(password,user.password)
     
     if (!macth) {
-      return res.status(401).json({ error: "password salah" });
+      let response ={ error: "password salah" }
+      return res.status(401).json(response);
     }
 
     const token = generateToken(user);

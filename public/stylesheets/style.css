@@ -1,7 +1,128 @@
-body{
+body {
   background-image: url('/images/bg3.png');
-  background-size: cover; 
-  background-repeat: no-repeat; 
-  
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Poppins', sans-serif;
 }
 
+.header {
+  width: 100%;
+  height: 50px;
+  background: #FFF;
+  font-size: 100px;
+  display: flex;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: center;
+}
+
+#authHead{
+  justify-content: center;
+}
+.header-g {
+  width: 100%;
+  height: 50px;
+  background: #FFF;
+  font-size: 100px;
+  display: flex;
+  gap: 10px;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: left;
+
+}
+.beranda{
+  display: flex;
+  gap: 10px;
+  color: #fabe56;
+}
+
+.header-g a {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+}
+.item{
+  color: #fabe56;
+}
+.item-nav{
+  color: #090973;
+}
+.header-1 {
+  color: #090973;
+  ;
+}
+
+.header-2 {
+  color: #EF9F22;
+  ;
+}
+
+.button {
+  border-radius: 32px;
+  font-family: Poppins, 'sans-serif';
+  font-size: 20px;
+  color: black;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.button-item {
+  color: #FFF;
+  text-align: center;
+  background: #090973;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+}
+
+.button-item p {
+  margin: 0;
+}
+
+.button a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #46351D;
+  ;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button-a {
+  text-decoration: none;
+  color: #46351D;
+  ;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button-item button {
+  color: #FFF;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+
+.greeting {
+  color: #090973;
+  font-family: 'Poppins', sans-serif;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+.forget {
+  color: #090973;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

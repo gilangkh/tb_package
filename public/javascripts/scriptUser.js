@@ -1,4 +1,4 @@
-const url = "http://localhost:3000"
+
 
 function getAllUser() {
     var myHeaders = new Headers();

@@ -5,34 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <title>Login</title>
 </head>
 
 <body>
-    <div class="authentication">
-<div class="header">
-    <h1>Quaket</h1>
-</div>
-<div class="content">
-    <div class="greeting">
-        <p> Welcome Back!</p>
-    </div>
-    <div class="section">
-        <div class="link">
-            <a href="signup">Sign Up</a>
+    <div class="align-items-center">
+        <div class="text-center mb-5 pb-5">
+            <div class="header-g text-left px-3" id="authHead"></div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col container  text-center px-3 mx-5">
+                <h1 class="align-self-center greeting px-3"> Welcome Back!</h1>
+            </div>
+            <div class="col container align-items-center text-center  mx-3">
 
-        </div>  
-        <input type="email" name="email" id="email" required>
-        <input type="password" name="password" id="password" required>
-    </div>
-    <a href=""> Forger Password?</a>
 
-    <button onclick=login() class="authen"> Login</button>
-</div>
-</div>
+                <div class="container text-center">
+
+                    <div class="row  bg-white rounded-pill  button align-items-center mx-5">
+                        <div class="col button ">
+                            <a href="register">Sign Up</a>
+                        </div>
+                        <div class="col align-middle button-item rounded-pill ">
+                            <p class="py-1">Log in</p>
+                        </div>
+                       
+                    </div>
+
+                </div>
+                <div class="py-3 my-3 mx-3">
+                    <div class="mx-5 px-5">
+
+                        <div class="align-self-center text-center py-3 ">
+                            <input class="form-control rounded-pill  " type="email" name="email" id="email"
+                                placeholder="Enter Your Email" required>
+                        </div>
+                        <div class="align-self-center text-center py-3 ">
+                            <input class="form-control rounded-pill" type="password" name="password" id="password" placeholder="Enter Your Password Here"
+                                required>
+                        </div class="forget py-5 ">
+                        <a href="/register"> Forget Password?</a>
+
+                        <div class="py-3 mx-5 px-3">
+
+                        </div>
+                        <div class="button-item rounded-pill ">
+                            <button type="button" onclick=login() class="btn btn-primary"
+                                style="background-color: #090973; border: none"> Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </body>
 
 </html>
+<script src="../javascripts/scriptUrl.js"></script>
 <script src="../javascripts/scriptUser.js"></script>
 <script src="../javascripts/scriptUkuran.js"></script>
 <script src="../javascripts/scriptProduk.js"></script>
@@ -52,4 +86,5 @@
     getAllPayments();
     getAllOrder();
     getAllJenisPengiriman();
+    authHead()
 </script>

@@ -20,5 +20,21 @@ router.get('/produk',(req,res)=>{
   res.sendFile(link+'produk.html')
 })
 
+router.get('/pembayaran',(req,res)=>{
+  res.sendFile(link+'pembayaran.html')
+})
+router.get('/deliver',(req,res)=>{
+  res.sendFile(link+'pengiriman.html')
+})
+router.get('/home',(req,res)=>{
+  res.sendFile(link+'home.html')
+})
+router.get('/transaksi',(req,res)=>{
+  res.sendFile(link+'transaksi.html')
+})
+router.get('/barang',(req,res)=>{
+  res.sendFile(link+'barang.html')
+})
+
 
 module.exports = router;

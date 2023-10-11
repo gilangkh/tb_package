@@ -1,0 +1,245 @@
+body {
+  background-color: #9c795c;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  font-family: 'Poppins', sans-serif;
+}
+
+.header {
+  width: 100%;
+  height: 50px;
+  background: #FFF;
+  font-size: 100px;
+  display: flex;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: center;
+}
+
+#authHead {
+  justify-content: center;
+}
+
+.header-g {
+  width: 100%;
+  height: 50px;
+  background: #FFF;
+  font-size: 100px;
+  display: flex;
+  gap: 10px;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: left;
+
+}
+
+.beranda {
+  display: flex;
+  gap: 10px;
+  color: #fabe56;
+}
+
+.header-g a {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.item {
+  color: #fabe56;
+}
+
+.item-nav {
+  color: #090973;
+}
+
+.header-1 {
+  color: #090973;
+  ;
+}
+
+.header-2 {
+  color: #EF9F22;
+  ;
+}
+
+.button {
+  border-radius: 32px;
+  font-family: Poppins, 'sans-serif';
+  font-size: 20px;
+  color: black;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.button-item {
+  color: #FFF;
+  text-align: center;
+  background: #090973;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+}
+
+.button-item p {
+  margin: 0;
+}
+
+.button a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #46351D;
+  ;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button-a {
+  text-decoration: none;
+  color: #46351D;
+  ;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button-item button {
+  color: #FFF;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+
+.greeting {
+  color: #090973;
+  font-family: 'Poppins', sans-serif;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+.forget {
+  color: #090973;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.discon {
+  width: 1159px;
+  height: 180px;
+  display: flex;
+  border-radius: 30px;
+  border: 6px solid #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  background: url('/images/diskon.png') lightgray 50% / cover no-repeat;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  gap: 30px;
+
+}
+
+.diskon-caption {
+
+  text-shadow: 1.2654134035110474px 2.5308268070220947px 2.5308268070220947px rgba(0, 0, 0, 0.25);
+  font-family: 'Poppins', sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100px;
+  /* 157.813% */
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+}
+
+.diskon-value {
+
+  text-shadow: 1.2654134035110474px 2.5308268070220947px 2.5308268070220947px rgba(0, 0, 0, 0.25);
+  font-family: 'Poppins', sans-serif;
+  font-size: 140px;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  gap: 40px;
+
+}
+
+.off {
+  font-size: 70px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  font-weight: 800;
+}
+
+.tutor {
+  margin: 50px;
+  pad: 30px;
+  width: 1169px;
+  height: 374px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: linear-gradient(92deg, #090973 -15.8%, #C2C2FF 9.79%, #FFF 52.3%, #EF9F22 104.15%);
+  border-radius: 30px;
+  border: 6px solid #FFF;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.25);
+}
+
+.produk {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 item per baris */
+  gap: 50px;
+}
+
+.barang {
+  width: 229px;
+  height: 229px;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 32px;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background: url('/images/Star5.png');
+}
+
+.produk-name{
+  color: #090973;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+
+}
+.produk-prize{
+  color: #090973;
+text-align: right;
+font-family: Poppins;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.produk-image{
+  margin: 20px 0 10px;
+  width: 190px;
+height: 120px;
+border-radius: 20px;
+}
+
+.produk-image img{
+  width: 190px;
+height: 120px;
+background: none;
+}
