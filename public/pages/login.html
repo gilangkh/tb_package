@@ -18,13 +18,13 @@
         </div>
         <div class="row align-items-center">
             <div class="col container  text-center px-3 mx-5">
-                <h1 class="align-self-center greeting px-3"> Welcome Back!</h1>
+                <div class="mx-5">
+                    <h4 class="align-self-center greeting px-3 mx-5"> Welcome Back!</h4>
+                </div>
             </div>
+
             <div class="col container align-items-center text-center  mx-3">
-
-
                 <div class="container text-center">
-
                     <div class="row  bg-white rounded-pill  button align-items-center mx-5">
                         <div class="col button ">
                             <a href="register">Sign Up</a>
@@ -32,36 +32,37 @@
                         <div class="col align-middle button-item rounded-pill ">
                             <p class="py-1">Log in</p>
                         </div>
-                       
                     </div>
 
                 </div>
-                <div class="py-3 my-3 mx-3">
-                    <div class="mx-5 px-5">
+                <form id="login">
+                    <div class="py-3 my-3 mx-3">
+                        <div class="mx-5 px-5">
 
-                        <div class="align-self-center text-center py-3 ">
-                            <input class="form-control rounded-pill  " type="email" name="email" id="email"
-                                placeholder="Enter Your Email" required>
-                        </div>
-                        <div class="align-self-center text-center py-3 ">
-                            <input class="form-control rounded-pill" type="password" name="password" id="password" placeholder="Enter Your Password Here"
-                                required>
-                        </div class="forget py-5 ">
-                        <a href="/register"> Forget Password?</a>
+                            <div class="align-self-center text-center py-2 ">
+                                <input class="form-control rounded-pill  " type="email" name="email" id="email"
+                                    placeholder="Enter Your Email" required>
+                            </div>
+                            <div class="align-self-center text-center py-2 ">
+                                <input class="form-control rounded-pill" type="password" name="password" id="password"
+                                    placeholder="Enter Your Password Here" required>
+                            </div class="forget py-5 ">
+                            <a href="/register"> Forget Password?</a>
 
-                        <div class="py-3 mx-5 px-3">
+                            <div class="py-3 mx-5 px-3">
 
-                        </div>
-                        <div class="button-item rounded-pill ">
-                            <button type="button" onclick=login() class="btn btn-primary"
-                                style="background-color: #090973; border: none"> Login</button>
+                            </div>
+                            <div class="button-item rounded-pill ">
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #090973; border: none"> Login</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
+                    </div>
+            </form>
 
         </div>
+    </div>
     </div>
 </body>
 
@@ -79,12 +80,7 @@
 <script src="../javascripts/scriptDetailProduk.js"></script>
 <script src="../javascripts/scriptAuth.js"></script>
 <script>
-    getAllUser();
-    getAllSizes();
-    getAllProducts();
-    getAllPengiriman();
-    getAllPayments();
-    getAllOrder();
-    getAllJenisPengiriman();
+
     authHead()
+    login()
 </script>

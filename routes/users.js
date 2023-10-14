@@ -35,6 +35,15 @@ router.get('/transaksi',(req,res)=>{
 router.get('/barang',(req,res)=>{
   res.sendFile(link+'barang.html')
 })
+router.get('/barang/detail',(req,res)=>{
+  res.sendFile(link+'detailBarang.html')
+})
+router.get('/keranjang',(req,res)=>{
+  res.sendFile(link+'keranjang.html')
+})
+router.get('/ukuran',(req,res)=>{
+  res.sendFile(link+'ukuran.html')
+})
 
 
 module.exports = router;

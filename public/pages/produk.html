@@ -7,88 +7,181 @@
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <title>Produk</title>
 </head>
 
 <body>
-    <div class="text-center mb-5 pb-5">
-        <div class="header-g text-left px-3" id="generalHead">
-            <div class="beranda">
-                <h2 class="header-1">Q u a </h2>
-                <h2 class="header-2">k e t</h2>
-            </div>
-            <div class="beranda px-3 mx-3" id="navLinks">
-                <a id="home" class="item" href="/home">Home</a>
-                <a id="produk" class="item" href="/produk">Produk</a>
-                <a id="order" class="item" href="/transaksi">Order</a>
+    <div>
+
+        <div class="header-g text-left px-3" id="generalHead"> </div>
+        <div id="flash-message"></div>
+    </div>
+    <div class="content">
+
+        <div class="modal" tabindex="-1" role="dialog" data-backdrop="static" id="yModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Change Image</h5>
+                        <span id="closeBtn" class="btn-close" aria-label="Close"> </span>
+                    </div>
+                    <form id="imgForm">
+                    <div class="modal-body">
+                            
+                            <div class="py-2 my-2 img-detail">
+                                <img id="produk_img" class="img-detail" alt="">  
+                            </div>
+                            <div class="py-2 my-2">
+                                <input class="form-control rounded-pill" type="file" name="inputImg" id="inputImg">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <span id="modalImgCloseBtn"  class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</span>
+                            </div>
+                            <div>
+                                <button class="btn btn-success rounded-pill" type="submit"> Update</button>
+                            </div>
+                        
+                        </div>
+                        
+                    </form> 
+                </div>
             </div>
         </div>
+    
+        <div class="mt-5 mb-3">
+            <!-- Button trigger modal -->
+            <button type="button" class="button-item rounded-pill px-3 py-2" style="border: none;"
+                data-bs-toggle="modal" data-bs-target="#createForm">
+                Add Produk
+            </button>
 
+            <!-- Modal -->
+            <div class="modal fade" id="createForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Produk</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="createProduk" enctype="multipart/form-data">
 
+                            <div class="modal-body px-3 py-3 mx-3">
+                                <div class="px-3">
+
+                                    <div class="py-2">
+                                        <input class="form-control rounded-pill" type="number" name="produk_id"
+                                            id="produk_id">
+                                    </div>
+                                    <div class="py-2">
+                                        <input class="form-control rounded-pill" type="text" name="nama_produk"
+                                            id="nama_produk">
+                                    </div>
+                                    <div>
+                                        <input class="form-control rounded-pill" type="text" name="deskripsi"
+                                            id="deskripsi">
+                                    </div>
+                                    <div class="py-2">
+                                        <input class="form-control rounded-pill" type="file" name="gambar_produk"
+                                            id="gambar_produk">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success">Tambah</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Button trigger modal -->
+            <!-- Modal -->
+
+        </div>
+        <!-- MOdal baru -->
+        <div id="myModal" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form enctype="multipart/form-data" id="updateData">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Update Data</h5>
+                            <span id="closeModalBtn" class="btn-close" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="my-2">
+                                <input class="form-control rounded-pill" placeholder="nama produk" type="text"
+                                    name="nama_produk" id="produk_name">
+                            </div>
+                            <div class="my2">
+                                <input class="form-control rounded-pill" placeholder="deskripsi" type="text" name="description"
+                                    id="description">
+                            </div>
+                            <div class="my-2 mx-3 ">
+                                <img class="table-img" src="" alt="" id="produk_img">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success rounded-pill">Update</button>
+                        </form>
+                        <form id="deleteProduk">
+                            <button type="submit" class="btn btn-danger rounded-pill">Delete</button>
+                        </form>
+                        <span id="modalCloseBtn" class="btn btn-secondary rounded-pill">Close</span>
+               
+                    </div>
+            </div>
+        </div>
+        <!-- moda gambar -->
+
+    
     </div>
-
+    <!-- modal tutup -->
 
     <h1> List Produk</h1>
-    <table>
-        <th>
-        <td>no</td>
-        <td>nama</td>
-        <td>harga</td>
-        <td>ukuran</td>
-        </th>
+    <table class="table  table-bordered table-sm ali  align-middle text-center  table-striped w-50 table-rounded">
+        <thead class="table-info">
+            <tr>
+                <th>no</th>
+                <th>nama</th>
+                <th>gambar</th>
+                <th>deskripsi</th>
+                <th>Action</th>
+            </tr>
+        
+        </thead>
+        <tbody id="produkTableBody" class="table-group-divider table-warning">
+        </tbody>
     </table>
 
-    <hr>
-    <h1> Detail Produk</h1>
-
-    <div class="tambah detail produk">
-        <div>
-            <label for="pilihBarang">pilih barang</label>
-            <select name="pilihBarang" id="pilihBarang">
-                <option value="pilih barang"> pilih barang</option>
-            </select>
-        </div>
-        <div>
-            <label for="pilihUkuran">pilih ukuran</label>
-            <select name="pilihUkuran" id="">
-                <option value="pilih ukuran">pilih ukuran</option>
-            </select>
-        </div>
-        <div>
-            <label for="hargaBarang">Harga Barang</label>
-            <input class="form" type="harga" name="harga" id="harga">
-        </div>
     </div>
-
-    <hr>
-    <h1>tambah produk</h1>
-
-    <div>
-        <div class="tambah_produk">
-            <input type="produkID" name="produkID" id="produkID" placeholder="id produk" />
-        </div>
-        <div>
-            <input type="namaProduk" name="namaProduk" id="namaProduk" placeholder="nama produk" />
-        </div>
-        <div>
-            <input type="file" name="gambarProduk" id="gambarProduk" />
-        </div>
-        <div>
-            <textarea type="" name="deskripsi" id="deksripsi" placeholder="deksripsi produk..."></textarea>
-        </div>
-        <div>
-            <button class="btn btn-success" type="button" onclick="">Tambah Produk</button>
-        </div>
     </div>
 </body>
 <script src="../javascripts/scriptGeneral.js"></script>
 <script src="../javascripts/scriptUrl.js"></script>
 <script src="../javascripts/scriptProduk.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 <script>
-
+    verived()
     getAllProducts();
+    generalHead();
     generalNav();
+    createProduct();
+
+    document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+    document.getElementById("closeBtn").addEventListener("click", closeModalImg);
+    document.getElementById("modalCloseBtn").addEventListener("click", closeModal)
+     document.getElementById("modalImgCloseBtn").addEventListener("click", closeModalImg)
+    // Function to open the modal
+
 </script>
 
 </html>

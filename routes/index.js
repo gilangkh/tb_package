@@ -5,7 +5,7 @@ const {login} = require('../controllers/AuthController')
 
 const { getAllUser, createUser, updateUser, deleteUser } = require('../controllers/UserController')
 const { getAllOrder, updateOrder, createOrder, deleteOrder } = require('../controllers/orderController')
-const { getAllProducts, updateProduct, createProduct, deleteProduct } = require('../controllers/produkController');
+const { getAllProducts, updateProduct, createProduct, deleteProduct, updateProductImg } = require('../controllers/produkController');
 const { getAllPengiriman, updatePengiriman, createPengiriman, deletePengiriman } = require('../controllers/pengirimanController');
 const { getAllSizes, updateSize, createSize, deleteSize } = require('../controllers/ukuranController');
 const { getAllJenisPengiriman, updateJenisPengiriman, createJenisPengiriman, deleteJenisPengiriman } = require('../controllers/jenisPengirimanController');
@@ -20,12 +20,26 @@ const storage = multer.diskStorage({
         cb(null, './public/images'); // Direktori penyimpanan gambar
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = new Date().getTime() + '-' + file.originalname;
+        const uniqueSuffix = new Date().getTime() + '-' + file.fieldname;
         cb(null, uniqueSuffix);
     },
 });
+const filter = (req, file, cb) => {
+    if (
+      file.mimetype === 'image/png'||
+      file.mimetype === 'image/jpg'||
+      file.mimetype ==='image/jpeg'
+      ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
 
-const upload = multer({ storage: storage });
+const upload = multer({ 
+    storage: storage,
+    fileFilter:filter    
+});
 
 
 router.post('/login', login)
@@ -43,8 +57,9 @@ router.post('/order/:order_id/update', updateOrder);
 router.post('/order/:order_id/delete', deleteOrder);
 
 router.get('/product', getAllProducts);
-router.post('/product/create', createProduct);
+router.post('/product/create',upload.single("gambar_produk"), createProduct);
 router.post('/product/:product_id/update', updateProduct);
+router.post('/product/:product_id/updateImg',upload.single("gambar_produk"), updateProductImg);
 router.post('/product/:product_id/delete', deleteProduct);
 
 router.get('/pengiriman', getAllPengiriman);

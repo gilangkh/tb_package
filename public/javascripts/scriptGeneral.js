@@ -25,6 +25,16 @@ function generalHead() {
     `;
 
     head.insertAdjacentHTML('beforeend', body);
+    
+    const flashMessage = localStorage.getItem("flashMessage");
+    if (flashMessage) {
+        const message = document.getElementById("flash-message");
+        const p = document.createElement("p");
+        p.textContent = flashMessage;
+        p.className = "flash-message success"
+        message.appendChild(p);
+        localStorage.removeItem("flashMessage"); // Hapus pesan sukses setelah ditampilkan
+    }
 }
 
 function generalNav() {

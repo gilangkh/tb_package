@@ -15,13 +15,13 @@ const getAllUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { nama, email, password, status,telp, alamat,  } = req.body;
+    const { nama, email, password,telp, alamat,  } = req.body;
     const picture = req.file.filename
     const hashedPassword = await bcrypt.hash(password,10);
     console.log(hashedPassword);
 
     const newUser = await User.create({
-      nama,email,password: hashedPassword,status,telp,alamat,picture:picture,
+      nama,email,password: hashedPassword,status:"U",telp,alamat,picture:picture,
     });
 
     let response = {

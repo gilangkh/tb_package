@@ -16,12 +16,12 @@ const getAllProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const {produk_id, nama_produk, harga, deskripsi, gambar_produk, } = req.body;
-
+    const {produk_id, nama_produk, deskripsi, } = req.body;
+    const gambar_produk = req.file.filename
     const newProduct = await Produk.create({
+      
       produk_id:produk_id,
       nama_produk: nama_produk,
-      harga: harga,
       deskripsi: deskripsi,
       gambar_produk: gambar_produk,
     });
@@ -38,7 +38,36 @@ const createProduct = async (req, res) => {
   }
 };
 
-const updateProduct = async (req, res) => {
+  const updateProduct = async (req, res) => {
+    try {
+      const produk_id = req.params.product_id;
+      let data = req.body;
+
+      const product = await Produk.findOne(produk_id); // Menggunakan findByPk untuk mencari berdasarkan primary key
+
+      if (!product) {
+        let response = {
+          error: "Data tidak ditemukan",
+        };
+        res.status(404).json(response); // Menggunakan status 404 untuk Not Found
+      } else {
+        product.nama_produk = data.nama_produk;
+        product.deskripsi = data.deskripsi;
+        product.updated_at = new Date();
+
+        await product.save();
+        let response = {
+          success: "Data berhasil diupdate",
+          data: product,
+        };
+        res.status(200).json(response); // Menggunakan status 200 untuk OK
+      }
+    } catch (error) {
+      console.log("updateProduct Error + ", error);
+      res.status(500).json({ error: "data gagal di update",error }); // Menggunakan status 500 untuk Internal Server Error
+    }
+};
+const updateProductImg = async (req, res) => {
   try {
     const produk_id = req.params.product_id;
     let data = req.body;
@@ -51,17 +80,15 @@ const updateProduct = async (req, res) => {
       };
       res.status(404).json(response); // Menggunakan status 404 untuk Not Found
     } else {
-      product.nama_produk = data.nama_produk;
-      product.harga = data.harga;
-      product.deskripsi = data.deskripsi;
-      product.gambar_produk = data.gambar_produk;
+      product.gambar_produk = req.file.filename;
       product.updated_at = new Date();
 
       await product.save();
       let response = {
-        success: "Data berhasil diupdate",
-        data: product,
+        success: "gambar berhasil diupdate",
+        data: product.gambar_produk,
       };
+      console.log(product.gambar_produk)
       res.status(200).json(response); // Menggunakan status 200 untuk OK
     }
   } catch (error) {
@@ -95,4 +122,4 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct };
+module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct,updateProductImg };

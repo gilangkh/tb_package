@@ -1,44 +1,47 @@
-function login( ){
+function login() {
+  const formLogin = document.getElementById("login");
+  formLogin.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+      const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-const email  = document.getElementById("email")
-const password = document.getElementById("password")
+     var raw = JSON.stringify({
+      "email": email,
+      "password": password
+    });
 
+     var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
 
-var raw = JSON.stringify({
-  "email": email.value,
-  "password": password.value
-});
+    // Mengirim permintaan POST ke server
+    fetch("http://localhost:3000/login", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result.response);
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("http://localhost:3000/login", requestOptions)
-  .then(response => response.json())
-  .then(result => {
-    console.log(result.response)
-    alert(result.response)
-   
-    
-    if(result){
-      window.location = "/produk"
-      sessionStorage.setItem('token',token)
-    }else{
-      const fail = result.response.errror
-      console.log(fail)
-      alert(fail)
-    }
-    })
-  .catch(error => console.log('error', error));
-
+        if (result.response.token) {
+          // Jika login berhasil, alihkan ke halaman "/produk" dan simpan token di session storage
+          window.location = "/produk";
+          sessionStorage.setItem('token', result.response.token);
+        } else {
+          // Jika login gagal, tampilkan pesan kesalahan
+          const error = result.response.error;
+          console.log(error);
+          alert(error);
+        }
+      })
+      .catch(error => console.log('error', error));
+  });
 }
+
 
 function authHead(){
   const head = document.getElementById("authHead");

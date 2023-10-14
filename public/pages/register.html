@@ -12,14 +12,12 @@
 </head>
 
 <body>
-    <div class="background">
-
 
         <div class="align-items-center">
             <div class="text-center mb-5 pb-5">
-                <h1>Quaket</h1>
+                <div class="header-g text-left px-3" id="authHead"></div>
             </div>
-            <div class="row align-middle">
+            <div class="row align-items-center">
                 <div class="col container  text-center px-3 mx-5">
                     <div class="mx-5">
                         <h4 class="align-self-center greeting px-3 mx-5"> Welcome Back!</h4>
@@ -35,13 +33,13 @@
                             <div class="col button ">
                                 <a href="login">Log in</a>
                             </div>
-                            
                         </div>
                     </div>
+                    <form id="register" enctype="multipart/form-data">
                     <div class="py-3 my-3 mx-3">
                         <div class="mx-5 px-5">
                             <div class="align-self-center text-center py-2 ">
-                                <input class="form-control rounded-pill  " type="text" name="name" id="name"
+                                <input class="form-control rounded-pill  " type="text" name="nama" id="nama"
                                     placeholder="Enter Your Name Here" required>
                             </div>
                             <div class="align-self-center text-center py-2 ">
@@ -51,9 +49,17 @@
                             <div class="align-self-center text-center py-2 ">
                                 <input class="form-control rounded-pill" type="password" name="password" id="password"
                                     placeholder="Enter Your Password Here" required>
-                            </div class="forget py-5 ">
+                            </div >
                             <div class="align-self-center text-center py-2 ">
-                                <input class="form-control rounded-pill  " type="number" name="phone_number" id="phone_number"
+                                <input class="form-control rounded-pill  " type="number" name="telp" id="telp"
+                                    placeholder="Enter Your Phone Number" required>
+                            </div>
+                            <div class="align-self-center text-center py-2 ">
+                                <input class="form-control rounded-pill  " type="text" name="alamat" id="alamat"
+                                    placeholder="Enter Your Phone Number" required>
+                            </div>
+                            <div class="align-self-center text-center py-2 ">
+                                <input class="form-control rounded-pill  " type="file" name="picture" id="picture"
                                     placeholder="Enter Your Phone Number" required>
                             </div>
 
@@ -62,36 +68,24 @@
 
                             </div>
                             <div class="button-item rounded-pill px-5 mx-5">
-                                <button type="button" onclick=register() class="btn btn-primary"
+                                <button type="submit" class="btn btn-primary"
                                     style="background-color: #090973; border: none"> Sign up</button>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
 
             </div>
-        </div>
-    </div>
+        </div>  
 </body>
 
 </html>
+<script src="../javascripts/scriptUrl.js"></script>
 <script src="../javascripts/scriptUser.js"></script>
-<script src="../javascripts/scriptUkuran.js"></script>
-<script src="../javascripts/scriptProduk.js"></script>
-<script src="../javascripts/scriptPengiriman.js"></script>
-<script src="../javascripts/scriptPembayaran.js"></script>
-<script src="../javascripts/scriptOrder.js"></script>
-<script src="../javascripts/scriptJenisPengiriman.js"></script>
-<script src="../javascripts/scriptDetailPengiriman.js"></script>
-<script src="../javascripts/scriptDetailOder.js"></script>
-<script src="../javascripts/scriptDetailProduk.js"></script>
 <script src="../javascripts/scriptAuth.js"></script>
 <script>
-    getAllUser();
-    getAllSizes();
-    getAllProducts();
-    getAllPengiriman();
-    getAllPayments();
-    getAllOrder();
-    getAllJenisPengiriman();
+authHead()
+createUser()
+    
 </script>
