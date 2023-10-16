@@ -633,3 +633,10 @@ border: none;
   display: flex;
   flex-basis:auto
 }
+
+.flex-deliver{
+
+  padding: 50px ;
+  margin: 0 50px;
+
+}

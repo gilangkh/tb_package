@@ -44,6 +44,9 @@ router.get('/keranjang',(req,res)=>{
 router.get('/ukuran',(req,res)=>{
   res.sendFile(link+'ukuran.html')
 })
+router.get('/deliver/detail',(req,res)=>{
+  res.sendFile(link+'detailPengiriman.html')
+})
 
 
 module.exports = router;
