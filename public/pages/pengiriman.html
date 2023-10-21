@@ -32,7 +32,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Deliver</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Deliver Type</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
@@ -70,12 +70,15 @@
                             <div class="my-2 py-2">
 
                                 <input placeholder="Jenis Pengiriman awal" type="text" name="pengiriman"
-                                    class="form-control rounded-pill" id="jenis_pengiriman" readonly>
+                                    class="form-control rounded-pill" id="jenis_pengiriman" disabled readonly>
                             </div>
+                        
                             <div class="my-2 py-2">
                                 <input placeholder=" jenis pengiriman baru" type="text" name="pengirimanBaru"
-                                    class="form-control rounded-pill" id="jenis_pengirimanBaru">
+                                class="form-control rounded-pill" id="jenis_pengirimanBaru" required>
                             </div>
+
+               
 
                         </div>
                         <div class="modal-footer">
@@ -94,7 +97,7 @@
             </div>
             <!-- tutp second modal -->
             <div>
-                <h1> List Delivers Type</h1>
+                <h1> List Delivery Type</h1>
                 <table
                     class="table  table-bordered table-sm ali  align-middle text-center  ">
                     <thead class="table-info">
@@ -130,7 +133,7 @@
                                 <div class="my-2 py-2">
 
                                     <input placeholder="Pengiriman awal" type="text" name="pengiriman"
-                                        class="form-control rounded-pill" id="pengiriman" readonly>
+                                        class="form-control rounded-pill" id="pengiriman" disabled readonly>
                                 </div>
                                 <div class="my-2 py-2">
                                     <input placeholder="pengiriman baru" type="text" name="pengirimanBaru"
@@ -155,17 +158,17 @@
 
                 <!-- close modal -->
                 <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">
+                    data-bs-target="#staticBackdrop2">
                     Add Deliver
                 </button>
 
                 <!-- Modal Tambah -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Deliver</h1>
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Delivery</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -174,7 +177,7 @@
                                 <div class="modal-body">
                                     <div class="my-2 py-2 mx-2 px-2">
 
-                                        <input placeholder="nama_pengiriman pengiriman" type="text" name="nama_pengiriman" id="nama_pengiriman"
+                                        <input placeholder="nama pengiriman " ype="text" name="nama_pengiriman" id="nama_pengiriman"
                                             class="form-control rounded-pill">
 
                                     </div>
@@ -191,7 +194,7 @@
                 </div>
                 <!-- close secodn -->
                 <div>
-                    <h1> List Delivers</h1>
+                    <h1> List Delivery</h1>
                     <table
                         class="table  table-bordered table-sm ali  align-middle text-center  ">
                         <thead class="table-info">
@@ -226,6 +229,7 @@
     getAllPengiriman();
     generalHead();
     generalNav();
+    adminHead();
     createPengiriman();
     getAllJenisPengiriman();
     createJenisPengiriman();

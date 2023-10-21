@@ -119,11 +119,11 @@ function createPengiriman() {
 
   document.getElementById("deliver").addEventListener('submit', (event) => {
     event.preventDefault();
-    let nama = document.getElementById("nama").value;
-
+    
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+    
+    let nama = document.getElementById("nama_pengiriman").value;
     var raw = JSON.stringify({
       "nama": nama
     });

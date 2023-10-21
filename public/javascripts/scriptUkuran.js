@@ -66,6 +66,7 @@ function getAllSizes() {
                   location.reload();
                 } else if (result.error) {
                   result.error
+                  alert("gagal")
                 }
               })
               .catch(error => {

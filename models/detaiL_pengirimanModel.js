@@ -7,10 +7,12 @@ const DetailPengiriman = sequelize.define(
     pengiriman_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey:true
     },
     jenis_pengiriman_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey:true
     },
     biaya_pengiriman: {
       type: DataTypes.INTEGER,

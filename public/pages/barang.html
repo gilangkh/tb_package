@@ -12,54 +12,53 @@
 </head>
 
 <body>
-    <div >
+    <div>
         <div class="header-g text-left px-3" id="generalHead"> </div>
         <div class="container ">
             <div class="d-flex justify-content-center">
-                
+
                 <div class="search  pt-3  mt-5 px-5 mx-5">
-                    <input class="search form-control  rounded-pill" type="search" placeholder="search" aria-label="Search">
-                  </div>
+                    <input class="search form-control  rounded-pill" type="search" placeholder="search"
+                        aria-label="Search">
+                </div>
             </div>
 
-              <div class="list-barang">
+            <div class="list-barang" id="itemBarang">
                 <div class="barang-item">
                     <div class="row my-2 mx-1">
                         <div class="col barang-detail1">
-                            <img src="/images/Star5.png" alt="">
+                            <img src="" alt="">
                         </div>
                         <div class="col barang-detail2">
                             <div class="row text-center ">
-                                <div class="col-sm-4" >
+                                <div class="col-sm-4">
                                     <span class="produk-name">name</span>
                                 </div>
                                 <div class="col-sm-8 px-3">
-                                    <span class="produk-prize">rp 00.00     /pcs</span>
+                                    <span class="produk-prize">rp 00.00 /pcs</span>
                                 </div>
-                                
+
                             </div>
                             <div>
                                 <span class="produk-desc">narito dan sasuke adalah teman sejati selmaanya </span>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
-         
-              </div>
-             
+            </div>
+
         </div>
-   
+
     </div>
 </body>
 <script src="../javascripts/scriptGeneral.js"></script>
 <script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptProduk.js"></script>
+<script src="../javascripts/scriptDetailProduk.js"></script>
 <script>
-
-    getAllProducts();
+    verived();
     generalHead();
     generalNav();
+    displayDetailItem()
 </script>
 
 </html>

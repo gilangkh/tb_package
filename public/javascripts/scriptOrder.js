@@ -105,3 +105,96 @@ function deleteOrder() {
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
+
+
+function itemOrder() {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+
+  var produk_id = url.searchParams.get("produk_id");
+  var ukuran_id = null; // Untuk menyimpan ukuran_id yang akan diambil
+
+  fetch(`http://localhost:3000/detailProduk/${produk_id}`, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      const listSize = document.getElementById('listSize'); // Get the container
+
+      // Create a unique name for the radio button group
+      const groupName = 'sizeGroup';
+
+      // Loop through the data and create radio buttons with labels
+      data.forEach((size,) => {
+        const radioButton = document.createElement('div');
+        radioButton.classList.add('form-check', 'my');
+
+        const inputElement = document.createElement('input');
+        inputElement.classList.add('form-check-input');
+        inputElement.type = 'radio';
+        inputElement.name = groupName;
+        inputElement.value = size.Ukuran.ukuran;
+        inputElement.id = size.ukuran_id;
+
+        const labelElement = document.createElement('label');
+        labelElement.classList.add('form-check-label');
+        labelElement.htmlFor = size.ukuran_id;
+        labelElement.textContent = size.Ukuran.ukuran;
+
+        radioButton.appendChild(inputElement);
+        radioButton.appendChild(labelElement);
+
+        // Menambahkan event listener untuk mengambil ukuran_id saat input radio dicek
+        inputElement.addEventListener('change', () => {
+          ukuran_id = size.ukuran_id;
+          var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+
+          fetch(`http://localhost:3000/detailProduk/${produk_id}/${ukuran_id}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              console.log(result)
+              console.log(result.harga)
+              const harga = document.getElementById("harga")
+              harga.innerHTML = `Rp ${result.harga}/pcs`
+              const total = document.getElementById('total')
+              total.innerHTML = `Rp ${result.harga}`
+
+            })
+            .catch(error => console.log('error', error));
+
+
+            
+        });
+
+        listSize.appendChild(radioButton);
+      });
+    })
+    .catch(error => console.log('error', error));
+
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+
+  fetch(`http://localhost:3000/product/${produk_id}`, requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      const nama_produk = document.getElementById('nama_produk')
+      const nama = document.getElementById('nama')
+      const img = document.getElementById('gambar_barang')
+      const deskripsi = document.getElementById('deskripsi')
+      nama_produk.innerHTML = result.nama_produk
+      nama.innerHTML = result.nama_produk
+      img.src = `/images/${result.gambar_produk}`
+      deskripsi.innerHTML = result.deskripsi
+      document.title = `Barang | ${result.nama_produk}`
+    })
+    .catch(error => console.log('error', error));
+
+  // Setelah memilih ukuran_id, Anda dapat menggunakannya dalam permintaan selanjutnya
+
+}

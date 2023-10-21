@@ -5,11 +5,11 @@ const {login} = require('../controllers/AuthController')
 
 const { getAllUser, createUser, updateUser, deleteUser } = require('../controllers/UserController')
 const { getAllOrder, updateOrder, createOrder, deleteOrder } = require('../controllers/orderController')
-const { getAllProducts, updateProduct, createProduct, deleteProduct, updateProductImg } = require('../controllers/produkController');
+const { getAllProducts, updateProduct, createProduct, deleteProduct, updateProductImg, getOneProduk } = require('../controllers/produkController');
 const { getAllPengiriman, updatePengiriman, createPengiriman, deletePengiriman } = require('../controllers/pengirimanController');
 const { getAllSizes, updateSize, createSize, deleteSize } = require('../controllers/ukuranController');
 const { getAllJenisPengiriman, updateJenisPengiriman, createJenisPengiriman, deleteJenisPengiriman } = require('../controllers/jenisPengirimanController');
-const { getAllDetailProduk, updateDetailProduk, createDetailProduk, deleteDetailProduk } = require('../controllers/detailProdukController');
+const { getAllDetailProduk, updateDetailProduk, createDetailProduk, deleteDetailProduk,DetailOneProduk, DetailItemProduk } = require('../controllers/detailProdukController');
 const { getAllDetailPengiriman, updateDetailPengiriman, createDetailPengiriman, deleteDetailPengiriman } = require('../controllers/detailPengirimanController');
 const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder } = require('../controllers/detailOrderController');
 const { getAllPayments, createPayment, updatePayment, deletePayment } = require('../controllers/pembayaranController');
@@ -61,6 +61,7 @@ router.post('/product/create',upload.single("gambar_produk"), createProduct);
 router.post('/product/:product_id/update', updateProduct);
 router.post('/product/:product_id/updateImg',upload.single("gambar_produk"), updateProductImg);
 router.post('/product/:product_id/delete', deleteProduct);
+router.get('/product/:product_id', getOneProduk);
 
 router.get('/pengiriman', getAllPengiriman);
 router.post('/pengiriman/create', createPengiriman);
@@ -82,4 +83,22 @@ router.post('/payment/create', createPayment);
 router.post('/payment/:pembayaran_id/update', updatePayment);
 router.post('/payment/:pembayaran_id/delete', deletePayment);
 
+router.get("/detailPengiriman",getAllDetailPengiriman)
+router.post("/detailPengiriman/create",createDetailPengiriman)
+router.post("/detailPengiriman/:pengiriman/:jenis_pengiriman/update",updateDetailPengiriman)
+router.post("/detailPengiriman/:pengiriman/:jenis_pengiriman/delete",deleteDetailPengiriman)
+
+router.get("/detailProduk",getAllDetailProduk)
+router.post("/detailProduk/create",createDetailProduk)
+router.post("/detailProduk/:produk_id/:ukuran_id/update",updateDetailProduk)
+router.post("/detailProduk/:produk_id/:ukuran_id/delete",deleteDetailProduk)
+router.get("/detailProduk/:produk_id",DetailOneProduk)
+router.get("/detailProduk/:produk_id/:size",DetailItemProduk)
+
+
+
+
 module.exports = router;
+
+
+

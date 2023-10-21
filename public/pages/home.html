@@ -15,6 +15,7 @@
     <div>
         <div class="text-center ">
             <div class="header-g text-left px-3" id="generalHead"> </div>
+            <div id="flash-message"></div>
             <div class="container discon py-3 my-5">
                 <div class="diskon-caption">
                     <span class="">TODAY'S OFFER</span>
@@ -62,7 +63,7 @@
             </div>
         </div>
         <div>        
-        <div class="container produk">
+        <div class="container produk" id="home-item">
             <div class="barang align-items-center text-center ">
                 <div class="produk-image">
                     <img src="/images/Star5.png" alt="">
@@ -84,12 +85,12 @@
 </body>
 <script src="../javascripts/scriptGeneral.js"></script>
 <script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptProduk.js"></script>
+<script src="../javascripts/scriptDetailProduk.js"></script>
 <script>
-
-    getAllProducts();
+    verived();
     generalHead();
     generalNav();
+    displayDetailProduk()
 </script>
 
 </html>

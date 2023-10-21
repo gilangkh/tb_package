@@ -1,11 +1,20 @@
-const DetailPengiriman = require("../models/detaiL_pengirimanModel");
+const { DetailPengiriman, Pengiriman, JenisPengiriman } = require("../models/relation");
 
 const success = "Data berhasil ditambahkan";
 const err = "Data gagal ditambahkan";
 
 const getAllDetailPengiriman = async (req, res) => {
   try {
-    const detailPengiriman = await DetailPengiriman.findAll();
+    const detailPengiriman = await DetailPengiriman.findAll({
+      include: [
+        {
+          model: Pengiriman,
+          attributes: ["nama"]
+        }, {
+          model: JenisPengiriman,
+          attributes: ["jenis"]
+        }]
+    });
     res.status(200).json(detailPengiriman); // Menggunakan status 200 untuk OK
   } catch (error) {
     console.log("getAllDetailPengiriman Error = " + error);
@@ -37,41 +46,52 @@ const createDetailPengiriman = async (req, res) => {
 
 const updateDetailPengiriman = async (req, res) => {
   try {
-    const detail_pengiriman_id = req.params.detail_pengiriman_id;
-    let data = req.body;
+    const pengiriman = req.params.pengiriman;
+    const jenis_pengiriman = req.params.jenis_pengiriman;
+    const data = req.body;
 
-    const detailPengiriman = await DetailPengiriman.findByPk(detail_pengiriman_id);
+    const detailPengiriman = await DetailPengiriman.findOne({
+      where: {
+        pengiriman_id: pengiriman,
+        jenis_pengiriman_id: jenis_pengiriman
+      }
+    });
 
     if (!detailPengiriman) {
       let response = {
         error: "Data tidak ditemukan",
       };
-      res.status(404).json(response); // Menggunakan status 404 untuk Not Found
+      res.status(404).json(response); // Status 404 for Not Found
     } else {
-      detailPengiriman.pengiriman_id = data.pengiriman_id;
-      detailPengiriman.jenis_pengiriman_id = data.jenis_pengiriman_id;
       detailPengiriman.biaya_pengiriman = data.biaya_pengiriman;
       detailPengiriman.updated_at = new Date();
 
       await detailPengiriman.save();
+
       let response = {
         success: "Data berhasil diupdate",
         data: detailPengiriman,
       };
-      res.status(200).json(response); // Menggunakan status 200 untuk OK
+      res.status(200).json(response); // Status 200 for OK
     }
   } catch (error) {
-    console.log("updateDetailPengiriman Error + ", error);
-    res.status(500).json({ error: err }); // Menggunakan status 500 untuk Internal Server Error
+    console.log("updateDetailPengiriman Error: ", error);
+    res.status(500).json({ error: error }); // Status 500 for Internal Server Error
   }
 };
 
+
 const deleteDetailPengiriman = async (req, res) => {
   try {
-    const detail_pengiriman_id = req.params.detail_pengiriman_id;
-
-    const detailPengiriman = await DetailPengiriman.findByPk(detail_pengiriman_id);
-
+    const pengiriman = req.params.pengiriman;
+    const jenis_pengiriman = req.params.jenis_pengiriman;
+    
+    const detailPengiriman = await DetailPengiriman.findOne({
+      where: {
+        pengiriman_id: pengiriman,
+        jenis_pengiriman_id: jenis_pengiriman
+      }
+    });
     if (!detailPengiriman) {
       let response = {
         error: "Data tidak ditemukan",

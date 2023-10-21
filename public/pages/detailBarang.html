@@ -14,100 +14,92 @@
 <body>
     <div>
         <div class="header-g text-left px-3" id="generalHead"> </div>
-        <div class="content  my-4 py-3">
+        <div class="content  my-4 py-3" id="cekProduk">
             <div class=" path path-name text-left">
                 <div class="path-before">Home</div>
                 <div class="">&gt;</div>
                 <div class="path-before">Products</div>
                 <div class="">&gt;</div>
-                <div class="path-produk">name</div>
+                <div id="nama_produk" class="path-produk"></div>
             </div>
             <div class="row my-4">
                 <div class="col">
                     <div class=" detail-img py-3 my-5">
-                        <img class="px-5" src="/images/1696778900493-naruto.jpg" alt="">
+                        <img id="gambar_barang" class="px-5" src="" alt="">
                     </div>
                     <div class="detail-brg px-4 py-4 my-5">
                         <h1>Detail Barang</h1>
-                        <p>Use .flex-grow-* utilities to toggle a flex item’s ability to grow to fill available space.
-                            In the example below, the .flex-grow-1 elements uses all available space it can, while
-                            allowing the remaining two flex items their necessary space</p>
+                        <p id="deskripsi"></p>
 
                     </div>
                 </div>
                 <div class="col detail-size">
                     <div class=" row my-5">
-                        <div class="col size-name">name</div>
-                        <div class="col size-price">Rp 0000000,00/pcs</div>
+                        <div id="nama" class="col size-name"></div>
+                        <div id="harga" class="col size-price"></div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col">
-                            <span class="produk-name my-3">Size</span>
-                            <div class="form-check my">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    20 x 20 x 5
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckChecked">
-                                    20 x 20 x 5
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                <label class="form-check-label" for="flexCheckChecked">
-                                    20 x 20 x 5
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <span class="produk-name">Quantity</span>
-                            <input class="form-control rounded-pill my-3" type="number" name="jumlah" id="">
-                        </div>
-                    </div>
-                    <hr>
-                    <div>
-                        <label class="produk-name my-3" for="">Upload Your Design (optional)</label>
+                    <form id="order">
                         <div class="row">
-                            <div class="col">
-                                <input type="text" class="form-control rounded-pill" name="namafile" id="namafile">
-                            </div>
-                            <div class="col">
-                                <input class="form-control rounded-pill button-item" type="file" name="pilihfile"
-                                    id="pilihfile">
-                            </div>
-                        </div>
+                            <div class="col" id="listSize">
+                                <span class="produk-name my-3">Size</span>
 
-                    </div>
-                    <hr>
-                    <div class="count row  mx-3 my-2">
-                        <div class="count-prize">
-                            <h1>Sub total</h1>
-                            <h1>Rp 2000</h1>
+                            </div>
+                            <div class="col">
+                                <span class="produk-name">Quantity</span>
+                                <input class="form-control rounded-pill my-3" type="number"  name="jumlah" id="jumlah" required>
+                            </div>
                         </div>
-                        <div class="button-cart">
-                            <button class="cart" type="submit">Add to Cart</button>
+                        <hr>
+                        <div>
+                            <label class="produk-name my-3" for="">Upload Your Design (optional)</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control rounded-pill" name="namafile" id="namafile">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control rounded-pill button-item" type="file" name="pilihfile"
+                                        id="pilihfile">
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
+                        <hr>
+                        <div class="count row  mx-3 my-2">
+                            <div class="count-prize">
+                                <h1>Sub total</h1>
+                                <h1 id="total">Rp 0</h1>
+                            </div>
+                            <div class="button-cart">
+                                <button class="cart" type="submit">Add to Cart</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
             </div>
         </div>
     </div>
 
-    </div>
 </body>
 <script src="../javascripts/scriptGeneral.js"></script>
-<script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptProduk.js"></script>
-<script>
 
-    getAllProducts();
+<script src="../javascripts/scriptOrder.js"></script>
+<script>
+    verived();
     generalHead();
     generalNav();
+    var url = new URL(window.location.href);
+
+    // Mendapatkan nilai dari parameter 'produk_id' dari URL
+    var produk_id = url.searchParams.get("produk_id");
+    var ukuran_id = url.searchParams.get("ukuran_id");
+
+    // Sekarang, 'produk_id' akan berisi nilai '2-30' dari URL
+    console.log(produk_id);
+    console.log(ukuran_id);
+
+    itemOrder()
 </script>
 
 </html>

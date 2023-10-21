@@ -14,7 +14,7 @@ app.use('/', usersRouter);
 
 
 app.listen(3000,
-  console.log("port berjalan di http://localhost:3000/")
+  console.log("port berjalan di http://localhost:3000/login")
   )
 
 module.exports = app;

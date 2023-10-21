@@ -33,6 +33,18 @@
                             </span>
                         </div>
                         <div class="modal-body">
+                            <div class="my-2 py-2">
+                                <input type="text" name="pengirimanLama" id="pengirimanLama" class="form-control rounded-pill" disabled>
+                            </div>
+                            <div class="my-2 py-2">
+                                <input type="text" name="jenisPengirimanLama" id="jenisPengirimanLama" class="form-control rounded-pill" disabled>
+                            </div>
+                            <div class="my-2 py-2">
+                                <input type="number" name="biayaLama" id="biayaLama" class="form-control rounded-pill" disabled>
+                            </div>
+                            <div class="my-2 py-2">
+                                <input type="number" name="newBiaya" id="newBiaya" class="form-control rounded-pill" placeholder="biaya baru">
+                            </div>
 
 
                         </div>
@@ -67,9 +79,21 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <form id="addSize">
+                        <form id="addDetail">
                             <div class="modal-body">
-
+                                <div class="my-2 py-2">
+                                    <select name="pengiriman" id="pengiriman" class="form-control rounded-pill">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="my-2 py-2">
+                                    <select name="jenis_pengiriman" id="jenis_pengiriman" class="form-control rounded-pill">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="my-2 py-2">
+                                   <input type="number" name="biaya" id="biaya" class="form-control rounded-pill" placeholder="biaya pengiriman">
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary rounded-pill"
@@ -89,7 +113,6 @@
                     <thead class="table-info">
                         <tr>
                             <th>no</th>
-                            <th>Ukuran</th>
                             <th>nama pengiriman</th>
                             <th>jenis pengiriman</th>
                             <th>biaya</th>
@@ -109,6 +132,7 @@
 
 <script src="../javascripts/scriptGeneral.js"></script>
 <script src="../javascripts/scriptUrl.js"></script>
+<script src="../javascripts/scriptDetailPengiriman.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
@@ -117,7 +141,8 @@
     verived()
     generalHead();
     generalNav();
-
+    adminHead();
+    getAllDetailPengiriman();
     document.getElementById("closeModalBtn").addEventListener("click", closeModal);
     document.getElementById("closeModal").addEventListener("click", closeModal);
 
@@ -130,5 +155,5 @@
     function closeModal() {
         document.getElementById("myModal").style.display = "none";
     }
-
+    createDetailPengiriman();
 </script>

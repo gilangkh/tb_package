@@ -640,3 +640,9 @@ border: none;
   margin: 0 50px;
 
 }
+
+.flex-detail{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

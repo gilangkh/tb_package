@@ -23,7 +23,7 @@ router.get('/produk',(req,res)=>{
 router.get('/pembayaran',(req,res)=>{
   res.sendFile(link+'pembayaran.html')
 })
-router.get('/deliver',(req,res)=>{
+router.get('/delivery',(req,res)=>{
   res.sendFile(link+'pengiriman.html')
 })
 router.get('/home',(req,res)=>{
@@ -47,6 +47,13 @@ router.get('/ukuran',(req,res)=>{
 router.get('/deliver/detail',(req,res)=>{
   res.sendFile(link+'detailPengiriman.html')
 })
+router.get('/pembayaran',(req,res)=>{
+  res.sendFile(link+'pembayaran.html')
+})
+router.get('/produk/detail',(req,res)=>{
+  res.sendFile(link+'detailProduk.html')
+})
+
 
 
 module.exports = router;

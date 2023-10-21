@@ -7,10 +7,12 @@ const DetailProduk = sequelize.define(
     ukuran_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey:true
     },
     produk_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey:true
     },
     harga: {
       type: DataTypes.INTEGER,
