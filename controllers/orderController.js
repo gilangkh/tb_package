@@ -1,9 +1,7 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize("mysql://root@localhost/package");
-const bcrypt = require("bcrypt");
 
-const Order = require("../models/orderModel"); // Import model "Order" yang telah Anda definisikan
 
+const {  DetailOrder } = require("../models/relation"); // Import model "Order" yang telah Anda definisikan
+const Order= require("../models/orderModel")
 const success = "Data berhasil ditambahkan";
 const err = "Data gagal ditambahkan";
 
@@ -21,33 +19,53 @@ const getAllOrder = async (req, res) => {
 const createOrder = async (req, res) => {
   try {
     const {
-      pembayaran_id,
-      user_id,
-      pengiriman_id,
-      jenis_pengiriman_id,
       desain_produk,
-      tanggal_order,
-      status_order,
-      tanggal_bayar,
+      jumlah_pesanan
     } = req.body;
+    const user_id = req.user.user_id
+    const existOrder = await Order.findOne({ where: {
+       status_order: "menunggu" ,
+       user_id:req.user.user_id
+      } })
+    if (!existOrder) {
+      const newOrder = await Order.create({
+        user_id: user_id,
+        pembayaran_id: 1,
+        pengiriman_id: 5,
+        jenis_pengiriman_id: 7,
+        desain_produk,
+        tanggal_order: "menunggu",
+        status_order: "menunggu",
+      });
+      const newDetailOrder = await DetailOrder.create({
+        order_id: newOrder.order_id,
+        produk_id: req.params.produk_id,
+        ukuran_id: req.params.ukuran_id,
+        jumlah_pesanan
 
-    const newOrder = await Order.create({
-      pembayaran_id,
-      user_id,
-      pengiriman_id,
-      jenis_pengiriman_id,
-      desain_produk,
-      tanggal_order,
-      status_order,
-      tanggal_bayar,
-    });
+      })
+      let response = {
+        order: newOrder,
+        detailOrder: newDetailOrder,
+        success: success,
+      };
+      res.status(201).json(response);
+      console.log(response);
+    }else{
+      const newDetailOrder = await DetailOrder.create({
+        order_id: existOrder.order_id,
+        produk_id: req.params.produk_id,
+        ukuran_id: req.params.ukuran_id,
+        jumlah_pesanan
 
-    let response = {
-      data: newOrder,
-      success: success,
-    };
-    res.status(201).json(response);
-    console.log(response);
+      })
+      let response = {
+        detailOrder: newDetailOrder,
+        success: success,
+      };
+      res.status(201).json(response);
+      console.log(response);
+    }
   } catch (error) {
     let response = {
       error: err,
@@ -124,4 +142,21 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-module.exports = { getAllOrder, createOrder, updateOrder, deleteOrder };
+const test = async (req,res)=>{
+  const user_id = req.user.user_id
+  console.log(user_id)
+ try {
+  const order = await Order.findOne({ where: { user_id: req.user.user_id} });
+  res.status(201).json(order)
+ } catch (error) {
+  let response = {
+    error: err,
+  };
+  console.log("deleteOrder Error + ", error);
+  res.status(500).json(response);
+ }
+}
+
+
+
+module.exports = { getAllOrder, createOrder, updateOrder, deleteOrder,test };

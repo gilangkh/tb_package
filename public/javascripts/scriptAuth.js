@@ -25,12 +25,12 @@ function login() {
     fetch("http://localhost:3000/login", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result.response);
-
-        if (result.response.token) {
+        console.log(result.token);
+        let token = result.token
+        if (token) {
           // Jika login berhasil, alihkan ke halaman "/produk" dan simpan token di session storage
           window.location = "/produk";
-          sessionStorage.setItem('token', result.response.token);
+          sessionStorage.setItem('token', token);
         } else {
           // Jika login gagal, tampilkan pesan kesalahan
           const error = result.response.error;

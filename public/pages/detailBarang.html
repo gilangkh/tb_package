@@ -14,6 +14,7 @@
 <body>
     <div>
         <div class="header-g text-left px-3" id="generalHead"> </div>
+        <div id="flash-message"></div>
         <div class="content  my-4 py-3" id="cekProduk">
             <div class=" path path-name text-left">
                 <div class="path-before">Home</div>
@@ -43,6 +44,8 @@
                         <div class="row">
                             <div class="col" id="listSize">
                                 <span class="produk-name my-3">Size</span>
+                                <input type="hidden" name="size_id" id="size_id">
+                                <input type="hidden" name="size" id="size">
 
                             </div>
                             <div class="col">
@@ -59,7 +62,8 @@
                                 </div>
                                 <div class="col">
                                     <input class="form-control rounded-pill button-item" type="file" name="pilihfile"
-                                        id="pilihfile">
+                                        id="pilihfile">     
+
                                 </div>
                             </div>
 
@@ -68,8 +72,7 @@
                         <div class="count row  mx-3 my-2">
                             <div class="count-prize">
                                 <h1>Sub total</h1>
-                                <h1 id="total">Rp 0</h1>
-                            </div>
+                                <h1 id="total">Rp 0</h1>    
                             <div class="button-cart">
                                 <button class="cart" type="submit">Add to Cart</button>
                             </div>
@@ -86,20 +89,20 @@
 
 <script src="../javascripts/scriptOrder.js"></script>
 <script>
+    creteTheOrder();
     verived();
     generalHead();
     generalNav();
-    var url = new URL(window.location.href);
 
-    // Mendapatkan nilai dari parameter 'produk_id' dari URL
-    var produk_id = url.searchParams.get("produk_id");
-    var ukuran_id = url.searchParams.get("ukuran_id");
-
-    // Sekarang, 'produk_id' akan berisi nilai '2-30' dari URL
-    console.log(produk_id);
-    console.log(ukuran_id);
 
     itemOrder()
+
+    const sizeBarang = document.getElementById ("size")
+    sizeBarang.addEventListener('change', ()=>{
+
+        console.log("ini adalah ukuran barang = ", sizeBarang.value)
+    })
+
 </script>
 
 </html>

@@ -4,15 +4,15 @@ const sequelize = new Sequelize("mysql://root@localhost/package");
 const DetailProduk = sequelize.define(
   "DetailProduk",
   {
-    ukuran_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey:true
-    },
     produk_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey:true
+      primaryKey: true
+    },
+    ukuran_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     },
     harga: {
       type: DataTypes.INTEGER,
@@ -30,9 +30,10 @@ const DetailProduk = sequelize.define(
   },
   {
     tableName: "detail_produk",
-    timestamps: true, 
+    timestamps: true,
     createdAt: "created_at",
-    updatedAt: "updated_at",}
+    updatedAt: "updated_at",
+  }
 );
 
 DetailProduk.removeAttribute('id'); // Menghapus kolom id yang biasanya ada secara default

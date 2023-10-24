@@ -28,10 +28,10 @@
                         <span id="closeBtn" class="btn-close" aria-label="Close"> </span>
                     </div>
                     <form id="imgForm">
-                    <div class="modal-body">
-                            
+                        <div class="modal-body">
+
                             <div class="py-2 my-2 img-detail">
-                                <img id="produk_img" class="img-detail" alt="">  
+                                <img id="produk_img" class="img-detail" alt="">
                             </div>
                             <div class="py-2 my-2">
                                 <input class="form-control rounded-pill" type="file" name="inputImg" id="inputImg">
@@ -39,19 +39,20 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                <span id="modalImgCloseBtn"  class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</span>
+                                <span id="modalImgCloseBtn" class="btn btn-secondary rounded-pill"
+                                    data-dismiss="modal">Close</span>
                             </div>
                             <div>
                                 <button class="btn btn-success rounded-pill" type="submit"> Update</button>
                             </div>
-                        
+
                         </div>
-                        
-                    </form> 
+
+                    </form>
                 </div>
             </div>
         </div>
-    
+
         <div class="mt-5 mb-3">
             <!-- Button trigger modal -->
             <button type="button" class="button-item rounded-pill px-3 py-2" style="border: none;"
@@ -120,8 +121,8 @@
                                     name="nama_produk" id="produk_name">
                             </div>
                             <div class="my2">
-                                <input class="form-control rounded-pill" placeholder="deskripsi" type="text" name="description"
-                                    id="description">
+                                <input class="form-control rounded-pill" placeholder="deskripsi" type="text"
+                                    name="description" id="description">
                             </div>
                             <div class="my-2 mx-3 ">
                                 <img class="table-img" src="" alt="" id="produk_img">
@@ -129,18 +130,18 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success rounded-pill">Update</button>
-                        </form>
-                        <form id="deleteProduk">
-                            <button type="submit" class="btn btn-danger rounded-pill">Delete</button>
-                        </form>
-                        <span id="modalCloseBtn" class="btn btn-secondary rounded-pill">Close</span>
-               
-                    </div>
+                    </form>
+                    <form id="deleteProduk">
+                        <button type="submit" class="btn btn-danger rounded-pill">Delete</button>
+                    </form>
+                    <span id="modalCloseBtn" class="btn btn-secondary rounded-pill">Close</span>
+
+                </div>
             </div>
         </div>
         <!-- moda gambar -->
 
-    
+
     </div>
     <!-- modal tutup -->
 
@@ -154,7 +155,7 @@
                 <th>deskripsi</th>
                 <th>Action</th>
             </tr>
-        
+
         </thead>
         <tbody id="produkTableBody" class="table-group-divider table-warning">
         </tbody>
@@ -179,8 +180,7 @@
     document.getElementById("closeModalBtn").addEventListener("click", closeModal);
     document.getElementById("closeBtn").addEventListener("click", closeModalImg);
     document.getElementById("modalCloseBtn").addEventListener("click", closeModal)
-     document.getElementById("modalImgCloseBtn").addEventListener("click", closeModalImg)
-    // Function to open the modal
+    document.getElementById("modalImgCloseBtn").addEventListener("click", closeModalImg)
 
 </script>
 

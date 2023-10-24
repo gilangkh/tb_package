@@ -4,8 +4,6 @@ function verived() {
     if (!token) {
         window.location.href = "/login"; // Redirect to the login page if token doesn't exist
     }
-    const myHeaders = new Headers()
-    myHeaders.append('authorization', 'Bearer ' + token)
 
 }
 function adminHead() {

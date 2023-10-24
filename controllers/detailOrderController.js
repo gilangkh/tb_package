@@ -1,20 +1,35 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize("mysql://root@localhost/package");
 
-const DetailOrder = require("../models/detailOrderModel"); // Import model "DetailOrder" yang telah Anda definisikan
+const {  DetailOrder, } = require("../models/relation"); 
+const  User= require('../models/userModel')
+const Order= require("../models/orderModel")// Import model "DetailOrder" yang telah Anda definisikan
+const { DetailProduk, Produk, Ukuran, } = require("../models/relation");
 
 const success = "Data berhasil ditambahkan";
-const err = "Data gagal ditambahkan";
+const err = "Internal Server Error";
 
-const getAllDetailOrder = async (req, res) => {
-  try {
-    const detailOrders = await DetailOrder.findAll();
-    console.log(detailOrders);
-    res.status(200).json(detailOrders);
-  } catch (error) {
-    console.log("getAllDetailOrderError = " + error);
-    res.status(500).json({ error: err });
-  }
+  const getAllDetailOrder = async (req, res) => {
+    try {
+      const detailOrders = await DetailOrder.findAll({
+        include:[{
+          model: DetailProduk,
+          include:[{
+            model:Produk,
+            attributes:["nama_produk",'gambar_produk','deskripsi']
+          },{
+            model:Ukuran,
+            attributes:['ukuran']
+          }]
+        },{
+          model:Order,
+          where:{status_order:"menunggu"}
+        }]
+      });
+      console.log(detailOrders);
+      res.status(200).json(detailOrders);
+    } catch (error) {
+      console.log("getAllDetailOrderError = " + error);
+      res.status(500).json({ error: err });
+    }
 };
 
 const createDetailOrder = async (req, res) => {
@@ -108,4 +123,62 @@ const deleteDetailOrder = async (req, res) => {
   }
 };
 
-module.exports = { getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };
+const getUserLogin = async (req,res)=>{
+
+  try {
+    const user_id = req.user.user_id
+    const user =await User.findOne({where:{user_id:user_id}})
+
+    if(!user){
+      let response = {
+        error: "Data tidak ditemukan",
+      };
+      res.status(404).json(response);
+    }else{
+  
+      res.status(201).json(user);
+    }
+  } catch (error) {
+    let response = {
+      error: err,
+    };
+    console.log("deleteDetailOrder Error + ", error);
+    res.status(500).json(response);
+  }
+
+}
+const updateUserLogin = async (req,res)=>{
+
+  try {
+    const user_id = req.user.user_id
+    const alamat = req.body.alamat
+    const user =await User.findOne({where:{user_id:user_id}})
+
+    if(!user){
+      let response = {
+        error: "Data tidak ditemukan",
+      };
+      res.status(404).json(response);
+    }else{
+      user.alamat = alamat
+
+      await user.save();
+      let response = {
+        success: "Alamat berhasil diupdate",
+        data: user,
+      };
+      res.status(200).json(response);
+    }
+  } catch (error) {
+    let response = {
+      error: err,
+    };
+    console.log("deleteDetailOrder Error + ", error);
+    res.status(500).json(response);
+  }
+
+}
+
+
+
+module.exports = {updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };

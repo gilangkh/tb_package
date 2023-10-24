@@ -1,8 +1,13 @@
+let token = sessionStorage.getItem('token')
 
 function getAllDetailProduk() {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers:myHeaders
   };
 
   fetch("http://localhost:3000/detailProduk", requestOptions)
@@ -56,7 +61,7 @@ function getAllDetailProduk() {
             event.preventDefault();
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-
+            myHeaders.append('authorization', 'Bearer ' + token)
             const mewPrice = document.getElementById('newBiaya').value
             var raw = JSON.stringify({
               "harga": mewPrice
@@ -93,7 +98,8 @@ function getAllDetailProduk() {
 
             var requestOptions = {
               method: 'POST',
-              redirect: 'follow'
+              redirect: 'follow',
+              headers:myHeaders
             };
 
             fetch(`http://localhost:3000/detailProduk/${detail.produk_id}/${detail.ukuran_id}/delete`, requestOptions)
@@ -136,10 +142,14 @@ function getAllDetailProduk() {
 
 function createDetailProduk() {
 
-
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers:myHeaders
+
   };
 
   fetch("http://localhost:3000/product", requestOptions)
@@ -169,7 +179,8 @@ function createDetailProduk() {
 
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers:myHeaders
   };
 
   fetch("http://localhost:3000/size", requestOptions)
@@ -200,6 +211,8 @@ function createDetailProduk() {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('authorization', 'Bearer ' + token);
+
     const ukuran = document.getElementById('ukuran').value
     const produk = document.getElementById('theProduk').value
     var raw = JSON.stringify({
@@ -237,9 +250,13 @@ function createDetailProduk() {
 }
 
 function displayDetailProduk() {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers:myHeaders
   };
 
   fetch("http://localhost:3000/detailProduk", requestOptions)
@@ -290,9 +307,13 @@ function displayDetailProduk() {
 }
 
 function displayDetailItem() {
+  var myHeaders = new Headers();
+  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("Content-Type", "application/json");
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers:myHeaders
   };
 
   fetch("http://localhost:3000/detailProduk", requestOptions)

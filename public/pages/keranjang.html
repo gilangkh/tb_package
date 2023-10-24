@@ -16,49 +16,42 @@
         <div class="header-g text-left px-3" id="generalHead"> </div>
         <div class="content">
             <div class="flex-cart">
-                <div>
+                <div>  
                     <h1 class="bi bi-cart3 cart-title mb-3">&nbsp Your Cart</h1>
-                    <table class="  table-cart mb-5">
+              
+                    <table class="  table-cart mb-5"  id="tabel-order">
                         <thead class="table-cart-head">
                           <tr >
                             <th scope="col">item</th>
                             <th scope="col">quantity</th>
                             <th scope="col">price</th>
+                            <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="">
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr class=" ">
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
                       
                         </tbody>
                       </table>
+                    
                       <hr class="line">
                       <div class="tabel-count">
                           <span>Subtotal</span>
-                          <span>Rp 300.000</span>
+                          <span id="subTotal"></span>
                         </div>
                      <hr>
                 </div>
                 <div class="summery">
-                    <h1>Summery(1 Item)</h1>
+                    <h1 id="itemCount">Summery</h1>
                     <div class="flex-tax">
                         <div class="tax">
                             <h3>sub total</h3>
                             <p>shipping</p>
-                            <p>tax</p>
+                      
                         </div>
                         <div class="fee">
-                            <h3> 250000</h3>
+                            <h3 id="subTotal2"> 0</h3>
                             <p>-</p>
-                            <p>-</p>
+                 
                         </div>
                     </div>
                     <hr>
@@ -67,11 +60,11 @@
                             <h3>Total</h3>
                         </div>
                         <div class="fee">
-                            <h3>RP.25000000</h3>
+                            <h3 id="total">RP.0</h3>
                         </div>
                     </div>
                     <div class="checkoutbutton">
-                        <button class="checkout my-4" type="submit">Checkout</button>
+                        <a href="/shipping" class="checkout-keranjang my-4" type="submit">Checkout</a>
                     </div>
                 </div>
             </div>
@@ -82,12 +75,14 @@
 </body>
 <script src="../javascripts/scriptGeneral.js"></script>
 <script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptProduk.js"></script>
+<script src="../javascripts/scriptDetailOder.js"></script>
 <script>
-
-    getAllProducts();
+    verived()
     generalHead();
     generalNav();
+
+    getAllDetailOrder()
+    
 </script>
 
 </html>

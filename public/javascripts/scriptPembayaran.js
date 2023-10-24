@@ -1,7 +1,14 @@
+
+let token = sessionStorage.getItem('token')
+
 function getAllPayments() {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers: myHeaders
   };
 
   fetch("http://localhost:3000/payment", requestOptions)
@@ -38,6 +45,7 @@ function getAllPayments() {
 
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
+            myHeaders.append('authorization', 'Bearer ' + token)
             const newPayment = document.getElementById('metodeBaru').value
 
             var raw = JSON.stringify({
@@ -71,9 +79,13 @@ function getAllPayments() {
 
           document.getElementById('deletePayment').addEventListener('submit', (event) => {
             event.preventDefault();
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append('authorization', 'Bearer ' + token)
             var requestOptions = {
               method: 'POST',
-              redirect: 'follow'
+              redirect: 'follow',
+              headers: myHeaders
             };
 
             fetch(`http://localhost:3000/payment/${payment.pembayaran_id}/delete`, requestOptions)
@@ -114,6 +126,7 @@ function createPayment() {
     event.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('authorization', 'Bearer ' + token)
 
     const medote = document.getElementById('metode').value
     var raw = JSON.stringify({
@@ -144,45 +157,4 @@ function createPayment() {
         alert(error)
       });
   })
-}
-
-function updatePayment() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  let pembayaran_id = document.getElementById("pembayaran_id").value;
-  let metode = document.getElementById("metode").value;
-
-  var formData = new FormData();
-  formData.append("metode", metode);
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: formData,
-    redirect: 'follow'
-  };
-
-  fetch(url + `/payment/${pembayaran_id}/update`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-}
-
-function deletePayment() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  let pembayaran_id = document.getElementById("pembayaran_id").value;
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
-
-  fetch(url + `/payment/${pembayaran_id}/delete`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
 }

@@ -1,8 +1,10 @@
 
+let token = sessionStorage.getItem('token')
+
 function getAllJenisPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -42,6 +44,7 @@ function getAllJenisPengiriman() {
             event.preventDefault();
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
+            myHeaders.append('authorization', 'Bearer ' + token)
 
             const jenis_pengiriman_baru = document.getElementById("jenis_pengirimanBaru").value
             var raw = JSON.stringify({
@@ -77,7 +80,8 @@ function getAllJenisPengiriman() {
             event.preventDefault();
             var requestOptions = {
               method: 'POST',
-              redirect: 'follow'
+              redirect: 'follow',
+              headers:myHeaders
             };
 
             fetch(`http://localhost:3000/jenis_pengiriman/${jenis_pengiriman_id}/delete`, requestOptions)
@@ -119,6 +123,7 @@ function createJenisPengiriman() {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('authorization', 'Bearer ' + token)
 
     const jenis = document.getElementById('jenis').value
     var raw = JSON.stringify({
@@ -154,6 +159,7 @@ function createJenisPengiriman() {
 function updateJenisPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  myHeaders.append('authorization', 'Bearer ' + token)
 
   let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
   let jenis = document.getElementById("jenis").value;
@@ -177,6 +183,7 @@ function updateJenisPengiriman() {
 function deleteJenisPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  myHeaders.append('authorization', 'Bearer ' + token)
 
   let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
 

@@ -7,9 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const generateToken = (user) => {
-  return jwt.sign({ user_id: user.user_id, email: user.email }, process.env.SECRET_TOKEN, {
-    expiresIn: "20m",
-  });
+  return jwt.sign({ user_id: user.user_id, email: user.email, status:user.status }, process.env.SECRET_TOKEN);
 };
 
 const login = async (req, res) => {
@@ -38,11 +36,11 @@ const login = async (req, res) => {
     let response ={
       token : token,
       message:"login succes",
-      user :user.password
+      user :user
     }
 
     res.setHeader('authorization',token)
-    res.status(200).json({ response });
+    res.status(200).json( response );
   } catch (error) {
     console.error(error);
     let response ={

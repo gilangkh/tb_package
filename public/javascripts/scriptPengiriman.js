@@ -1,7 +1,10 @@
+
+let token = sessionStorage.getItem('token')
+
 function getAllPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -41,6 +44,7 @@ function getAllPengiriman() {
             event.preventDefault();
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
+            myHeaders.append('authorization', 'Bearer ' + token)
 
             const pengirimanBaru = document.getElementById("pengirimanBaru")
             var raw = JSON.stringify({
@@ -74,6 +78,9 @@ function getAllPengiriman() {
           })
           document.getElementById("deleteDeliver").addEventListener('submit', (event) => {
             event.preventDefault();
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append('authorization', 'Bearer ' + token)
             var requestOptions = {
               method: 'POST',
               redirect: 'follow'
@@ -122,6 +129,7 @@ function createPengiriman() {
     
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('authorization', 'Bearer ' + token)
     
     let nama = document.getElementById("nama_pengiriman").value;
     var raw = JSON.stringify({

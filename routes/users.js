@@ -41,6 +41,9 @@ router.get('/barang/detail',(req,res)=>{
 router.get('/keranjang',(req,res)=>{
   res.sendFile(link+'keranjang.html')
 })
+router.get('/shipping',(req,res)=>{
+  res.sendFile(link+'shipping.html')
+})
 router.get('/ukuran',(req,res)=>{
   res.sendFile(link+'ukuran.html')
 })

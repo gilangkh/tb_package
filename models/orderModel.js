@@ -28,7 +28,7 @@ const Order = sequelize.define(
     },
     desain_produk: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
     tanggal_order: {
       type: DataTypes.DATE,
@@ -39,22 +39,22 @@ const Order = sequelize.define(
     },
     tanggal_bayar: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.N
     },
     created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        onUpdate: DataTypes.NOW,
-      },
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      onUpdate: DataTypes.NOW,
+    },
   },
   {
     tableName: "order",
-    timestamps: true, 
+    timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }

@@ -1,8 +1,13 @@
-
+let token = sessionStorage.getItem('token')
 function getAllDetailPengiriman() {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers: myHeaders
+
   };
 
   fetch("http://localhost:3000/detailPengiriman", requestOptions)
@@ -37,7 +42,7 @@ function getAllDetailPengiriman() {
         TypeButton.className = "btn btn-info rounded-pill";
         TypeButton.href = '/delivery';
         const raw = document.createElement('div')
-        raw.className='flex-detail'
+        raw.className = 'flex-detail'
 
         detailButton.addEventListener('click', async () => {
           document.getElementById("myModal").style.display = "block";
@@ -52,9 +57,9 @@ function getAllDetailPengiriman() {
 
           document.getElementById("updateDetail").addEventListener('submit', (event) => {
             event.preventDefault();
-
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
+            myHeaders.append('authorization', 'Bearer ' + token)
 
             const biayaBaru = document.getElementById('newBiaya').value
             var raw = JSON.stringify({
@@ -91,7 +96,8 @@ function getAllDetailPengiriman() {
             event.preventDefault();
             var requestOptions = {
               method: 'POST',
-              redirect: 'follow'
+              redirect: 'follow',
+              headers: myHeaders
             };
 
             fetch(`http://localhost:3000/detailPengiriman/${detail.pengiriman_id}/${detail.jenis_pengiriman_id}/delete`, requestOptions)
@@ -138,10 +144,13 @@ function getAllDetailPengiriman() {
 
 
 function createDetailPengiriman() {
-
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers: myHeaders
   };
 
   fetch("http://localhost:3000/jenis_pengiriman", requestOptions)
@@ -171,7 +180,8 @@ function createDetailPengiriman() {
   var selectElement = document.getElementById("pengiriman");
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers: myHeaders
   };
 
   fetch("http://localhost:3000/pengiriman", requestOptions)
@@ -201,6 +211,8 @@ function createDetailPengiriman() {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('authorization', 'Bearer ' + token);
+
     const pengiriman_id = document.getElementById('pengiriman').value
     const jenis_pengiriman_id = document.getElementById('jenis_pengiriman').value
     const biaya = document.getElementById('biaya').value
@@ -239,7 +251,8 @@ function createDetailPengiriman() {
 function updateDetailPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
+  
   let detail_pengiriman_id = document.getElementById("detail_pengiriman_id").value;
   let pengiriman_id = document.getElementById("pengiriman_id").value;
   let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;

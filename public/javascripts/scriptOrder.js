@@ -1,8 +1,10 @@
 
+const token = sessionStorage.getItem('token')
+
 function getAllOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -18,7 +20,7 @@ function getAllOrder() {
 function createOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
   let pembayaran_id = document.getElementById("pembayaran_id").value;
   let user_id = document.getElementById("user_id").value;
   let pengiriman_id = document.getElementById("pengiriman_id").value;
@@ -54,6 +56,7 @@ function createOrder() {
 function updateOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  myHeaders.append('authorization', 'Bearer ' + token)
 
   let order_id = document.getElementById("order_id").value;
   let pembayaran_id = document.getElementById("pembayaran_id").value;
@@ -91,7 +94,7 @@ function updateOrder() {
 function deleteOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
   let order_id = document.getElementById("order_id").value;
 
   var requestOptions = {
@@ -108,11 +111,15 @@ function deleteOrder() {
 
 
 function itemOrder() {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers: myHeaders
   };
-
+  var url = new URL(window.location.href)
   var produk_id = url.searchParams.get("produk_id");
   var ukuran_id = null; // Untuk menyimpan ukuran_id yang akan diambil
 
@@ -147,26 +154,29 @@ function itemOrder() {
         // Menambahkan event listener untuk mengambil ukuran_id saat input radio dicek
         inputElement.addEventListener('change', () => {
           ukuran_id = size.ukuran_id;
+          const ukuraasdn_id = document.getElementById("size_id")
+          ukuraasdn_id.value = size.ukuran_id;
+
+
           var requestOptions = {
             method: 'GET',
-            redirect: 'follow'
+            redirect: 'follow',
+            headers: myHeaders
           };
 
           fetch(`http://localhost:3000/detailProduk/${produk_id}/${ukuran_id}`, requestOptions)
             .then(response => response.json())
             .then(result => {
-              console.log(result)
-              console.log(result.harga)
+
               const harga = document.getElementById("harga")
               harga.innerHTML = `Rp ${result.harga}/pcs`
               const total = document.getElementById('total')
               total.innerHTML = `Rp ${result.harga}`
-
             })
             .catch(error => console.log('error', error));
 
 
-            
+
         });
 
         listSize.appendChild(radioButton);
@@ -174,15 +184,20 @@ function itemOrder() {
     })
     .catch(error => console.log('error', error));
 
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('authorization', 'Bearer ' + token)
+
   var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
+    headers: myHeaders
   };
 
   fetch(`http://localhost:3000/product/${produk_id}`, requestOptions)
     .then(response => response.json())
     .then(result => {
-      console.log(result)
+
       const nama_produk = document.getElementById('nama_produk')
       const nama = document.getElementById('nama')
       const img = document.getElementById('gambar_barang')
@@ -197,4 +212,47 @@ function itemOrder() {
 
   // Setelah memilih ukuran_id, Anda dapat menggunakannya dalam permintaan selanjutnya
 
+}
+
+function creteTheOrder() {
+  document.getElementById('order').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    var myHeaders = new Headers();
+    myHeaders.append('authorization', 'Bearer ' + token)
+    myHeaders.append("Content-Type", "application/json");
+
+    let url = new URL(window.location.href)
+    let produk_id = url.searchParams.get("produk_id")
+
+    const ukuran_id = document.getElementById("size_id").value
+    const jumlah = document.getElementById('jumlah').value
+    var raw = JSON.stringify({
+      "jumlah_pesanan": jumlah
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch(`http://localhost:3000/order/create/${produk_id}/${ukuran_id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        if (result.success) {
+          localStorage.setItem("flashMessage", result.success);
+
+          location.reload();
+        } else if (result.error) {
+          result.error
+        }
+      })
+      .catch(error => {
+        console.log('error', error)
+        alert(error)
+      });
+  })
 }

@@ -13,7 +13,8 @@ const getAllDetailPengiriman = async (req, res) => {
         }, {
           model: JenisPengiriman,
           attributes: ["jenis"]
-        }]
+        }],
+
     });
     res.status(200).json(detailPengiriman); // Menggunakan status 200 untuk OK
   } catch (error) {
@@ -85,7 +86,7 @@ const deleteDetailPengiriman = async (req, res) => {
   try {
     const pengiriman = req.params.pengiriman;
     const jenis_pengiriman = req.params.jenis_pengiriman;
-    
+
     const detailPengiriman = await DetailPengiriman.findOne({
       where: {
         pengiriman_id: pengiriman,
@@ -111,4 +112,26 @@ const deleteDetailPengiriman = async (req, res) => {
   }
 };
 
-module.exports = { getAllDetailPengiriman, createDetailPengiriman, updateDetailPengiriman, deleteDetailPengiriman };
+const getDistrikPengiriman = async (req, res) => {
+  
+    try {
+      const detailPengiriman = await DetailPengiriman.findAll({
+        include: [
+          {
+            model: Pengiriman,
+            attributes: ["nama"]
+          }, {
+            model: JenisPengiriman,
+            attributes: ["jenis"]
+          }],
+        attributes: ['pengiriman_id','jenis_pengiriman_id','biaya_pengiriman'],
+        group: ["Pengiriman.nama"]
+      });
+      res.status(200).json(detailPengiriman); // Menggunakan status 200 untuk OK
+    } catch (error) {
+      console.log("getAllDetailPengiriman Error = " + error);
+      res.status(500).json({ error: err }); // Menggunakan status 500 untuk Internal Server Error
+    }
+};
+
+module.exports = { getDistrikPengiriman,getAllDetailPengiriman, createDetailPengiriman, updateDetailPengiriman, deleteDetailPengiriman };

@@ -514,26 +514,28 @@ thead {
   color: #FFF;
 }
 
-.flex-tax{
-display: flex;
-justify-content: space-between;
+.flex-tax {
+  display: flex;
+  justify-content: space-between;
 }
-.checkout{
+
+.checkout {
   width: 272px;
-height: 41px;
-flex-shrink: 0;
-border-radius: 32px;
-background: linear-gradient(270deg, #FFF 44.49%, rgba(255, 255, 255, 0.00) 100%);
-color: #090973;
-text-align: center;
-font-family: 'Poppins',sans-serif;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-border: none;
+  height: 41px;
+  flex-shrink: 0;
+  border-radius: 32px;
+  background: linear-gradient(270deg, #FFF 44.49%, rgba(255, 255, 255, 0.00) 100%);
+  color: #090973;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: none;
 }
-.checkoutbutton{
+
+.checkoutbutton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -544,7 +546,7 @@ border: none;
   height: auto;
 }
 
-.custom-table{
+.custom-table {
   border-radius: 20px;
 }
 
@@ -595,17 +597,19 @@ border: none;
     opacity: 0;
     transform: translateY(-1000px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.img-flex{
+.img-flex {
   display: flex;
   gap: 20px;
   justify-content: center;
 }
+
 .flash-message {
   padding: 10px;
   color: #fff;
@@ -616,7 +620,8 @@ border: none;
 }
 
 .success {
-  background-color: #4CAF50; /* Warna latar belakang hijau */
+  background-color: #4CAF50;
+  /* Warna latar belakang hijau */
 
 }
 
@@ -629,20 +634,126 @@ border: none;
 
 /* Anda dapat menambahkan gaya CSS tambahan sesuai kebutuhan */
 
-.size-input{
+.size-input {
   display: flex;
-  flex-basis:auto
+  flex-basis: auto
 }
 
-.flex-deliver{
+.flex-deliver {
 
-  padding: 50px ;
+  padding: 50px;
   margin: 0 50px;
 
 }
 
-.flex-detail{
+.flex-detail {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.addPayment {}
+
+.flex-payment {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.pay-name {
+  color: #090973;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 19px;
+  width: 210px;
+  /* 79.167% */
+}
+
+.pay-item {
+  width: 300px;
+  color: #090973;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  /* 79.167% */
+}
+
+.pay-btn {
+  color: #EF9F22;
+  text-align: right;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 19px;
+  text-decoration-line: underline;
+  background: none;
+  border: none;
+}
+
+#listPengiriman {
+  height: 150px;
+}
+
+.pay-back {
+  color: #EF9F22;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.pay-sbm {
+  width: 272px;
+  height: 41px;
+  flex-shrink: 0;
+  border-radius: 32px;
+  background: linear-gradient(270deg, #EF9F22 5.33%, #FFEDCE 104.41%);
+  color: #FFF;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: none;
+}
+
+.checkout-keranjang {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #090973;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+  width: 272px;
+  height: 41px;
+  flex-shrink: 0;
+  border-radius: 32px;
+  background: linear-gradient(270deg, #FFF 44.49%, rgba(255, 255, 255, 0.00) 100%);
+}
+
+.padding {
+  padding-bottom: 80px;
+}
+
+.list-shipping {
+  color: #090973;
+  font-family: 'Poppins',sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left:10px ;
 }

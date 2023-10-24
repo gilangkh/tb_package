@@ -1,8 +1,10 @@
 
+let token = sessionStorage.getItem('token')
+
 function getAllSizes() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
     headers: myHeaders,
@@ -39,7 +41,7 @@ function getAllSizes() {
             event.preventDefault();
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-
+            myHeaders.append('authorization', 'Bearer ' + token)
             const panjangBaru = document.getElementById("panjangBaru").value
             const lebarBaru = document.getElementById("lebarBaru").value
             const tinggiBaru = document.getElementById("tinggiBaru").value
@@ -77,9 +79,12 @@ function getAllSizes() {
           })
           document.getElementById("deleteSize").addEventListener('submit', (event) => {
             event.preventDefault();
+            let myHeaders = new Headers()
+            myHeaders.append('authorization', 'Bearer ' + token)
             var requestOptions = {
               method: 'POST',
-              redirect: 'follow'
+              redirect: 'follow',
+              headers:myHeaders
             };
 
             fetch(`http://localhost:3000/size/${size_id}/delete`, requestOptions)
@@ -119,10 +124,11 @@ function getAllSizes() {
 
 function createSize() {
   document.getElementById("addSize").addEventListener('submit', (event) => {
+    event.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    event.preventDefault();
-
+    myHeaders.append('authorization', 'Bearer ' + token)
+    
     const panjang = document.getElementById("panjang").value
     const lebar = document.getElementById("lebar").value
     const tinggi = document.getElementById("tinggi").value
@@ -160,21 +166,6 @@ function createSize() {
   })
 }
 
-function deleteSize() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
-
-  fetch(url + "/size/2/delete", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-}
 
 // modalProduk
 function openModal() {

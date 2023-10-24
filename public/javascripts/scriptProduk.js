@@ -1,9 +1,11 @@
 
 
+let token = sessionStorage.getItem('token')
+
 function getAllProducts() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
+  myHeaders.append('authorization', 'Bearer ' + token)
   var requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -47,11 +49,13 @@ function getAllProducts() {
 
             var formdata = new FormData();
             formdata.append("gambar_produk", fileInput.files[0],);
-
+            let myHeaders = new Headers()
+            myHeaders.append('authorization', 'Bearer ' + token)
             var requestOptions = {
               method: 'POST',
               body: formdata,
-              redirect: 'follow'
+              redirect: 'follow',
+              headers : myHeaders
             };
 
             fetch( `http://localhost:3000/product/${produk.produk_id}/updateImg`, requestOptions)
@@ -91,7 +95,8 @@ function getAllProducts() {
 
             var updateHeaders = new Headers();
             updateHeaders.append("Content-Type", "application/json");
-
+            
+            updateHeaders.append('authorization', 'Bearer ' + token)
             var raw = JSON.stringify({
               "nama_produk": nama_produk.value,
               "deskripsi": deskrip.value
@@ -125,9 +130,12 @@ function getAllProducts() {
 
           document.querySelector("#deleteProduk button").addEventListener('click', (event) => {
             event.preventDefault();
+            let myHeaders = new Headers()
+            myHeaders.append('authorization', 'Bearer ' + token)
             var requestOptions = {
               method: 'POST',
-              redirect: 'follow'
+              redirect: 'follow',
+              headers : myHeaders
             };
 
             fetch(`http://localhost:3000/product/${produk_id}/delete`, requestOptions)
@@ -179,7 +187,7 @@ function createProduct() {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "multipart/form-data"); // Ganti Content-Type
-
+    myHeaders.append('authorization', 'Bearer ' + token)
     let produk_id = document.getElementById("produk_id").value;
     let nama_produk = document.getElementById("nama_produk").value;
     let deskripsi = document.getElementById("deskripsi").value;
@@ -194,7 +202,8 @@ function createProduct() {
     var requestOptions = {
       method: 'POST',
       body: formData,
-      redirect: 'follow'
+      redirect: 'follow',
+      headers:myHeaders
     };
 
     fetch("http://localhost:3000/product/create", requestOptions)
