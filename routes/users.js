@@ -59,7 +59,9 @@ router.get('/bukti',(req,res)=>{
 router.get('/produk/detail',(req,res)=>{
   res.sendFile(link+'detailProduk.html')
 })
-
+router.get('/profile',(req,res)=>{
+  res.sendFile(link+'profile.html')
+})
 
 
 module.exports = router;

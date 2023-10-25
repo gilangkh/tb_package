@@ -28,12 +28,7 @@ body {
   height: 50px;
   background: #FFF;
   font-size: 100px;
-  display: flex;
-  gap: 10px;
   box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
-  align-items: center;
-  justify-content: left;
-
 }
 
 .beranda {
@@ -1034,9 +1029,11 @@ thead {
   line-height: 19px;
   /* 95% */
 }
-.padding-history{
+
+.padding-history {
   margin: 50px 100px;
 }
+
 .item-history {
   margin-bottom: 30px;
   padding: 0 50px;
@@ -1086,12 +1083,104 @@ thead {
   font-weight: 600;
   line-height: normal;
 }
-.link-history{
-  color: #EF9F22;
-text-align: right;
-font-size: 20px;
-font-style: normal;
-font-weight: 300;
-line-height: 19px; 
 
+.link-history {
+  color: #EF9F22;
+  text-align: right;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 19px;
+
+}
+
+.new-head {
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  background: #FFF;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.left-head {
+  display: flex;
+  align-items: center;
+}
+
+.beranda a {
+  text-align: center;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.right-head {
+  display: flex;
+  justify-self: flex-end;
+  gap: 20px;
+}
+
+/* Style for the dropdown container */
+.dropdown {
+  position: fixed;
+  display: inline-block;
+}
+
+/* Style for the dropdown button */
+.dropdown-btn {
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 60%;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the dropdown content (hidden by default) */
+.dropdown-content {
+  border-radius: 10px;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 10px;
+  top: 100%;
+}
+
+/* Style for each dropdown item */
+.dropdown-content li {
+  padding: 12px 0px;
+  text-decoration: none;
+  display: block;
+  color: #C2C2FF;
+  padding-right: 30px;
+
+
+
+}
+
+.dropdown-content li button {
+  border: none;
+  font-family:"Poppins", sans-serif;
+  font-weight: 700; 
+}
+
+
+
+.dropdown-btn:focus + .dropdown-content {
+  display: block;
+}
+
+.dropdown-btn {
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 60%;
+  border: none;
+  cursor: pointer;
 }
