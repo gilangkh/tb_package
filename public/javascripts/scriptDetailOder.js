@@ -18,6 +18,7 @@ function getAllDetailOrder() {
       let subtotalHarga = 0
       let itemCount = 0;
       data.forEach(item => {
+        console.log(item)
         itemCount++
         const row = tabelOrder.insertRow(-1);
         const cell1 = row.insertCell(0);
@@ -38,9 +39,46 @@ function getAllDetailOrder() {
         deleteButton.classList = `btn btn-outline-warning`
         deleteButton.style = 'border :none'
         deleteButton.addEventListener('click', () => {
+
           if (window.confirm('Apakah Anda yakin ingin menghapus pesanan ini?')) {
 
             console.log('Pesanan dihapus');
+
+            var myHeaders = new Headers();
+            myHeaders.append('authorization', 'Bearer ' + token);
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+              "produk_id": item.produk_id,
+              "ukuran_id": item.ukuran_id,
+              "order_id": item.order_id
+            });
+
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+
+            fetch("http://localhost:3000/order/delete", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                console.log(result);
+                if (result.success) {
+                  localStorage.setItem("flashMessage", result.success);
+
+                  location.reload();
+                } else if (result.error) {
+                  result.error
+                  alert("gagal")
+                }
+              })
+              .catch(error => {
+                console.log('error', error)
+                alert(error)
+              });
+
           } else {
 
             console.log('Penghapusan dibatalkan');
@@ -214,9 +252,22 @@ function detailPayment() {
     };
 
     fetch("http://localhost:3000/updateUser", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        if (result.success) {
+          localStorage.setItem("flashMessage", result.success);
+
+          location.reload();
+        } else if (result.error) {
+          result.error
+          alert("gagal")
+        }
+      })
+      .catch(error => {
+        console.log('error', error)
+        alert(error)
+      });
   })
   var requestOptions = {
     method: 'GET',
@@ -264,15 +315,13 @@ function detailPayment() {
   };
 
   fetch("http://localhost:3000/payment", requestOptions)
-    .then(response => response.json()) 
+    .then(response => response.json())
     .then(data => {
 
       data.forEach(payment => {
-        console.log(payment)
-        
         const option = document.createElement("option");
-        option.value = payment.pembayaran_id; 
-        option.textContent = payment.metode; 
+        option.value = payment.pembayaran_id;
+        option.textContent = payment.metode;
         selectPembayaran.appendChild(option);
       });
     })
@@ -287,10 +336,259 @@ function detailPayment() {
     console.log("Selected Payment ID:", selectedPaymentId);
   });
 
-  document.getElementById
+  document.getElementById('updateOrder').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    var myHeaders = new Headers();
+    myHeaders.append('authorization', 'Bearer ' + token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "pengiriman_id": pengirimanId,
+      "pembayaran_id": selectedPaymentId
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:3000/order/update", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        if (result.success) {
+          localStorage.setItem("flashMessage", result.success);
+
+          window.location.href = `/bukti?order_id=${result.data.order_id}`
+        } else if (result.error) {
+          result.error
+          alert("gagal")
+        }
+      })
+      .catch(error => {
+        console.log('error', error)
+        alert(error)
+      });
+  })
 
 
 
 
+}
 
+function Invoice() {
+  var myHeaders = new Headers();
+  myHeaders.append('authorization', 'Bearer ' + token);
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  let url = new URL(window.location.href)
+  let order_id = url.searchParams.get("order_id")
+  const listItemElement = document.getElementById("list-item");
+  // Setelah menerima data dari permintaan fetch
+  let total = 0
+  fetch(`http://localhost:3000/order/detail/${order_id}`, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+
+      data.forEach(item => {
+        // Buat elemen-elemen HTML untuk setiap item
+        const orderItem = document.createElement("div");
+        orderItem.className = "detail-item-produk";
+
+        const orderImg = document.createElement("div");
+        orderImg.className = "order-img";
+
+        const detailImgOrder = document.createElement("div");
+        detailImgOrder.className = "detail-img-order";
+
+        const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElement.setAttribute("width", "189");
+        svgElement.setAttribute("height", "193");
+        // ... Tambahkan atribut dan isi elemen SVG sesuai kebutuhan
+
+        const imgElement = document.createElement("img");
+        imgElement.id = "img_produk";
+        imgElement.src = `images/${item.DetailProduk.Produk.gambar_produk}`;
+        imgElement.alt = "";
+
+        const imgText = document.createElement("div");
+        imgText.className = "img-text";
+
+        const h1Element = document.createElement("h1");
+        h1Element.id = "nama_produk";
+        h1Element.textContent = item.DetailProduk.Produk.nama_produk;
+
+        const pUkuran = document.createElement("p");
+        pUkuran.id = "ukuran";
+        pUkuran.textContent = `Size: ${item.DetailProduk.Ukuran.ukuran}`;
+
+        const quantityOrder = document.createElement("div");
+        quantityOrder.className = "quantity-order";
+
+        const pJumlah = document.createElement("p");
+        pJumlah.id = "jumlah";
+        pJumlah.textContent = `${item.jumlah_pesanan} pcs`;
+
+        const priceOrder = document.createElement("div");
+        priceOrder.className = "price-order";
+
+        const pHarga = document.createElement("p");
+        pHarga.id = "harga";
+        pHarga.textContent = `Rp ${item.DetailProduk.harga}`;
+
+        let sumHarga = item.DetailProduk.harga * item.jumlah_pesanan
+        total += sumHarga
+
+        detailImgOrder.appendChild(svgElement);
+        detailImgOrder.appendChild(imgElement);
+
+        imgText.appendChild(h1Element);
+        imgText.appendChild(pUkuran);
+
+        orderImg.appendChild(detailImgOrder);
+        orderImg.appendChild(imgText);
+
+        quantityOrder.appendChild(pJumlah);
+        priceOrder.appendChild(pHarga);
+
+        orderItem.appendChild(orderImg);
+        orderItem.appendChild(quantityOrder);
+        orderItem.appendChild(priceOrder);
+
+        listItemElement.appendChild(orderItem);
+      });
+      document.getElementById('biaya').textContent = total
+      document.getElementById('sub-biaya').value = total
+
+    })
+    .catch(error => console.log('error', error));
+
+
+  myHeaders.append("Content-Type", "application/json");
+
+  document.getElementById("orderId").textContent = order_id
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch(`http://localhost:3000/invoice/${order_id}`, requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      let tanggal = document.getElementById('tanggal')
+      let alamat = document.getElementById('alamat')
+      let nama_pengiriman = document.getElementById('nama_pengiriman')
+      let nama_pembayaran = document.getElementById('nama_pembayaran')
+      let subtotal = document.getElementById('subtotal')
+      let biaya_pengiriman = result.DetailPengiriman.biaya_pengiriman
+      tanggal.textContent = result.tanggal_order
+      alamat.textContent = result.User.alamat
+      nama_pengiriman.textContent = result.DetailPengiriman.Pengiriman.nama
+      nama_pembayaran.textContent = result.Pembayaran.metode
+      subtotal.textContent = biaya_pengiriman
+      let jumlah = parseFloat(document.getElementById('sub-biaya').value); // Mengonversi ke number
+
+      let total = biaya_pengiriman + jumlah;
+
+      document.getElementById('total').textContent = total;
+    })
+    .catch(error => console.log('error', error));
+}
+
+function history() {
+  var myHeaders = new Headers();
+  myHeaders.append('authorization', 'Bearer ' + token);
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch("http://localhost:3000/orderHistory", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+
+      console.log(result)
+
+      const listHistory = document.getElementById("list-history");
+      listHistory.innerHTML = ""; // Clear the existing content
+
+      result.forEach(order => {
+        let biayaPengiriman = order.DetailPengiriman.biaya_pengiriman
+        const itemHistory = document.createElement("div");
+        itemHistory.classList.add("item-history");
+
+        // Create and update elements within each item
+        const detailInvoice = document.createElement("div");
+        detailInvoice.classList.add("detail-invoice");
+
+        const icon = document.createElement("div");
+        icon.classList.add("icon");
+        icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66"
+        fill="none">
+        <!-- ... Your SVG icon ... -->
+        </svg>`;
+
+        const detailItemHistory = document.createElement("div");
+        detailItemHistory.classList.add("detail-item-history");
+
+        const orderId = document.createElement("h3");
+        orderId.textContent = "Order " + order.order_id; // Assuming the order ID is stored in the "id" property
+
+        const tanggal = document.createElement("p");
+        tanggal.textContent = order.tanggal_order; // Update with your date property
+
+        const total = document.createElement("h4");
+        total.textContent = "Total: Loading..."; // Initial value
+
+        detailItemHistory.appendChild(orderId);
+        detailItemHistory.appendChild(tanggal);
+        detailItemHistory.appendChild(total);
+
+        detailInvoice.appendChild(icon);
+        detailInvoice.appendChild(detailItemHistory);
+
+        itemHistory.appendChild(detailInvoice);
+
+        const linkHistory = document.createElement("div");
+        const link = document.createElement("a");
+        link.classList.add("link-history");
+        link.href = "/bukti?order_id=" + order.order_id;
+        link.textContent = "View receipt";
+
+        linkHistory.appendChild(link);
+        itemHistory.appendChild(linkHistory);
+
+        listHistory.appendChild(itemHistory);
+
+        let harga = 0;
+        fetch(`http://localhost:3000/order/detail/${order.order_id}`, requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            console.log(result)
+            result.forEach(detail => {
+              let sumHarga = detail.DetailProduk.harga * detail.jumlah_pesanan;
+              harga += sumHarga;
+            });
+
+            let totalHarga = harga + biayaPengiriman;
+            total.textContent = "Total: " + totalHarga;
+          })
+          .catch(error => console.log('error', error));
+      });
+    })
+    .catch(error => console.log('error', error));
 }

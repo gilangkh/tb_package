@@ -4,14 +4,14 @@ var router = express.Router();
 const { login } = require('../controllers/AuthController')
 
 const { getAllUser, createUser, updateUser, deleteUser } = require('../controllers/UserController')
-const { getAllOrder, updateOrder, createOrder, deleteOrder, test } = require('../controllers/orderController')
+const { getAllOrder, updateOrder, createOrder, deleteOrder, test, Invoice, getAllOrderHistory } = require('../controllers/orderController')
 const { getAllProducts, updateProduct, createProduct, deleteProduct, updateProductImg, getOneProduk } = require('../controllers/produkController');
 const { getAllPengiriman, updatePengiriman, createPengiriman, deletePengiriman } = require('../controllers/pengirimanController');
 const { getAllSizes, updateSize, createSize, deleteSize } = require('../controllers/ukuranController');
 const { getAllJenisPengiriman, updateJenisPengiriman, createJenisPengiriman, deleteJenisPengiriman } = require('../controllers/jenisPengirimanController');
 const { getAllDetailProduk, updateDetailProduk, createDetailProduk, deleteDetailProduk, DetailOneProduk, DetailItemProduk } = require('../controllers/detailProdukController');
 const { getAllDetailPengiriman, updateDetailPengiriman, createDetailPengiriman, deleteDetailPengiriman, getDistrikPengiriman } = require('../controllers/detailPengirimanController');
-const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder, getUserLogin, updateUserLogin } = require('../controllers/detailOrderController');
+const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder, getUserLogin, updateUserLogin, getAllDetailOrderDone, getAllDetailOrderInvoice } = require('../controllers/detailOrderController');
 const { getAllPayments, createPayment, updatePayment, deletePayment } = require('../controllers/pembayaranController');
 const { authenticateToken, isAdmin } = require('../middleware/authToken')
 const multer = require('multer')
@@ -58,8 +58,10 @@ router.post('/user/:user_id/update', upload.single('picture'), updateUser)
 router.post('/user/:user_id/delete', deleteUser)
 
 router.get('/order', getAllOrder);
+router.get('/orderHistory', getAllOrderHistory);
+router.get('/invoice/:order_id',Invoice);
 router.post('/order/create/:produk_id/:ukuran_id', createOrder);
-router.post('/order/:order_id/update', updateOrder);
+router.post('/order/update', updateOrder);
 router.post('/order/:order_id/delete', deleteOrder);
 
 router.get('/product', getAllProducts);
@@ -103,6 +105,9 @@ router.get("/detailProduk/:produk_id", DetailOneProduk)
 router.get("/detailProduk/:produk_id/:size", DetailItemProduk)
 
 router.get('/order/detail',getAllDetailOrder)
+router.get('/order/detail/invoice',getAllDetailOrderInvoice)
+router.get('/order/detail/:order_id',getAllDetailOrderDone)
+router.post('/order/delete',deleteDetailOrder)
 
 
 

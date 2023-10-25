@@ -53,6 +53,9 @@ router.get('/deliver/detail',(req,res)=>{
 router.get('/pembayaran',(req,res)=>{
   res.sendFile(link+'pembayaran.html')
 })
+router.get('/bukti',(req,res)=>{
+  res.sendFile(link+'bukti.html')
+})
 router.get('/produk/detail',(req,res)=>{
   res.sendFile(link+'detailProduk.html')
 })

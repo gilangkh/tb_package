@@ -4,70 +4,56 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <title>Order</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <title>Barang</title>
 </head>
 
 <body>
-    <h1>Produk</h1>
-    <table>
-        <th>
-        <td>no</td>
-        <td>nama</td>
-        <td>harga</td>
-        <td>ukuran</td>
-        </th>
-    </table>
-
-    <div class="tambah detail produk">
-        <div>
-            <label for="pilihBarang">pilih barang</label>
-            <select name="pilihBarang" id="pilihBarang">
-                <option value="pilih barang"> pilih barang</option>
-            </select>
-        </div>
-        <div>
-            <label for="pilihUkuran">pilih ukuran</label>
-            <select name="pilihUkuran" id="">
-                <option value="pilih ukuran">pilih ukuran</option>
-            </select>
-        </div>
-        <div>
-            <label for="hargaBarang">Harga Barang</label>
-            <input class="form" type="harga" name="harga" id="harga">
-        </div>
-        <div>
-            <label for="hargaBarang">Jenis Pengiriman</label>
-            <input class="form" type="harga" name="harga" id="harga">
-        </div>
-        <div>
-            <label for="hargaBarang">Desain  Produk</label>
-            <input class="form" type="harga" name="harga" id="harga">
-        </div>
-        
-    </div>
-
-
-
     <div>
-        <div class="tambah_produk">
-            <input type="produkID" name="produkID" id="produkID" placeholder="id produk" />
+        <div class="header-g text-left px-3" id="generalHead"> </div>
+        <div id="flash-message"></div>
+        <div class="container ">
+            <div class="padding-history">
+                <div id="list-history">
+                    <div class="item-history">
+                        <div class="detail-invoice">
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66"
+                                    fill="none">
+                                    <path
+                                        d="M56.1 0H9.9C7.27436 0 4.75625 1.04303 2.89964 2.89964C1.04303 4.75625 0 7.27436 0 9.9V56.1C0 58.7256 1.04303 61.2437 2.89964 63.1004C4.75625 64.957 7.27436 66 9.9 66H56.1C58.7256 66 61.2437 64.957 63.1004 63.1004C64.957 61.2437 66 58.7256 66 56.1V9.9C66 7.27436 64.957 4.75625 63.1004 2.89964C61.2437 1.04303 58.7256 0 56.1 0ZM26.4 6.6H39.6V16.929L34.815 13.629C34.2762 13.2742 33.6452 13.085 33 13.085C32.3548 13.085 31.7238 13.2742 31.185 13.629L26.4 16.929V6.6ZM59.4 56.1C59.4 56.9752 59.0523 57.8146 58.4335 58.4335C57.8146 59.0523 56.9752 59.4 56.1 59.4H9.9C9.02479 59.4 8.18542 59.0523 7.56655 58.4335C6.94768 57.8146 6.6 56.9752 6.6 56.1V9.9C6.6 9.02479 6.94768 8.18542 7.56655 7.56655C8.18542 6.94768 9.02479 6.6 9.9 6.6H19.8V23.1C19.8016 23.697 19.9651 24.2824 20.2731 24.7938C20.5811 25.3051 21.0221 25.7234 21.549 26.004C22.065 26.269 22.6418 26.3932 23.2211 26.3643C23.8005 26.3353 24.362 26.1541 24.849 25.839L33 20.46L41.085 25.839C41.5813 26.1659 42.1567 26.3526 42.7504 26.3796C43.344 26.4065 43.934 26.2727 44.4579 25.9921C44.9817 25.7116 45.4202 25.2948 45.7268 24.7857C46.0335 24.2767 46.1969 23.6943 46.2 23.1V6.6H56.1C56.9752 6.6 57.8146 6.94768 58.4335 7.56655C59.0523 8.18542 59.4 9.02479 59.4 9.9V56.1Z"
+                                        fill="#090973" />
+                                </svg>
+                            </div>
+                            <div class="detail-item-history">
+                                <h3 id="orderId">Order </h3>
+                                <p id="tanggal">tanggal order</p>
+                                <h4 id="total">total</h4>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="link-history" href="/bukti?order_id=28"> View receipt</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
         </div>
-        <div>
-            <input type="namaProduk" name="namaProduk" id="namaProduk" placeholder="nama produk" />
-        </div>
-        <div>
-            <input type="file" name="gambarProduk" id="gambarProduk" />
-        </div>
-        <div>
-            <textarea type="" name="deskripsi" id="deksripsi" placeholder="deksripsi produk..."></textarea>
-        </div>
-        <div>
-            <button class="btn btn-success" type="button" onclick="">Tambah Produk</button>
-        </div>
+
     </div>
 </body>
+<script src="../javascripts/scriptGeneral.js"></script>
+<script src="../javascripts/scriptUrl.js"></script>
+<script src="../javascripts/scriptDetailOder.js"></script>
+<script>
+    verived();
+    generalHead();
+    generalNav();
+    history();
+</script>
 
 </html>

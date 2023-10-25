@@ -9,6 +9,7 @@ const err = "Internal Server Error";
 
   const getAllDetailOrder = async (req, res) => {
     try {
+
       const detailOrders = await DetailOrder.findAll({
         include:[{
           model: DetailProduk,
@@ -21,7 +22,11 @@ const err = "Internal Server Error";
           }]
         },{
           model:Order,
-          where:{status_order:"menunggu"}
+          where:{status_order:"menunggu"},
+          include:[{
+            model:User,
+            where:{user_id:req.user.user_id}
+          }]
         }]
       });
       console.log(detailOrders);
@@ -31,7 +36,65 @@ const err = "Internal Server Error";
       res.status(500).json({ error: err });
     }
 };
-
+  const getAllDetailOrderDone = async (req, res) => {
+    try {
+      const order_id = req.params.order_id
+      const detailOrders = await DetailOrder.findAll({
+        include:[{
+          model: DetailProduk,
+          attributes:['harga'],
+          include:[{
+            model:Produk,
+            attributes:["nama_produk",'gambar_produk','deskripsi']
+          },{
+            model:Ukuran,
+            attributes:['ukuran']
+          }]
+        },{
+          model:Order,
+          where:{status_order:"selesai",order_id:order_id},
+          include:[{
+            model:User,
+            where:{user_id:req.user.user_id}
+          }]
+        }]
+      });
+      console.log(detailOrders);
+      res.status(200).json(detailOrders);
+    } catch (error) {
+      console.log("getAllDetailOrderError = " + error);
+      res.status(500).json({ error: err });
+    }
+};
+const getAllDetailOrderInvoice = async (req, res) => {
+  try {
+    const order_id = req.params.order_id
+    const detailOrders = await DetailOrder.findAll({
+      include:[{
+        model: DetailProduk,
+        include:[{
+          model:Produk,
+          attributes:["nama_produk",'gambar_produk','deskripsi']
+        },{
+          model:Ukuran,
+          attributes:['ukuran']
+        }]
+      },{
+        model:Order,
+        where:{status_order:"selesai"},
+        include:[{
+          model:User,
+          where:{user_id:req.user.user_id}
+        }]
+      }]
+    });
+    console.log(detailOrders);
+    res.status(200).json(detailOrders);
+  } catch (error) {
+    console.log("getAllDetailOrderError = " + error);
+    res.status(500).json({ error: err });
+  }
+};
 const createDetailOrder = async (req, res) => {
   try {
     const {
@@ -96,31 +159,28 @@ const updateDetailOrder = async (req, res) => {
 };
 
 const deleteDetailOrder = async (req, res) => {
-  try {
-    const { order_id, produk_id, ukuran_id } = req.params;
-
-    const detailOrder = await DetailOrder.findOne({ where: { order_id, produk_id, ukuran_id } });
-
-    if (!detailOrder) {
-      let response = {
-        error: "Data tidak ditemukan",
-      };
-      res.status(404).json(response);
-    } else {
-      await detailOrder.destroy();
-
-      let response = {
-        success: "Data berhasil dihapus",
-      };
-      res.status(200).json(response);
-    }
-  } catch (error) {
+try {
+  const order_id = req.body.order_id
+  const produk_id = req.body.produk_id
+  const ukuran_id = req.body.ukuran_id
+  const detailOrder = await DetailOrder.findOne({ where: { order_id:order_id, produk_id:produk_id,   ukuran_id    :ukuran_id } });
+  if(!detailOrder){
+    console.log("oke")
+    res.json({gagal:"data tidak ditemukan"})
+  }else{
+    await detailOrder.destroy();
     let response = {
-      error: err,
+      success: "Data berhasil dihapus",
+    
     };
-    console.log("deleteDetailOrder Error + ", error);
-    res.status(500).json(response);
+    res.status(200).json(response);
   }
+  
+  console.log(detailOrder)
+} catch (error) {
+  
+}
+ 
 };
 
 const getUserLogin = async (req,res)=>{
@@ -181,4 +241,4 @@ const updateUserLogin = async (req,res)=>{
 
 
 
-module.exports = {updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };
+module.exports = {getAllDetailOrderInvoice,getAllDetailOrderDone,updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };

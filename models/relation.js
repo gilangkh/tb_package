@@ -9,10 +9,22 @@ const Order = require('./orderModel')
 const DetailOrder = require('./detailOrderModel')
 const User = require('./userModel')
 
-Pengiriman.hasMany(DetailPengiriman, { foreignKey: 'pengiriman_id', });
-JenisPengiriman.hasMany(DetailPengiriman, { foreignKey: 'jenis_pengiriman_id', });
-DetailPengiriman.belongsTo(Pengiriman, { foreignKey: 'pengiriman_id', });
-DetailPengiriman.belongsTo(JenisPengiriman, { foreignKey: 'jenis_pengiriman_id', });
+Pengiriman.hasMany(DetailPengiriman, {
+  foreignKey: { name: 'pengiriman_id', primaryKey: true },
+  sourceKey: 'pengiriman_id',
+});
+JenisPengiriman.hasMany(DetailPengiriman, {
+  foreignKey: { name: 'jenis_pengiriman_id', primaryKey: true },
+  sourceKey: 'jenis_pengiriman_id',
+});
+DetailPengiriman.belongsTo(Pengiriman, {
+  foreignKey: { name: 'pengiriman_id', primaryKey: true },
+  sourceKey: 'pengiriman_id',
+});
+DetailPengiriman.belongsTo(JenisPengiriman, {
+  foreignKey: { name: 'jenis_pengiriman_id', primaryKey: true },
+  sourceKey: 'jenis_pengiriman_id',
+});
 
 Produk.hasMany(DetailProduk, { foreignKey: 'produk_id' })
 Ukuran.hasMany(DetailProduk, { foreignKey: 'ukuran_id' })
@@ -25,11 +37,38 @@ Order.belongsTo(User, { foreignKey: 'user_id' })
 Pembayaran.hasMany(Order, { foreignKey: 'pembayaran_id' });
 Order.belongsTo(Pembayaran, { foreignKey: 'pembayaran_id' })
 
-DetailPengiriman.hasMany(Order, { foreignKey: 'pengiriman_id' });
-Order.belongsTo(DetailPengiriman, { foreignKey: 'pengiriman_id' });
+DetailPengiriman.hasMany(Order, {
+  foreignKey: {
+    name: 'pengiriman_id',
+    primaryKey: true,
+  },
+  sourceKey: 'pengiriman_id',
+});
 
-DetailPengiriman.hasOne(Order, { foreignKey: 'jenis_pengiriman_id' });
-Order.belongsTo(DetailPengiriman, { foreignKey: 'jenis_pengiriman_id' });
+DetailPengiriman.hasMany(Order, {
+  foreignKey: {
+    name: 'jenis_pengiriman_id',
+    primaryKey: true,
+  },
+  sourceKey: 'jenis_pengiriman_id',
+});
+
+Order.belongsTo(DetailPengiriman, {
+  foreignKey: {
+    name: 'pengiriman_id',
+    primaryKey: true,
+  },
+  targetKey: 'pengiriman_id',
+});
+
+Order.belongsTo(DetailPengiriman, {
+  foreignKey: {
+    name: 'jenis_pengiriman_id',
+    primaryKey: true,
+  },
+  targetKey: 'jenis_pengiriman_id',
+});
+
 
 Order.hasMany(DetailOrder, { foreignKey: 'order_id' });
 DetailOrder.belongsTo(Order, { foreignKey: 'order_id' });

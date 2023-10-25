@@ -14,6 +14,7 @@
 <body>
     <div>
         <div class="header-g text-left px-3" id="generalHead"> </div>
+        <div id="flash-message"></div>
         <div class="content">
             <h1 class=" cart-title mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="81" height="54"
                     viewBox="0 0 81 54" fill="none">
@@ -29,7 +30,7 @@
                         <p id="alamat" class="pay-item">...</p>
                         <button class="pay-btn" id="edit">edit </button>
                     </div>
-   
+
                     <hr>
                     <div class="flex-payment">
                         <h1 class="pay-name">Shipping Method</h1>
@@ -39,26 +40,26 @@
                             <option value="">edit</option>
                         </select>
                     </div>
-   
+
                     <hr>
                     <div class="flex-payment">
                         <h1 class="pay-name">Payment Method</h1>
                         <p id="pembayaran" class="pay-item">nama pembayaran...</p>
-                    <select class="pay-btn" name="list-pembayaran" id="list-pembayaran">
-                        <option value="">edit</option>
-                    </select>
-        
+                        <select class="pay-btn" name="list-pembayaran" id="list-pembayaran">
+                            <option value="">edit</option>
+                        </select>
+
                     </div>
-   
+
                     <hr>
                     <form id="updateOrder">
-                    <div class="flex-payment">
+                        <div class="flex-payment">
                             <a class="pay-back" href="/keranjang">&lt; Return to Your Cart</a>
                             <button class="pay-sbm" type="submit">Complete Order</button>
                         </div>
                     </form>
-                    
-                    
+
+
 
                 </div>
                 <div class="summery ">
@@ -75,7 +76,7 @@
 
                         </div>
                     </div>
-                    <hr >
+                    <hr>
                     <div class="flex-tax">
                         <div class="tax">
                             <h3>Total</h3>
@@ -108,8 +109,7 @@
                 <div class="modal-footer">
                     <span id="closeModaly" class="btn btn-secondary rounded-pill">Close</span>
                     <form id="updateAlamat">
-                        <button type="submit" class="btn btn-success rounded-pill">Update</button
-                            type="submit">
+                        <button type="submit" class="btn btn-success rounded-pill">Update</button type="submit">
                     </form>
                 </div>
             </div>
@@ -128,18 +128,18 @@
 
     getAllDetailOrderPayment()
     detailPayment();
-     document.getElementById("edit").addEventListener("click", openModaly);
-     document.getElementById("closeModalBtny").addEventListener("click", closeModaly);
-     document.getElementById("closeModaly").addEventListener("click", closeModaly);
+    document.getElementById("edit").addEventListener("click", openModaly);
+    document.getElementById("closeModalBtny").addEventListener("click", closeModaly);
+    document.getElementById("closeModaly").addEventListener("click", closeModaly);
 
-    
-   function openModaly() {
+
+    function openModaly() {
         document.getElementById("yModal").style.display = "block";
     }
-       function closeModal() {
+    function closeModal() {
         document.getElementById("myModal").style.display = "none";
     }
-       function closeModaly() {
+    function closeModaly() {
         document.getElementById("yModal").style.display = "none";
     }
 
