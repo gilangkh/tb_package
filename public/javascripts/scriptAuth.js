@@ -29,16 +29,18 @@ function login() {
         let token = result.token
         if (token) {
           // Jika login berhasil, alihkan ke halaman "/produk" dan simpan token di session storage
-          window.location = "/produk";
+          window.location = "/home";
           sessionStorage.setItem('token', token);
         } else {
           // Jika login gagal, tampilkan pesan kesalahan
           const error = result.response.error;
-          console.log(error);
+          alert(result.error)
+          console.log("gagal",error);
           alert(error);
         }
       })
       .catch(error => console.log('error', error));
+      alert("internal server error")
   });
 }
 
