@@ -58,6 +58,8 @@ function createUser() {
     })
     .then(result => {
       // Tindakan selanjutnya setelah respons berhasil
+      alert("login berhasil")
+      window.location="/login"
       console.log(result);
     })
     .catch(error => {

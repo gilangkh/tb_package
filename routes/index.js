@@ -26,8 +26,9 @@ const storage = multer.diskStorage({
 });
 const filter = (req, file, cb) => {
   if (
-    file.mimetype === 'application/msword'||
-    file.mimetype === 'application/pdf'
+    file.mimetype === 'image/png'||
+    file.mimetype === 'image/jpg'||
+    file.mimetype ==='image/jpeg'
      ) {
     cb(null, true);
   } else {
@@ -43,9 +44,9 @@ const upload = multer({
 
 router.post('/login', login)
 
+router.post('/user/create', upload.single('picture'), createUser)
 /* GET home page. */
 
-router.post('/user/create', upload.single('picture'), createUser)
 
 router.use(authenticateToken)
 router.get('/test',test)
