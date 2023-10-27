@@ -259,7 +259,7 @@ function displayDetailProduk() {
     headers:myHeaders
   };
 
-  fetch("http://localhost:3000/detailProduk", requestOptions)
+  fetch("http://localhost:  3000/detailProduk", requestOptions)
     .then(response => response.json()) // Assuming the response is in JSON format
     .then(data => {
 

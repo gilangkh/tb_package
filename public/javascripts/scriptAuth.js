@@ -28,7 +28,7 @@ function login() {
         console.log(result);
         let token = result.token
         if (token) {
-          alert(result.success)
+          alert(result.message)
           window.location = "/home";
           sessionStorage.setItem('token', token);
         } else {
