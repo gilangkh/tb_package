@@ -5,7 +5,7 @@ const Produk = sequelize.define(
   "Produk", 
   {
     produk_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
       autoIncrement:true

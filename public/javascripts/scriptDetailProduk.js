@@ -38,13 +38,13 @@ function getAllDetailProduk() {
         detailButton.className = "btn btn-warning";
 
         const produkLink = document.createElement("a");
-        produkLink.textContent = "Deliver";
+        produkLink.textContent = "Produk";
         produkLink.className = "btn btn-info rounded-pill";
-        produkLink.href = '/delivery';
+        produkLink.href = '/produk';
         const ukuranLink = document.createElement("a");
-        ukuranLink.textContent = "Deliver";
+        ukuranLink.textContent = "Size";
         ukuranLink.className = "btn btn-info rounded-pill";
-        ukuranLink.href = '/delivery';
+        ukuranLink.href = '/ukuran';
         const raw = document.createElement('div')
         raw.className = 'flex-detail'
 

@@ -44,7 +44,7 @@ function getAllProducts() {
           document.getElementById("yModal").style.display = "block";
           document.getElementById("produk_img").src = `/images/${produk.gambar_produk}`
           document.getElementById("imgForm").addEventListener("submit", (event) => {
-           const fileInput = document.getElementById("inputImg")
+            const fileInput = document.getElementById("inputImg")
             event.preventDefault();
 
             var formdata = new FormData();
@@ -55,14 +55,14 @@ function getAllProducts() {
               method: 'POST',
               body: formdata,
               redirect: 'follow',
-              headers : myHeaders
+              headers: myHeaders
             };
 
-            fetch( `http://localhost:3000/product/${produk.produk_id}/updateImg`, requestOptions)
+            fetch(`http://localhost:3000/product/${produk.produk_id}/updateImg`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result)
-              
+
                 document.getElementById("yModal").style.display = "none"
                 localStorage.setItem("flashMessage", result.success);
                 location.reload()
@@ -95,7 +95,7 @@ function getAllProducts() {
 
             var updateHeaders = new Headers();
             updateHeaders.append("Content-Type", "application/json");
-            
+
             updateHeaders.append('authorization', 'Bearer ' + token)
             var raw = JSON.stringify({
               "nama_produk": nama_produk.value,
@@ -124,7 +124,7 @@ function getAllProducts() {
 
               })
               .catch(error => console.log('error', error));
-            console.log(produk.nama_produk, ", id: ", produk_id)
+        
 
           })
 
@@ -135,7 +135,7 @@ function getAllProducts() {
             var requestOptions = {
               method: 'POST',
               redirect: 'follow',
-              headers : myHeaders
+              headers: myHeaders
             };
 
             fetch(`http://localhost:3000/product/${produk_id}/delete`, requestOptions)
@@ -155,7 +155,6 @@ function getAllProducts() {
 
         });
 
-        console.log("Detail button clicked for product: ", produk.nama_produk, " id =", produk.produk_id);
 
 
         action.appendChild(detailButton);
@@ -182,50 +181,52 @@ function getAllProducts() {
 
 function createProduct() {
   const createProduk = document.getElementById("createProduk");
-  createProduk.addEventListener("submit", (event) => {
+  createProduk.addEventListener("submit", async (event) => {
     event.preventDefault(); // Mencegah tindakan default formulir
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "multipart/form-data"); // Ganti Content-Type
-    myHeaders.append('authorization', 'Bearer ' + token)
+    let token = sessionStorage.getItem('token'); // Ganti dengan token yang sesuai
+
+    // Mengambil data dari elemen formulir
     let produk_id = document.getElementById("produk_id").value;
     let nama_produk = document.getElementById("nama_produk").value;
     let deskripsi = document.getElementById("deskripsi").value;
     let fileInput = document.getElementById("gambar_produk");
 
-    var formData = new FormData(); // Perbaiki penulisan
-    formData.append("produk_id", produk_id);
-    formData.append("nama_produk", nama_produk);
-    formData.append("deskripsi", deskripsi);
-    formData.append("gambar_produk", fileInput.files[0]);
+    var myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer ' + token);
+
+    var formdata = new FormData();
+    formdata.append("produk_id", produk_id);
+    formdata.append("nama_produk",  nama_produk);
+    formdata.append("deskripsi", deskripsi);
+    formdata.append("gambar_produk", fileInput.files[0]);
 
     var requestOptions = {
       method: 'POST',
-      body: formData,
-      redirect: 'follow',
-      headers:myHeaders
+      headers: myHeaders,
+      body: formdata,
+      redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/product/create", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        if (result.success) {
-          localStorage.setItem("flashMessage", result.success);
+    try {
+      const response = await fetch("http://localhost:3000/product/create", requestOptions);
+      const result = await response.json();
+      console.log(result);
 
-          // Melakukan reload halaman
-          location.reload();
-        } else if (result.error) {
-          result.error
-        }
-      })
-      .catch(error => {
-        console.log('error', error);
-        alert(error);
-      });
+      if (result.success) {
+        localStorage.setItem("flashMessage", result.success);
+
+        // Melakukan reload halaman
+        location.reload();
+      } else if (result.error) {
+        alert("Gagal: " + result.error);
+      }
+    } catch (error) {
+      console.log('error', error);
+      alert("Terjadi kesalahan: " + error);
+    }
   });
 }
-
 
 
 

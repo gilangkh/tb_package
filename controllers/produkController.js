@@ -19,7 +19,6 @@ const createProduct = async (req, res) => {
     const {produk_id, nama_produk, deskripsi, } = req.body;
     const gambar_produk = req.file.filename
     const newProduct = await Produk.create({
-      
       produk_id:produk_id,
       nama_produk: nama_produk,
       deskripsi: deskripsi,

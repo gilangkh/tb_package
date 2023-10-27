@@ -25,10 +25,10 @@ function login() {
     fetch("http://localhost:3000/login", requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result.token);
+        console.log(result);
         let token = result.token
         if (token) {
-          // Jika login berhasil, alihkan ke halaman "/produk" dan simpan token di session storage
+          alert(result.success)
           window.location = "/home";
           sessionStorage.setItem('token', token);
         } else {
@@ -40,7 +40,7 @@ function login() {
         }
       })
       .catch(error => console.log('error', error));
-      alert("internal server error")
+      alert("internal server error",error)
   });
 }
 
