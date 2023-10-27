@@ -1,5 +1,4 @@
 
-let token = sessionStorage.getItem('token')
 
 function getAllJenisPengiriman() {
   var myHeaders = new Headers();
