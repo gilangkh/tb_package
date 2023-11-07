@@ -42,7 +42,7 @@ const createProduct = async (req, res) => {
       const produk_id = req.params.product_id;
       let data = req.body;
 
-      const product = await Produk.findOne(produk_id);
+      const product = await Produk.findOne({where:{produk_id}});
 
       if (!product) {
         let response = {

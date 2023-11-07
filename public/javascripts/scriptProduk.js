@@ -219,7 +219,7 @@ function createProduct() {
         // Melakukan reload halaman
         location.reload();
       } else if (result.error) {
-        alert("Gagal: " + result.error);
+        alert("Gagal: " + result.error + "coba ganti id lainc");
       }
     } catch (error) {
       console.log('error', error);

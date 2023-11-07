@@ -3,15 +3,15 @@ var router = express.Router();
 
 const { login } = require('../controllers/AuthController')
 
-const { getAllUser, createUser, updateUser, deleteUser } = require('../controllers/UserController')
+const { getAllUser, createUser, updateUser, deleteUser, profileUser, updateProfile, updatePassword } = require('../controllers/UserController')
 const { getAllOrder, updateOrder, createOrder, deleteOrder, test, Invoice, getAllOrderHistory } = require('../controllers/orderController')
 const { getAllProducts, updateProduct, createProduct, deleteProduct, updateProductImg, getOneProduk } = require('../controllers/produkController');
 const { getAllPengiriman, updatePengiriman, createPengiriman, deletePengiriman } = require('../controllers/pengirimanController');
 const { getAllSizes, updateSize, createSize, deleteSize } = require('../controllers/ukuranController');
 const { getAllJenisPengiriman, updateJenisPengiriman, createJenisPengiriman, deleteJenisPengiriman } = require('../controllers/jenisPengirimanController');
-const { getAllDetailProduk, updateDetailProduk, createDetailProduk, deleteDetailProduk, DetailOneProduk, DetailItemProduk } = require('../controllers/detailProdukController');
+const { getAllDetailProduk, updateDetailProduk, createDetailProduk, deleteDetailProduk, DetailOneProduk, DetailItemProduk, cartProduk } = require('../controllers/detailProdukController');
 const { getAllDetailPengiriman, updateDetailPengiriman, createDetailPengiriman, deleteDetailPengiriman, getDistrikPengiriman } = require('../controllers/detailPengirimanController');
-const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder, getUserLogin, updateUserLogin, getAllDetailOrderDone, getAllDetailOrderInvoice } = require('../controllers/detailOrderController');
+const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder, getUserLogin, updateUserLogin, getAllDetailOrderDone, getAllDetailOrderInvoice, keranjang } = require('../controllers/detailOrderController');
 const { getAllPayments, createPayment, updatePayment, deletePayment } = require('../controllers/pembayaranController');
 const { authenticateToken, isAdmin } = require('../middleware/authToken')
 const multer = require('multer')
@@ -104,12 +104,15 @@ router.post("/detailProduk/:produk_id/:ukuran_id/delete", deleteDetailProduk)
 router.get("/detailProduk/:produk_id", DetailOneProduk)
 router.get("/detailProduk/:produk_id/:size", DetailItemProduk)
 
-router.get('/order/detail',getAllDetailOrder)
+router.get('/order/detail',keranjang)
 router.get('/order/detail/invoice',getAllDetailOrderInvoice)
 router.get('/order/detail/:order_id',getAllDetailOrderDone)
 router.post('/order/delete',deleteDetailOrder)
 
 
+router.get('/profileUser',profileUser)
+router.post('/updateProfile',updateProfile)
+router.post('/updatePassword',updatePassword)
 
 
 module.exports = router;

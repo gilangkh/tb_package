@@ -259,7 +259,7 @@ function displayDetailProduk() {
     headers:myHeaders
   };
 
-  fetch("http://localhost:  3000/detailProduk", requestOptions)
+  fetch("http://localhost:3000/detailProduk", requestOptions)
     .then(response => response.json()) // Assuming the response is in JSON format
     .then(data => {
 
@@ -328,7 +328,7 @@ function displayDetailItem() {
       data.forEach(detail => {
         // Buat elemen-elemen HTML
         const barangItem = document.createElement("a");
-        barangItem.href = `/barang/detail?produk_id=${detail.produk_id}&ukuran_id=${detail.ukuran_id}`
+        barangItem.href = `/barang/${detail.produk_id}`
         barangItem.className = "barang-item";
 
         const row = document.createElement("div");

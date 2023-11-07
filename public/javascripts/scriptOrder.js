@@ -1,30 +1,33 @@
+/** @format */
 
-const token = sessionStorage.getItem('token')
+const token = sessionStorage.getItem("token");
 
 function getAllOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
+    method: "GET",
+    redirect: "follow",
     headers: myHeaders,
   };
 
   fetch(url + "/order", requestOptions)
-    .then(response => response.json())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+    .then((response) => response.json())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 function createOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   let pembayaran_id = document.getElementById("pembayaran_id").value;
   let user_id = document.getElementById("user_id").value;
   let pengiriman_id = document.getElementById("pengiriman_id").value;
-  let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
+  let jenis_pengiriman_id = document.getElementById(
+    "jenis_pengiriman_id"
+  ).value;
   let desain_produk = document.getElementById("desain_produk").value;
   let tanggal_order = document.getElementById("tanggal_order").value;
   let status_order = document.getElementById("status_order").value;
@@ -41,28 +44,30 @@ function createOrder() {
   formData.append("tanggal_bayar", tanggal_bayar);
 
   var requestOptions = {
-    method: 'POST',
+    method: "POST",
     headers: myHeaders,
     body: formData,
-    redirect: 'follow'
+    redirect: "follow",
   };
 
-  fetch(url + "/order/create", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+  fetch("http://localhost:3000/order/create", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 function updateOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
 
   let order_id = document.getElementById("order_id").value;
   let pembayaran_id = document.getElementById("pembayaran_id").value;
   let user_id = document.getElementById("user_id").value;
   let pengiriman_id = document.getElementById("pengiriman_id").value;
-  let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
+  let jenis_pengiriman_id = document.getElementById(
+    "jenis_pengiriman_id"
+  ).value;
   let desain_produk = document.getElementById("desain_produk").value;
   let tanggal_order = document.getElementById("tanggal_order").value;
   let status_order = document.getElementById("status_order").value;
@@ -79,72 +84,72 @@ function updateOrder() {
   formData.append("tanggal_bayar", tanggal_bayar);
 
   var requestOptions = {
-    method: 'POST',
+    method: "POST",
     headers: myHeaders,
     body: formData,
-    redirect: 'follow'
+    redirect: "follow",
   };
 
-  fetch(url + `/order/${order_id}/update`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+  fetch(`http://localhost:3000/order/${order_id}/update`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 function deleteOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   let order_id = document.getElementById("order_id").value;
 
   var requestOptions = {
-    method: 'POST',
+    method: "POST",
     headers: myHeaders,
-    redirect: 'follow'
+    redirect: "follow",
   };
 
   fetch(url + `/order/${order_id}/delete`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
-
 
 function itemOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers: myHeaders
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
-  var url = new URL(window.location.href)
-  var produk_id = url.searchParams.get("produk_id");
+
+  const produk_id = window.location.pathname.split("/")[2];
+
   var ukuran_id = null; // Untuk menyimpan ukuran_id yang akan diambil
 
   fetch(`http://localhost:3000/detailProduk/${produk_id}`, requestOptions)
-    .then(response => response.json())
-    .then(data => {
-      const listSize = document.getElementById('listSize'); // Get the container
+    .then((response) => response.json())
+    .then((data) => {
+      const listSize = document.getElementById("listSize"); // Get the container
 
       // Create a unique name for the radio button group
-      const groupName = 'sizeGroup';
+      const groupName = "sizeGroup";
 
       // Loop through the data and create radio buttons with labels
-      data.forEach((size,) => {
-        const radioButton = document.createElement('div');
-        radioButton.classList.add('form-check', 'my');
+      data.forEach((size) => {
+        const radioButton = document.createElement("div");
+        radioButton.classList.add("form-check", "my");
 
-        const inputElement = document.createElement('input');
-        inputElement.classList.add('form-check-input');
-        inputElement.type = 'radio';
+        const inputElement = document.createElement("input");
+        inputElement.classList.add("form-check-input");
+        inputElement.type = "radio";
         inputElement.name = groupName;
         inputElement.value = size.Ukuran.ukuran;
         inputElement.id = size.ukuran_id;
 
-        const labelElement = document.createElement('label');
-        labelElement.classList.add('form-check-label');
+        const labelElement = document.createElement("label");
+        labelElement.classList.add("form-check-label");
         labelElement.htmlFor = size.ukuran_id;
         labelElement.textContent = size.Ukuran.ukuran;
 
@@ -152,107 +157,61 @@ function itemOrder() {
         radioButton.appendChild(labelElement);
 
         // Menambahkan event listener untuk mengambil ukuran_id saat input radio dicek
-        inputElement.addEventListener('change', () => {
+        inputElement.addEventListener("change", () => {
           ukuran_id = size.ukuran_id;
-          const ukuraasdn_id = document.getElementById("size_id")
+          const ukuraasdn_id = document.getElementById("size_id");
           ukuraasdn_id.value = size.ukuran_id;
 
-
           var requestOptions = {
-            method: 'GET',
-            redirect: 'follow',
-            headers: myHeaders
+            method: "GET",
+            redirect: "follow",
+            headers: myHeaders,
           };
 
-          fetch(`http://localhost:3000/detailProduk/${produk_id}/${ukuran_id}`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-
-              const harga = document.getElementById("harga")
-              harga.innerHTML = `Rp ${result.harga}/pcs`
-              const total = document.getElementById('total')
-              total.innerHTML = `Rp ${result.harga}`
+          fetch(
+            `http://localhost:3000/detailProduk/${produk_id}/${ukuran_id}`,
+            requestOptions
+          )
+            .then((response) => response.json())
+            .then((result) => {
+              const harga = document.getElementById("harga");
+              harga.innerHTML = `Rp ${result.harga}/pcs`;
+              const total = document.getElementById("total");
+              total.innerHTML = `Rp ${result.harga}`;
             })
-            .catch(error => console.log('error', error));
-
-
-
+            .catch((error) => console.log("error", error));
         });
 
         listSize.appendChild(radioButton);
       });
     })
-    .catch(error => console.log('error', error));
+    .catch((error) => console.log("error", error));
 
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
 
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers: myHeaders
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
 
   fetch(`http://localhost:3000/product/${produk_id}`, requestOptions)
-    .then(response => response.json())
-    .then(result => {
-
-      const nama_produk = document.getElementById('nama_produk')
-      const nama = document.getElementById('nama')
-      const img = document.getElementById('gambar_barang')
-      const deskripsi = document.getElementById('deskripsi')
-      nama_produk.innerHTML = result.nama_produk
-      nama.innerHTML = result.nama_produk
-      img.src = `/images/${result.gambar_produk}`
-      deskripsi.innerHTML = result.deskripsi
-      document.title = `Barang | ${result.nama_produk}`
+    .then((response) => response.json())
+    .then((result) => {
+      const nama_produk = document.getElementById("nama_produk");
+      const nama = document.getElementById("nama");
+      const img = document.getElementById("gambar_barang");
+      const deskripsi = document.getElementById("deskripsi");
+      nama_produk.innerHTML = result.nama_produk;
+      nama.innerHTML = result.nama_produk;
+      img.src = `/images/${result.gambar_produk}`;
+      deskripsi.innerHTML = result.deskripsi;
+      document.title = `Barang | ${result.nama_produk}`;
     })
-    .catch(error => console.log('error', error));
+    .catch((error) => console.log("error", error));
 
   // Setelah memilih ukuran_id, Anda dapat menggunakannya dalam permintaan selanjutnya
-
 }
 
-function creteTheOrder() {
-  document.getElementById('order').addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    var myHeaders = new Headers();
-    myHeaders.append('authorization', 'Bearer ' + token)
-    myHeaders.append("Content-Type", "application/json");
-
-    let url = new URL(window.location.href)
-    let produk_id = url.searchParams.get("produk_id")
-
-    const ukuran_id = document.getElementById("size_id").value
-    const jumlah = document.getElementById('jumlah').value
-    var raw = JSON.stringify({
-      "jumlah_pesanan": jumlah
-    });
-
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-
-    fetch(`http://localhost:3000/order/create/${produk_id}/${ukuran_id}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        if (result.success) {
-          localStorage.setItem("flashMessage", result.success);
-
-          location.reload();
-        } else if (result.error) {
-          result.error
-        }
-      })
-      .catch(error => {
-        console.log('error', error)
-        alert(error)
-      });
-  })
-}

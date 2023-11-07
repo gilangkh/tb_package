@@ -3,6 +3,7 @@ const {  DetailOrder, } = require("../models/relation");
 const  User= require('../models/userModel')
 const Order= require("../models/orderModel")// Import model "DetailOrder" yang telah Anda definisikan
 const { DetailProduk, Produk, Ukuran, } = require("../models/relation");
+const { Sequelize } = require("sequelize");
 
 const success = "Data berhasil ditambahkan";
 const err = "Internal Server Error";
@@ -238,7 +239,36 @@ const updateUserLogin = async (req,res)=>{
   }
 
 }
+const keranjang = async (req, res) => {
+  try {
+
+    const detailOrders = await DetailOrder.findAll({
+      include: [
+
+        {
+          model: Order,
+          where: { status_order: "menunggu" },
+          include: [
+            {
+              model: User,
+              where: { user_id: req.user.user_id }
+            }
+          ]
+        }
+      ],
+    });
+
+    
+    
+    
+    
+    console.log(detailOrders);
+    res.status(200).json(detailOrders);
+  } catch (error) {
+    console.log("getAllDetailOrderError = " + error);
+    res.status(500).json({ error: err });
+  }
+};
 
 
-
-module.exports = {getAllDetailOrderInvoice,getAllDetailOrderDone,updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };
+module.exports = {keranjang,getAllDetailOrderInvoice,getAllDetailOrderDone,updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };

@@ -1,7 +1,9 @@
+/** @format */
+
 body {
   background-color: #9c795c;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .content {
@@ -11,7 +13,7 @@ body {
 .header {
   width: 100%;
   height: 50px;
-  background: #FFF;
+  background: #fff;
   font-size: 100px;
   display: flex;
   box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
@@ -26,7 +28,7 @@ body {
 .header-g {
   width: 100%;
   height: 50px;
-  background: #FFF;
+  background: #fff;
   font-size: 100px;
   box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
 }
@@ -39,7 +41,7 @@ body {
 
 .header-g a {
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -57,17 +59,15 @@ body {
 
 .header-1 {
   color: #090973;
-  ;
 }
 
 .header-2 {
-  color: #EF9F22;
-  ;
+  color: #ef9f22;
 }
 
 .button {
   border-radius: 32px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   color: black;
   font-style: normal;
@@ -75,10 +75,10 @@ body {
 }
 
 .button-item {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   background: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
 }
 
@@ -89,32 +89,29 @@ body {
 .button a {
   font-size: 20px;
   text-decoration: none;
-  color: #46351D;
-  ;
-  font-family: 'Poppins', sans-serif;
+  color: #46351d;
+  font-family: "Poppins", sans-serif;
 }
 
 .button-a {
   text-decoration: none;
-  color: #46351D;
-  ;
-  font-family: 'Poppins', sans-serif;
+  color: #46351d;
+  font-family: "Poppins", sans-serif;
 }
 
 .button-item button {
-  color: #FFF;
+  color: #fff;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 22px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 }
 
-
 .greeting {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 50px;
   font-style: normal;
   font-weight: 800;
@@ -135,21 +132,20 @@ body {
   height: 180px;
   display: flex;
   border-radius: 30px;
-  border: 6px solid #FFF;
+  border: 6px solid #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
-  background: url('/images/diskon.png') lightgray 50% / cover no-repeat;
+  background: url("/images/diskon.png") lightgray 50% / cover no-repeat;
   color: #fff;
   text-align: center;
   justify-content: center;
   gap: 30px;
-
 }
 
 .diskon-caption {
-
-  text-shadow: 1.2654134035110474px 2.5308268070220947px 2.5308268070220947px rgba(0, 0, 0, 0.25);
-  font-family: 'Poppins', sans-serif;
+  text-shadow: 1.2654134035110474px 2.5308268070220947px 2.5308268070220947px
+    rgba(0, 0, 0, 0.25);
+  font-family: "Poppins", sans-serif;
   font-size: 60px;
   font-style: normal;
   font-weight: 700;
@@ -162,15 +158,14 @@ body {
 }
 
 .diskon-value {
-
-  text-shadow: 1.2654134035110474px 2.5308268070220947px 2.5308268070220947px rgba(0, 0, 0, 0.25);
-  font-family: 'Poppins', sans-serif;
+  text-shadow: 1.2654134035110474px 2.5308268070220947px 2.5308268070220947px
+    rgba(0, 0, 0, 0.25);
+  font-family: "Poppins", sans-serif;
   font-size: 140px;
   font-weight: 700;
   line-height: normal;
   display: flex;
   gap: 40px;
-
 }
 
 .off {
@@ -188,9 +183,15 @@ body {
   height: 374px;
 
   border-radius: 30px;
-  background: linear-gradient(92deg, #090973 -15.8%, #C2C2FF 9.79%, #FFF 52.3%, #EF9F22 104.15%);
+  background: linear-gradient(
+    92deg,
+    #090973 -15.8%,
+    #c2c2ff 9.79%,
+    #fff 52.3%,
+    #ef9f22 104.15%
+  );
   border-radius: 30px;
-  border: 6px solid #FFF;
+  border: 6px solid #fff;
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -207,9 +208,9 @@ body {
   margin: 10px;
   padding: 20px;
   border-radius: 32px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  background: url('/images/Star5.png');
+  background: url("/images/Star5.png");
 }
 
 .produk-name {
@@ -219,7 +220,6 @@ body {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-
 }
 
 .produk-prize {
@@ -268,29 +268,28 @@ body {
   height: 229px;
 
   border-radius: 32px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .barang-detail1 {
   width: 120px;
-  height: 220PX;
+  height: 220px;
 
-  background: url('/images/Star5.png');
+  background: url("/images/Star5.png");
   background-size: 190px;
 }
 
 .barang-detail1 img {
   width: 150px;
-  height: 180PX;
-  background: none
+  height: 180px;
+  background: none;
 }
 
 .barang-detail2 {
   width: 120px;
   height: 220px;
   padding: 30px;
-
 }
 
 .search {
@@ -299,22 +298,18 @@ body {
 }
 
 .path {
-
   display: flex;
   gap: 30px;
 }
 
 .path-name {
-  color: #FFBD56;
+  color: #ffbd56;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 21px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-
-
-  ;
 }
 
 .path-before {
@@ -333,7 +328,7 @@ body {
   width: 520.943px;
   height: 349.981px;
   border-radius: 32px;
-  background: url('/images/Star5.png');
+  background: url("/images/Star5.png");
   background-size: 510px;
   background-position: 10px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -343,16 +338,14 @@ body {
 }
 
 .detail-img img {
-
   background-color: none;
   width: 380.102px;
   height: 220.93px;
-
 }
 
 .size-name {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 36px;
   font-style: normal;
   font-weight: 600;
@@ -363,7 +356,7 @@ body {
 .size-price {
   color: #090973;
   text-align: right;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -376,10 +369,10 @@ body {
   height: 223px;
 
   border-radius: 32px;
-  background: #FFEDCE;
+  background: #ffedce;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .detail-brg h1 {
@@ -391,7 +384,7 @@ body {
   height: 538px;
   margin: 50px;
   border-radius: 32px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -406,7 +399,7 @@ body {
 
 .count h1 {
   align-items: justify;
-  color: #FFF;
+  color: #fff;
   font-family: Poppins;
   font-size: 24px;
   font-style: normal;
@@ -431,7 +424,7 @@ body {
   height: 41px;
   flex-shrink: 0;
   border-radius: 32px;
-  background: linear-gradient(270deg, #FFF 44.49%, rgba(255, 255, 255, 0.00) 100%);
+  background: linear-gradient(270deg, #fff 44.49%, rgba(255, 255, 255, 0) 100%);
 }
 
 .flex-cart {
@@ -441,7 +434,7 @@ body {
 
 .cart-title {
   color: #090973;
-  font-family: 'Poppins' sans-serif;
+  font-family: "Poppins" sans-serif;
   font-size: 64px;
   font-style: normal;
   font-weight: 700;
@@ -454,15 +447,14 @@ body {
   height: 135px;
   flex-shrink: 0;
   border-radius: 32px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #090973;
-  font-family: 'Poppins' sans-serif;
+  font-family: "Poppins" sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: 19px;
-
 }
 
 .table-cart th {
@@ -481,7 +473,7 @@ thead {
 
 .table-cart-head {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 24px;
   font-style: normal;
   line-height: 19px;
@@ -489,7 +481,7 @@ thead {
 }
 
 .tabel-count {
-  color: #EF9F22;
+  color: #ef9f22;
   font-family: "Poppins", sans-serif;
   font-size: 24px;
   font-style: normal;
@@ -506,7 +498,7 @@ thead {
   background: #090973;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 20px;
-  color: #FFF;
+  color: #fff;
 }
 
 .flex-tax {
@@ -519,10 +511,10 @@ thead {
   height: 41px;
   flex-shrink: 0;
   border-radius: 32px;
-  background: linear-gradient(270deg, #FFF 44.49%, rgba(255, 255, 255, 0.00) 100%);
+  background: linear-gradient(270deg, #fff 44.49%, rgba(255, 255, 255, 0) 100%);
   color: #090973;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -575,8 +567,6 @@ thead {
   padding: 0.5rem 1rem;
 }
 
-
-
 .close {
   cursor: pointer;
 }
@@ -615,11 +605,9 @@ thead {
 }
 
 .success {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   /* Warna latar belakang hijau */
-
 }
-
 
 .img-detail {
   display: flex;
@@ -631,14 +619,12 @@ thead {
 
 .size-input {
   display: flex;
-  flex-basis: auto
+  flex-basis: auto;
 }
 
 .flex-deliver {
-
   padding: 50px;
   margin: 0 50px;
-
 }
 
 .flex-detail {
@@ -647,7 +633,8 @@ thead {
   justify-content: space-evenly;
 }
 
-.addPayment {}
+.addPayment {
+}
 
 .flex-payment {
   display: flex;
@@ -657,7 +644,7 @@ thead {
 
 .pay-name {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
@@ -669,7 +656,7 @@ thead {
 .pay-item {
   width: 300px;
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -678,9 +665,9 @@ thead {
 }
 
 .pay-btn {
-  color: #EF9F22;
+  color: #ef9f22;
   text-align: right;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 300;
@@ -695,7 +682,7 @@ thead {
 }
 
 .pay-back {
-  color: #EF9F22;
+  color: #ef9f22;
   font-family: Poppins;
   font-size: 20px;
   font-style: normal;
@@ -709,10 +696,10 @@ thead {
   height: 41px;
   flex-shrink: 0;
   border-radius: 32px;
-  background: linear-gradient(270deg, #EF9F22 5.33%, #FFEDCE 104.41%);
-  color: #FFF;
+  background: linear-gradient(270deg, #ef9f22 5.33%, #ffedce 104.41%);
+  color: #fff;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -726,7 +713,7 @@ thead {
   align-items: center;
   color: #090973;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -736,7 +723,7 @@ thead {
   height: 41px;
   flex-shrink: 0;
   border-radius: 32px;
-  background: linear-gradient(270deg, #FFF 44.49%, rgba(255, 255, 255, 0.00) 100%);
+  background: linear-gradient(270deg, #fff 44.49%, rgba(255, 255, 255, 0) 100%);
 }
 
 .padding {
@@ -746,7 +733,7 @@ thead {
 
 .list-shipping {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -771,7 +758,6 @@ thead {
   flex-shrink: 0;
   font-family: "Poppins", sans-serif;
   color: #090973;
-  ;
   font-size: 50px;
   font-weight: 800px;
 }
@@ -794,7 +780,7 @@ thead {
 
 .bukti-title h1 {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 36px;
   font-style: normal;
   font-weight: 600;
@@ -805,7 +791,7 @@ thead {
 
 .bukti-title p {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -819,23 +805,20 @@ thead {
   margin: 0 30px 30px;
 }
 
-
-
 .order-id h5 {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
   line-height: 19px;
   margin-bottom: 15px;
-
 }
 
 .order-id p {
   color: #090973;
   text-align: right;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -848,7 +831,7 @@ thead {
 
 .shipping p {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -861,7 +844,7 @@ thead {
 
 .shipping-item p {
   color: #090973;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -886,7 +869,7 @@ thead {
 
 .detail-item-produk {
   margin: 0 30px 30px;
-  color: #EF9F22;
+  color: #ef9f22;
   text-align: center;
   font-size: 20px;
   font-style: normal;
@@ -903,7 +886,7 @@ thead {
   width: 175.722px;
   height: 175.722px;
   border-radius: 32px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: relative;
 }
@@ -930,7 +913,6 @@ thead {
   gap: 30px;
   align-items: center;
   justify-content: left;
-
 }
 
 .img-text {
@@ -941,7 +923,7 @@ thead {
 }
 
 .img-text h1 {
-  color: #EF9F22;
+  color: #ef9f22;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -949,7 +931,7 @@ thead {
 }
 
 .img-text p {
-  color: #EF9F22;
+  color: #ef9f22;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -974,7 +956,7 @@ thead {
 }
 
 .content-end-order {
-  color: #EF9F22;
+  color: #ef9f22;
   text-align: right;
   font-size: 20px;
   font-style: normal;
@@ -996,7 +978,7 @@ thead {
 }
 
 .end-total p {
-  color: #EF9F22;
+  color: #ef9f22;
   text-align: right;
   font-size: 20px;
   font-style: normal;
@@ -1021,7 +1003,7 @@ thead {
 }
 
 .close-item {
-  color: #EF9F22;
+  color: #ef9f22;
   text-align: right;
   font-size: 20px;
   font-style: normal;
@@ -1040,7 +1022,7 @@ thead {
   width: 986px;
   height: 116px;
   border-radius: 32px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: space-between;
@@ -1085,13 +1067,12 @@ thead {
 }
 
 .link-history {
-  color: #EF9F22;
+  color: #ef9f22;
   text-align: right;
   font-size: 20px;
   font-style: normal;
   font-weight: 300;
   line-height: 19px;
-
 }
 
 .new-head {
@@ -1101,7 +1082,7 @@ thead {
   align-items: center;
   width: 100%;
   height: 50px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -1158,20 +1139,15 @@ thead {
   padding: 12px 0px;
   text-decoration: none;
   display: block;
-  color: #C2C2FF;
+  color: #c2c2ff;
   padding-right: 30px;
-
-
-
 }
 
 .dropdown-content li button {
   border: none;
-  font-family:"Poppins", sans-serif;
-  font-weight: 700; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
 }
-
-
 
 .dropdown-btn:focus + .dropdown-content {
   display: block;
@@ -1183,4 +1159,85 @@ thead {
   border-radius: 60%;
   border: none;
   cursor: pointer;
+}
+
+.flex-profile {
+  display: flex;
+}
+.row.img-profile {
+  padding-right: 0;
+}
+.img-profile img {
+  width: 249px;
+  height: 249px;
+  border-radius: 249px;
+  border: 2px solid #090973;
+  background: url(<path-to-image>), lightgray 50% / cover no-repeat;
+  padding: 0;
+}
+
+.profiles {
+  margin: 100px 150px;
+  display: flex;
+  gap: 50px;
+}
+
+.profile-status {
+  margin-top: 30px;
+  width: 850px;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px;
+}
+
+.profile-status span {
+  color: #ef9f22;
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.profile-status p {
+  color: #b4b4b4;
+  text-align: right;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.edit-profile {
+  width: 272px;
+  height: 41px;
+  flex-shrink: 0;
+  border-radius: 32px;
+  background: linear-gradient(
+    270deg,
+    #ef9f22 44.49%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  color: #fff;
+  text-align: center;
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-decoration: none;
+  justify-content: right;
+}
+.profiles-status {
+  margin-top: 30px;
+  width: 900px;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  justify-content: right;
+}
+
+.profile-status button {
+  color: #fff;
+  margin-bottom: 20px;
+
 }

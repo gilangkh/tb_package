@@ -141,6 +141,9 @@ const DetailOneProduk = async (req, res) => {
 
   }
 }
+
+
+
 const DetailItemProduk = async (req, res) => {
   try {
     const produk = req.params.produk_id;

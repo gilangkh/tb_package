@@ -11,6 +11,9 @@ router.get('/', function(req, res, next) {
 router.get('/login', (req, res, next)=> {
   res.sendFile(link+"login.html")
 });
+router.get('/profile', (req, res, next)=> {
+  res.sendFile(link+"profile.html")
+});
 
 router.get('/register',(req,res)=>{
   res.sendFile(link+'register.html')
@@ -35,7 +38,7 @@ router.get('/transaksi',(req,res)=>{
 router.get('/barang',(req,res)=>{
   res.sendFile(link+'barang.html')
 })
-router.get('/barang/detail',(req,res)=>{
+router.get('/barang/:produk_id',(req,res)=>{
   res.sendFile(link+'detailBarang.html')
 })
 router.get('/keranjang',(req,res)=>{

@@ -40,7 +40,7 @@
                         <div id="harga" class="col size-price"></div>
                     </div>
                     <hr>
-                    <form id="order">
+                    <form id="bisalah">
                         <div class="row">
                             <div class="col" id="listSize">
                                 <span class="produk-name my-3">Size</span>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="col">
                                 <span class="produk-name">Quantity</span>
-                                <input class="form-control rounded-pill my-3" type="number"  name="jumlah" id="jumlah" required>
+                                <input class="form-control rounded-pill my-3" type="number" name="jumlah" id="jumlah" required>
                             </div>
                         </div>
                         <hr>
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col">
                                     <input class="form-control rounded-pill button-item" type="file" name="pilihfile"
-                                        id="pilihfile">     
+                                        id="pilihfile">
 
                                 </div>
                             </div>
@@ -72,24 +72,23 @@
                         <div class="count row  mx-3 my-2">
                             <div class="count-prize">
                                 <h1>Sub total</h1>
-                                <h1 id="total">Rp 0</h1>    
-                            <div class="button-cart">
-                                <button class="cart" type="submit">Add to Cart</button>
+                                <h1 id="total">Rp 0</h1>
+                                <div class="button-cart">
+                                    <button class="cart" type="submit">Add to Cart</button>
+                                </div>
                             </div>
+
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
-
 </body>
 <script src="../javascripts/scriptGeneral.js"></script>
 
 <script src="../javascripts/scriptOrder.js"></script>
 <script>
-    creteTheOrder();
     verived();
     generalHead();
     generalNav();
@@ -97,12 +96,44 @@
 
     itemOrder()
 
-    const sizeBarang = document.getElementById ("size")
-    sizeBarang.addEventListener('change', ()=>{
+    const sizeBarang = document.getElementById("size")
+    sizeBarang.addEventListener('change', () => {
 
         console.log("ini adalah ukuran barang = ", sizeBarang.value)
     })
 
+
+
+    document.getElementById("bisalah").addEventListener('submit', (event) => {
+        event.preventDefault()
+        var myHeaders = new Headers();
+        myHeaders.append("authorization", "Bearer " + sessionStorage.getItem("token"));
+        myHeaders.append("Content-Type", "application/json");
+    
+        const jmlPesanan = document.getElementById("jumlah").value
+
+        const produk_id = window.location.pathname.split("/")[2];
+        const ukuran_id = document.getElementById("size_id").value
+        var raw = JSON.stringify({
+            "jumlah_pesanan": jmlPesanan
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch(`http://localhost:3000/order/create/${produk_id}/${ukuran_id}`, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                localStorage.setItem("flashMessage", result.success);
+                location.reload()
+            })
+            .catch(error => console.log('error', error));
+    })
 </script>
 
 </html>

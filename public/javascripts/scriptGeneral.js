@@ -75,6 +75,7 @@ function generalHead() {
                 </svg>
             </button>
             <ul class="dropdown-content">
+                <li><a style="text-decoration :none; color:black; " href="/profile">Profile</a></li>
                 <li><button onclick="logout()">Logout</button></li>
             </ul>
         </div>

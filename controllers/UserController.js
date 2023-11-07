@@ -1,3 +1,5 @@
+/** @format */
+
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const success = "Data berhasil ditambahkan";
@@ -12,16 +14,22 @@ const getAllUser = async (req, res) => {
     console.log("getAllUserError = " + error);
   }
 };
-
+0;
 const createUser = async (req, res) => {
   try {
-    const { nama, email, password,telp, alamat,  } = req.body;
-    const picture = req.file.filename
-    const hashedPassword = await bcrypt.hash(password,10);
+    const { nama, email, password, telp, alamat } = req.body;
+    const picture = req.file.filename;
+    const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
 
     const newUser = await User.create({
-      nama,email,password: hashedPassword,status:"U",telp,alamat,picture:picture,
+      nama,
+      email,
+      password: hashedPassword,
+      status: "U",
+      telp,
+      alamat,
+      picture: picture,
     });
 
     let response = {
@@ -57,8 +65,8 @@ const updateUser = async (req, res) => {
       user.email = data.email;
       user.password = hashedPassword; // Menggunakan hashedPassword yang sudah di-hash
       user.alamat = data.alamat;
-      user.updated_at= new Date();
-      user.picture = req.file.filename  
+      user.updated_at = new Date();
+      user.picture = req.file.filename;
       await user.save();
       let response = {
         success: "Data berhasil diupdate",
@@ -102,5 +110,94 @@ const deleteUser = async (req, res) => {
     res.status(500).json(response); // Menggunakan status 500 untuk Internal Server Error
   }
 };
-//https://docs.google.com/document/d/1kb6nUP83WG7QOerfNksHncvmE1lwP7tIdnwwG0W3kAA/edit?pli=1
-module.exports = { getAllUser, createUser, updateUser, deleteUser };
+
+const profileUser = async (req, res) => {
+  try {
+    const user_id = req.user.user_id;
+
+    const user = await User.findOne({ where: { user_id } });
+
+    if (!user) {
+      res.status(404).json({ fail: "tidak ada user login" });
+    } else {
+      res.status(201).json(user);
+    }
+  } catch (error) {}
+};
+
+const updateProfile = async (req, res) => {
+  try {
+    const user_id = req.user.user_id;
+    let data = req.body;
+    const user = await User.findOne({ where: { user_id } });
+
+    if (!user) {
+      res.status(404).json({ fail: "tidak ada user login" });
+    } else {
+      user.nama = data.username;
+      user.alamat = data.alamat;
+      user.telp = data.telp;
+
+      await user.save();
+      let response = {
+        success: "Data berhasil diupdate",
+        data: user,
+      };
+      res.status(200).json(response);
+    }
+  } catch (error) {
+    let response = {
+      error: err,
+    };
+    console.log("deleteUser Error + ", error);
+    res.status(500).json(response);
+  }
+};
+
+const updatePassword = async (req,res) =>{
+  try {
+    const user_id = req.user.user_id;
+    let data = req.body;
+    const user = await User.findOne({ where: { user_id } });
+    const hashedPassword = await bcrypt.hash(data.password,10)
+    if (!user) {
+      res.status(404).json({ fail: "tidak ada user login" });
+    } else {
+
+      const matchPassword = await bcrypt.compare(data.passwordLama, user.password)
+
+      if(!matchPassword){
+        return res.status(403).json({error:"password salah"})
+      }
+      if(data.password != data.passwordBaru){
+        return res.status(403).json({error:"password baru yang dimasukkan tidak cocok"})
+      }
+
+
+      user.password = hashedPassword;
+
+      await user.save();
+      let response = {
+        success: "Data berhasil diupdate",
+        data: user,
+      };
+      res.status(200).json(response);
+    }
+  } catch (error) {
+    let response = {
+      error: err,
+    };
+    console.log("deleteUser Error + ", error);
+    res.status(500).json(response);
+  }
+}
+
+module.exports = {
+  updatePassword,
+  updateProfile,
+  profileUser,
+  getAllUser,
+  createUser,
+  updateUser,
+  deleteUser,
+};

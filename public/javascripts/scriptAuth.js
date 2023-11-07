@@ -40,7 +40,7 @@ function login() {
         }
       })
       .catch(error => console.log('error', error));
-      alert("internal server error",error)
+      alert("internal server error"+error)
   });
 }
 
