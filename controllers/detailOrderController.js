@@ -270,5 +270,26 @@ const keranjang = async (req, res) => {
   }
 };
 
+const getAllOrderInvoice = async (req, res) => {
+  try {
+    const order_id = req.params.order_id
+    const detailOrders = await DetailOrder.findAll({
+      include:[{
+        model:Order,
+        where:{status_order:"selesai",order_id:order_id},
+        include:[{
+          model:User,
+          where:{user_id:req.user.user_id}
+        }]
+      }]
+    });
+    console.log(detailOrders);
+    res.status(200).json(detailOrders);
+  } catch (error) {
+    console.log("getAllDetailOrderError = " + error);
+    res.status(500).json({ error: err });
+  }
+};
 
-module.exports = {keranjang,getAllDetailOrderInvoice,getAllDetailOrderDone,updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };
+
+module.exports = {getAllOrderInvoice,keranjang,getAllDetailOrderInvoice,getAllDetailOrderDone,updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };
