@@ -8,6 +8,7 @@ const Pembayaran = require('./pembayaranModel')
 const Order = require('./orderModel')
 const DetailOrder = require('./detailOrderModel')
 const User = require('./userModel')
+const Paket = require('./paketModel')
 
 Pengiriman.hasMany(DetailPengiriman, {
   foreignKey: { name: 'pengiriman_id', primaryKey: true },
@@ -28,8 +29,10 @@ DetailPengiriman.belongsTo(JenisPengiriman, {
 
 Produk.hasMany(DetailProduk, { foreignKey: 'produk_id' })
 Ukuran.hasMany(DetailProduk, { foreignKey: 'ukuran_id' })
+Paket.hasMany(DetailProduk, { foreignKey: 'id_paket' })
 DetailProduk.belongsTo(Produk, { foreignKey: 'produk_id' })
 DetailProduk.belongsTo(Ukuran, { foreignKey: 'ukuran_id' })
+DetailProduk.belongsTo(Paket, { foreignKey: 'id_paket' })
 
 User.hasMany(Order, { foreignKey: 'user_id' })
 Order.belongsTo(User, { foreignKey: 'user_id' })
@@ -80,6 +83,10 @@ DetailProduk.hasMany(DetailOrder, {
   foreignKey: { name: 'ukuran_id', primaryKey: true },
   sourceKey: 'ukuran_id',
 });
+DetailProduk.hasMany(DetailOrder, {
+  foreignKey: { name: 'id_paket', primaryKey: true },
+  sourceKey: 'id_paket',
+});
 DetailOrder.belongsTo(DetailProduk, {
   foreignKey: { name: 'produk_id', primaryKey: true },
   targetKey: 'produk_id',
@@ -87,6 +94,10 @@ DetailOrder.belongsTo(DetailProduk, {
 DetailOrder.belongsTo(DetailProduk, {
   foreignKey: { name: 'ukuran_id', primaryKey: true },
   targetKey: 'ukuran_id',
+});
+DetailOrder.belongsTo(DetailProduk, {
+  foreignKey: { name: 'id_paket', primaryKey: true },
+  targetKey: 'id_paket',
 });
 
 module.exports = {

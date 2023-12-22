@@ -1,23 +1,25 @@
-let token = sessionStorage.getItem('token')
+/** @format */
+
+let token = sessionStorage.getItem("token");
 
 function getAllDetailProduk() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers:myHeaders
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
 
   fetch("http://localhost:3000/detailProduk", requestOptions)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
       const detailTableBody = document.getElementById("detailTableBody");
 
       // Clear any existing rows in the table body
-      detailTableBody.innerHTML = '';
+      detailTableBody.innerHTML = "";
 
       data.forEach((detail, index) => {
         const row = document.createElement("tr");
@@ -29,135 +31,135 @@ function getAllDetailProduk() {
         cellNamaProduk.textContent = detail.Produk.nama_produk;
         const cellUkuranProduk = document.createElement("td");
         cellUkuranProduk.textContent = detail.Ukuran.ukuran;
+        const cellPaket = document.createElement("td");
+        cellPaket.textContent = detail.Paket.nama_paket;
         const cellHarga = document.createElement("td");
         cellHarga.textContent = detail.harga;
-
         const cellAction = document.createElement("td");
         const detailButton = document.createElement("button");
         detailButton.textContent = "Detail";
         detailButton.className = "btn btn-warning";
 
-        const produkLink = document.createElement("a");
-        produkLink.textContent = "Produk";
-        produkLink.className = "btn btn-info rounded-pill";
-        produkLink.href = '/produk';
-        const ukuranLink = document.createElement("a");
-        ukuranLink.textContent = "Size";
-        ukuranLink.className = "btn btn-info rounded-pill";
-        ukuranLink.href = '/ukuran';
-        const raw = document.createElement('div')
-        raw.className = 'flex-detail'
+        const raw = document.createElement("div");
+        raw.className = "flex-detail";
 
         detailButton.addEventListener("click", () => {
           document.getElementById("myModal").style.display = "block";
-          const produkLama = document.getElementById('produkLama')
-          const ukuranLama = document.getElementById('ukuranLama')
-          const hargaLama = document.getElementById('biayaLama')
+          const produkLama = document.getElementById("produkLama");
+          const ukuranLama = document.getElementById("ukuranLama");
+          const hargaLama = document.getElementById("biayaLama");
+          const newPrice = document.getElementById("newPaket");
+          newPrice.value= detail.harga
           produkLama.value = detail.Produk.nama_produk;
           ukuranLama.value = detail.Ukuran.ukuran;
-          hargaLama.value = detail.harga
+          hargaLama.value = detail.Paket.nama_paket;
 
-          document.getElementById('updateDetail').addEventListener('submit', (event) => {
-            event.preventDefault();
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            myHeaders.append('authorization', 'Bearer ' + token)
-            const mewPrice = document.getElementById('newBiaya').value
-            var raw = JSON.stringify({
-              "harga": mewPrice
+          document
+            .getElementById("updateDetail")
+            .addEventListener("submit", (event) => {
+              event.preventDefault();
+              var myHeaders = new Headers();
+              myHeaders.append("Content-Type", "application/json");
+              myHeaders.append("authorization", "Bearer " + token);
+              var raw = JSON.stringify({
+                harga: newPrice.value,
+              });
+
+              var requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow",
+              };
+
+              fetch(
+                `http://localhost:3000/detailProduk/${detail.produk_id}/${detail.ukuran_id}/${detail.id_paket}/update`,
+                requestOptions
+              )
+                .then((response) => response.json())
+                .then((result) => {
+                  console.log(result);
+                  if (result.success) {
+                    localStorage.setItem("flashMessage", result.success);
+
+                    location.reload();
+                  } else if (result.error) {
+                    result.error;
+                  }
+                })
+                .catch((error) => {
+                  console.log("error", error);
+                  alert(error);
+                  alert("gagal");
+                });
             });
 
-            var requestOptions = {
-              method: 'POST',
-              headers: myHeaders,
-              body: raw,
-              redirect: 'follow'
-            };
+          document
+            .getElementById("deleteDetail")
+            .addEventListener("submit", (event) => {
+              event.preventDefault();
 
-            fetch(`http://localhost:3000/detailProduk/${detail.produk_id}/${detail.ukuran_id}/update`, requestOptions)
-              .then(response => response.json())
-              .then(result => {
-                console.log(result);
-                if (result.success) {
-                  localStorage.setItem("flashMessage", result.success);
+              var requestOptions = {
+                method: "POST",
+                redirect: "follow",
+                headers: myHeaders,
+              };
 
-                  location.reload();
-                } else if (result.error) {
-                  result.error
-                }
-              })
-              .catch(error => {
-                console.log('error', error)
-                alert(error)
-                alert("gagal")
-              });
-          })
+              fetch(
+                `http://localhost:3000/detailProduk/${detail.produk_id}/${detail.ukuran_id}/${detail.id_paket}/delete`,
+                requestOptions
+              )
+                .then((response) => response.json())
+                .then((result) => {
+                  console.log(result);
+                  if (result.success) {
+                    localStorage.setItem("flashMessage", result.success);
 
-          document.getElementById('deleteDetail').addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            var requestOptions = {
-              method: 'POST',
-              redirect: 'follow',
-              headers:myHeaders
-            };
-
-            fetch(`http://localhost:3000/detailProduk/${detail.produk_id}/${detail.ukuran_id}/delete`, requestOptions)
-              .then(response => response.json())
-              .then(result => {
-                console.log(result);
-                if (result.success) {
-                  localStorage.setItem("flashMessage", result.success);
-
-                  location.reload();
-                } else if (result.error) {
-                  result.error
-                }
-              })
-              .catch(error => {
-                console.log('error', error)
-                alert(error)
-                alert("gagal")
-              });
-          })
+                    location.reload();
+                  } else if (result.error) {
+                    result.error;
+                  }
+                })
+                .catch((error) => {
+                  console.log("error", error);
+                  alert(error);
+                  alert("gagal");
+                });
+            });
         });
 
-        raw.appendChild(detailButton)
-        raw.appendChild(produkLink)
-        raw.appendChild(ukuranLink)
+        raw.appendChild(detailButton);
         cellAction.appendChild(raw);
         row.appendChild(cellAction);
         row.appendChild(cellNo);
         row.appendChild(cellNamaProduk);
         row.appendChild(cellUkuranProduk);
+        row.appendChild(cellPaket);
         row.appendChild(cellHarga);
         row.appendChild(cellAction);
 
         detailTableBody.appendChild(row);
       });
     })
-    .catch(error => console.log('error', error));
+    .catch((error) => console.log("error", error));
 }
 
-
 function createDetailProduk() {
-
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers:myHeaders
-
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
 
   fetch("http://localhost:3000/product", requestOptions)
-    .then(response => response.json()) // Assuming the response is JSON
-    .then(data => {
-      console.log(data)
+    .then((response) => response.json()) // Assuming the response is JSON
+    .then((data) => {
+      console.log(data);
       const produkSelect = document.getElementById("theProduk");
-      produkSelect.innerHTML = '';
+      produkSelect.innerHTML = "";
 
       const emptyOption = document.createElement("option");
       emptyOption.disabled = true;
@@ -167,28 +169,27 @@ function createDetailProduk() {
 
       produkSelect.appendChild(emptyOption);
 
-      data.forEach(product => {
+      data.forEach((product) => {
         const option = document.createElement("option");
         option.value = product.produk_id;
         option.textContent = product.nama_produk;
         produkSelect.appendChild(option);
       });
     })
-    .catch(error => console.log('error', error));
-
+    .catch((error) => console.log("error", error));
 
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers:myHeaders
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
 
   fetch("http://localhost:3000/size", requestOptions)
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       const ukuranSelect = document.getElementById("ukuran");
 
-      ukuranSelect.innerHTML = '';
+      ukuranSelect.innerHTML = "";
 
       const emptyOption = document.createElement("option");
       emptyOption.value = "";
@@ -197,79 +198,80 @@ function createDetailProduk() {
       emptyOption.textContent = "pilih ukuran";
       ukuranSelect.appendChild(emptyOption);
 
-      data.forEach(size => {
+      data.forEach((size) => {
         const option = document.createElement("option");
         option.value = size.ukuran_id;
         option.textContent = size.ukuran;
         ukuranSelect.appendChild(option);
       });
     })
-    .catch(error => console.log('error', error));
+    .catch((error) => console.log("error", error));
 
-  document.getElementById('addDetail').addEventListener('submit', (event) => {
+  document.getElementById("addDetail").addEventListener("submit", (event) => {
     event.preventDefault();
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append('authorization', 'Bearer ' + token);
+    myHeaders.append("authorization", "Bearer " + token);
 
-    const ukuran = document.getElementById('ukuran').value
-    const produk = document.getElementById('theProduk').value
+    const ukuran = document.getElementById("ukuran").value;
+    const produk = document.getElementById("theProduk").value;
+    const harga = document.getElementById("harga").value;
+    const paket = document.getElementById("id_paket").value;
     var raw = JSON.stringify({
-      "ukuran_id": ukuran,
-      "produk_id": produk,
-      "harga": 20000
+      ukuran_id: ukuran,
+      produk_id: produk,
+      harga: harga,
+      paket: paket,
     });
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     fetch("http://localhost:3000/detailProduk/create", requestOptions)
-      .then(response => response.json())
-      .then(result => {
+      .then((response) => response.json())
+      .then((result) => {
         console.log(result);
         if (result.success) {
           localStorage.setItem("flashMessage", result.success);
 
           location.reload();
         } else if (result.error) {
-          result.error
+          result.error;
         }
       })
-      .catch(error => {
-        console.log('error', error)
-        alert(error)
-        alert("gagal")
+      .catch((error) => {
+        console.log("error", error);
+        alert(error);
+        alert("gagal");
       });
-  })
-
+  });
 }
 
 function displayDetailProduk() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers:myHeaders
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
 
   fetch("http://localhost:3000/detailProduk", requestOptions)
-    .then(response => response.json()) // Assuming the response is in JSON format
-    .then(data => {
-
-      console.log(data)
+    .then((response) => response.json()) // Assuming the response is in JSON format
+    .then((data) => {
+      console.log(data);
       const homeItem = document.getElementById("home-item");
 
       // Clear any existing content inside the container
-      homeItem.innerHTML = '';
+      homeItem.innerHTML = "";
 
-      data.forEach(detail => {
+      data.forEach((detail) => {
         const produkContainer = document.createElement("div");
         produkContainer.className = "barang align-items-center text-center";
 
@@ -303,32 +305,31 @@ function displayDetailProduk() {
         priceCol.appendChild(productPrice);
       });
     })
-    .catch(error => console.log('error', error));
+    .catch((error) => console.log("error", error));
 }
 
 function displayDetailItem() {
   var myHeaders = new Headers();
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append("authorization", "Bearer " + token);
   myHeaders.append("Content-Type", "application/json");
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-    headers:myHeaders
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
   };
 
   fetch("http://localhost:3000/detailProduk", requestOptions)
-    .then(response => response.json()) // Pastikan responsenya adalah JSON
-    .then(data => {
-
-      console.log(data)
+    .then((response) => response.json()) // Pastikan responsenya adalah JSON
+    .then((data) => {
+      console.log(data);
       // Ambil elemen dengan ID "itemBarang" dari DOM
       const itemBarang = document.getElementById("itemBarang");
-      itemBarang.innerHTML=``
+      itemBarang.innerHTML = ``;
       // Loop melalui data yang diterima
-      data.forEach(detail => {
+      data.forEach((detail) => {
         // Buat elemen-elemen HTML
         const barangItem = document.createElement("a");
-        barangItem.href = `/barang/${detail.produk_id}`
+        barangItem.href = `/barang/${detail.produk_id}`;
         barangItem.className = "barang-item";
 
         const row = document.createElement("div");
@@ -381,9 +382,38 @@ function displayDetailItem() {
         itemBarang.appendChild(barangItem);
       });
     })
-    .catch(error => console.log('error', error));
-
+    .catch((error) => console.log("error", error));
 }
 
+var myHeaders = new Headers();
+myHeaders.append("Authorization", `bearer ${sessionStorage.getItem("token")}`);
+myHeaders.append("Content-Type", "application/json");
+
+var requestOptions = {
+  method: "GET",
+  headers: myHeaders,
+  redirect: "follow",
+};
+
+fetch("http://localhost:3000/paket", requestOptions)
+  .then((response) => response.json())
+  .then((result) => {
+    console.log(result);
+    mapPaket(result);
+  })
+  .catch((error) => console.log("error", error));
 
 
+function mapPaket(paket) {
+  const selectElement = document.getElementById("id_paket");
+
+  selectElement.innerHTML =
+    '<option value="" disabled selected>pilih paket</option>';
+
+  paket.forEach((data) => {
+    const optionElement = document.createElement("option");
+    optionElement.value = data.id_paket;
+    optionElement.textContent = data.nama_paket;
+    selectElement.appendChild(optionElement);
+  });
+}

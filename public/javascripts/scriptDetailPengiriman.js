@@ -232,6 +232,7 @@ function createDetailPengiriman() {
     fetch("http://localhost:3000/detailPengiriman/create", requestOptions)
       .then(response => response.json())
       .then(result => {
+  
         console.log(result);
         if (result.success) {
           localStorage.setItem("flashMessage", result.success);
@@ -243,7 +244,6 @@ function createDetailPengiriman() {
       })
       .catch(error => {
         console.log('error', error)
-        alert(error)
       });
   })
 }

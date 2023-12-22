@@ -14,10 +14,11 @@ const { getAllDetailPengiriman, updateDetailPengiriman, createDetailPengiriman, 
 const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder, getUserLogin, updateUserLogin, getAllDetailOrderDone, getAllDetailOrderInvoice, keranjang, getAllOrderInvoice } = require('../controllers/detailOrderController');
 const { getAllPayments, createPayment, updatePayment, deletePayment } = require('../controllers/pembayaranController');
 const { authenticateToken, isAdmin } = require('../middleware/authToken')
-const multer = require('multer')
+const multer = require('multer');
+const { getAllPaket, createPaket, updatePaket, deletePaket, getPaket } = require('../controllers/paketController');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/images'); // Direktori penyimpanan gambar
+    cb(null, './public/images'); 
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = new Date().getTime() + '-' + file.fieldname;
@@ -99,15 +100,22 @@ router.post("/detailPengiriman/:pengiriman/:jenis_pengiriman/delete", deleteDeta
 
 router.get("/detailProduk", getAllDetailProduk)
 router.post("/detailProduk/create", createDetailProduk)
-router.post("/detailProduk/:produk_id/:ukuran_id/update", updateDetailProduk)
-router.post("/detailProduk/:produk_id/:ukuran_id/delete", deleteDetailProduk)
+router.post("/detailProduk/:produk_id/:ukuran_id/:paket/update", updateDetailProduk)
+router.post("/detailProduk/:produk_id/:ukuran_id/:paket/delete", deleteDetailProduk)
 router.get("/detailProduk/:produk_id", DetailOneProduk)
-router.get("/detailProduk/:produk_id/:size", DetailItemProduk)
+router.get("/detailProduk/:produk_id/:size/:paket", DetailItemProduk)
 
 router.get('/order/detail',keranjang)
 router.get('/order/detail/invoice',getAllDetailOrderInvoice)
 router.get('/order/detail/:order_id',getAllOrderInvoice)
 router.post('/order/delete',deleteDetailOrder)
+
+router.get('/paket', getAllPaket);
+router.post('/paket/create', createPaket);
+router.post('/paket/:id_paket/update', updatePaket);
+router.post('/paket/:id_paket/delete', deletePaket);
+router.get('/paket/:id_paket', getPaket);
+
 
 
 router.get('/profileUser',profileUser)
