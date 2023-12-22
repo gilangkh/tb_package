@@ -1,63 +1,66 @@
+/** @format */
+
 function verived() {
-    const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
-    if (!token) {
-        window.location.href = "/login"; 
-        
-    }
-
+  if (!token) {
+    window.location.href = "/login";
+  }
 }
 function toggleDropdown() {
-    var dropdown = document.querySelector('.dropdown-content');
-    if (dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-    } else {
-        dropdown.style.display = 'block';
-    }
+  var dropdown = document.querySelector(".dropdown-content");
+  if (dropdown.style.display === "block") {
+    dropdown.style.display = "none";
+  } else {
+    dropdown.style.display = "block";
+  }
 }
 
-function logout(){
-  if(window.confirm("apakah anda ingin logout")){
-    sessionStorage.removeItem('token');
-    window.location.reload()
-  }else{
-    console.log("tidak jadi logout")
+function logout() {
+  if (window.confirm("apakah anda ingin logout")) {
+    sessionStorage.removeItem("token");
+    window.location.reload();
+  } else {
+    console.log("tidak jadi logout");
   }
 }
 function adminHead() {
-    const head = document.getElementById("navLinks"); // Corrected the element ID
+  const head = document.getElementById("navLinks"); // Corrected the element ID
 
-    // Create a link for "Delivery"
-    const deliver = document.createElement('a');
-    deliver.innerText = 'Delivery';
-    deliver.href = '/deliver/detail';
-    deliver.className = 'item';
-    head.appendChild(deliver);
+  head.innerHTML=``
+  // Create a link for "Delivery"
+  const deliver = document.createElement("a");
+  deliver.innerText = "Shipping";
+  deliver.href = "/deliver/detail";
+  deliver.className = "item";
+  head.appendChild(deliver);
 
-    // Create a link for "Payment"
-    const payment = document.createElement('a');
-    payment.innerText = 'Payment';
-    payment.href = '/pembayaran'; // Link to the /pembayaran URL
-    payment.className = 'item';
-    head.appendChild(payment);
+  // Create a link for "Payment"
+  const payment = document.createElement("a");
+  payment.innerText = "Payment";
+  payment.href = "/pembayaran"; // Link to the /pembayaran URL
+  payment.className = "item";
+  head.appendChild(payment);
 
-    // Create a link for "DetailItem"
-    const detailItem = document.createElement('a');
-    detailItem.innerText = 'Item';
-    detailItem.href = '/produk/detail'; // Link to the /produk/detail URL
-    detailItem.className = 'item';
-    head.appendChild(detailItem);
+  // Create a link for "DetailItem"
+  const detailItem = document.createElement("a");
+  detailItem.innerText = "Item";
+  detailItem.href = "/produk/detail"; // Link to the /produk/detail URL
+  detailItem.className = "item";
+  head.appendChild(detailItem);
 }
 function generalHead() {
-    const head = document.getElementById("generalHead");
+  const head = document.getElementById("generalHead");
 
-    head.innerHTML = `
+  head.innerHTML = `
     <div class="new-head">
     <div class="left-head">
+    <a href="/home" style="text-decoration:none"> 
         <div class="beranda">
             <h2 class="header-1">Q u a</h2>
             <h2 class="header-2">k e t</h2>
         </div>
+    </a>
         <div class="beranda px-3 mx-3" id="navLinks">
             <a id="home" class="item" href="/home">Home</a>
             <a id="produk" class="item" href="/barang">Produk</a>
@@ -94,53 +97,48 @@ function generalHead() {
 </div>
     `;
 
-
-
-    const flashMessage = localStorage.getItem("flashMessage");
-    if (flashMessage) {
-        const message = document.getElementById("flash-message");
-        const p = document.createElement("p");
-        p.textContent = flashMessage;
-        p.className = "flash-message success"
-        message.appendChild(p);
-        localStorage.removeItem("flashMessage"); // Hapus pesan sukses setelah ditampilkan
-    }
+  const flashMessage = localStorage.getItem("flashMessage");
+  if (flashMessage) {
+    const message = document.getElementById("flash-message");
+    const p = document.createElement("p");
+    p.textContent = flashMessage;
+    p.className = "flash-message success";
+    message.appendChild(p);
+    localStorage.removeItem("flashMessage"); // Hapus pesan sukses setelah ditampilkan
+  }
 }
 
 function generalNav() {
+  const home = document.getElementById("home");
+  const produk = document.getElementById("produk");
+  const order = document.getElementById("order");
 
-    const home = document.getElementById("home");
-    const produk = document.getElementById("produk");
-    const order = document.getElementById("order");
+  const navLinks = document.getElementById("navLinks");
+  var links = navLinks.querySelectorAll(".item");
 
-    const navLinks = document.getElementById("navLinks");
-    var links = navLinks.querySelectorAll(".item");
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
 
-    links.forEach((link) => {
-        link.addEventListener("click", (event) => {
-            event.preventDefault();
+      // Dapatkan URL yang dituju oleh tag "a"
+      const targetURL = link.getAttribute("href");
 
-            // Dapatkan URL yang dituju oleh tag "a"
-            const targetURL = link.getAttribute("href");
+      // Dapatkan URL halaman saat ini
+      const currentURL = window.location.href;
 
-            // Dapatkan URL halaman saat ini
-            const currentURL = window.location.href;
-
-            // Periksa apakah URL saat ini sama dengan URL yang dituju
-            if (currentURL === targetURL) {
-                // Jika sama, maka tambahkan class "item-nav" dan hapus class "item" pada link yang diklik
-                links.forEach((otherLink) => {
-                    otherLink.classList.remove("item-nav");
-                    otherLink.classList.add("item");
-                });
-                link.classList.remove("item");
-                link.classList.add("item-nav");
-            } else {
-                // Jika URL tidak sama, biarkan browser menavigasi ke halaman yang dituju
-                window.location.href = targetURL;
-            }
+      // Periksa apakah URL saat ini sama dengan URL yang dituju
+      if (currentURL === targetURL) {
+        // Jika sama, maka tambahkan class "item-nav" dan hapus class "item" pada link yang diklik
+        links.forEach((otherLink) => {
+          otherLink.classList.remove("item-nav");
+          otherLink.classList.add("item");
         });
+        link.classList.remove("item");
+        link.classList.add("item-nav");
+      } else {
+        // Jika URL tidak sama, biarkan browser menavigasi ke halaman yang dituju
+        window.location.href = targetURL;
+      }
     });
-
+  });
 }
-

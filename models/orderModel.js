@@ -26,8 +26,8 @@ const Order = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    desain_produk: {
-      type: DataTypes.STRING(20),
+    biaya_pengiriman: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     tanggal_order: {

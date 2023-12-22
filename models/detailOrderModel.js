@@ -7,31 +7,38 @@ const DetailOrder = sequelize.define(
     order_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true, // Menjadikan order_id sebagai bagian dari primary key
-
+      primaryKey: true,
     },
     produk_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true, // Menjadikan produk_id sebagai bagian dari primary key
+      primaryKey: true,
     },
     ukuran_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true, // Menjadikan ukuran_id sebagai bagian dari primary key
+      primaryKey: true,
+    },
+    id_paket: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     jumlah_pesanan: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    harga_pembayaran: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     created_at: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
-      onUpdate: DataTypes.NOW
+      onUpdate: DataTypes.NOW,
     },
   },
   {

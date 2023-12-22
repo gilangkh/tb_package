@@ -65,6 +65,11 @@ router.get('/produk/detail',(req,res)=>{
 router.get('/profile',(req,res)=>{
   res.sendFile(link+'profile.html')
 })
-
+router.get('/userWinda',(req,res)=>{
+  res.sendFile(link+'user.html')
+})
+router.get('/paketIndex',(req,res)=>{
+  res.sendFile(link+'paket.html')
+})
 
 module.exports = router;

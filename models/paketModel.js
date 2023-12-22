@@ -1,29 +1,19 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize("mysql://root@localhost/package");
 
-const DetailProduk = sequelize.define(
-  "DetailProduk",
+const Paket = sequelize.define(
+  "Paket", 
   {
-    produk_id: {
+    id_paket: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
-    ukuran_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },    
-    id_paket:{
-      type:DataTypes.INTEGER,
-      allowNull:false,
-      primaryKey: true
-    },
-    harga: {
-      type: DataTypes.INTEGER,
+    nama_paket: {
+      type: DataTypes.STRING, 
       allowNull: false,
     },
-
     created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -35,13 +25,11 @@ const DetailProduk = sequelize.define(
     },
   },
   {
-    tableName: "detail_produk",
-    timestamps: true,
+    tableName: "paket", 
+    timestamps: true, 
     createdAt: "created_at",
     updatedAt: "updated_at",
   }
 );
 
-DetailProduk.removeAttribute('id'); 
-
-module.exports = DetailProduk;
+module.exports = Paket;

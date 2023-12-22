@@ -126,7 +126,7 @@ function itemOrder() {
 
   const produk_id = window.location.pathname.split("/")[2];
 
-  var ukuran_id = null; // Untuk menyimpan ukuran_id yang akan diambil
+  var ukuran_id = null; 
 
   fetch(`http://localhost:3000/detailProduk/${produk_id}`, requestOptions)
     .then((response) => response.json())
@@ -156,8 +156,7 @@ function itemOrder() {
         radioButton.appendChild(inputElement);
         radioButton.appendChild(labelElement);
 
-        // Menambahkan event listener untuk mengambil ukuran_id saat input radio dicek
-        inputElement.addEventListener("change", () => {
+               inputElement.addEventListener("change", () => {
           ukuran_id = size.ukuran_id;
           const ukuraasdn_id = document.getElementById("size_id");
           ukuraasdn_id.value = size.ukuran_id;
@@ -211,7 +210,5 @@ function itemOrder() {
       document.title = `Barang | ${result.nama_produk}`;
     })
     .catch((error) => console.log("error", error));
-
-  // Setelah memilih ukuran_id, Anda dapat menggunakannya dalam permintaan selanjutnya
 }
 
