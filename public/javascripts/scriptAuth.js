@@ -23,24 +23,35 @@ function login() {
 
     // Mengirim permintaan POST ke server
     fetch("http://localhost:3000/login", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        let token = result.token
-        if (token) {
-          alert(result.message)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    })
+    .then(result => {
+      console.log(result.user.status);
+      let token = result.token;
+      if (token) {
+        alert(result.message);
+        sessionStorage.setItem('token', token);
+  
+        if (result.user.status === 'U') {
           window.location = "/home";
-          sessionStorage.setItem('token', token);
-        } else {
-          // Jika login gagal, tampilkan pesan kesalahan
-          const error = result.response.error;
-          alert(result.error)
-          console.log("gagal",error);
-          alert(error);
+        } else if (result.user.status === 'A') {
+          window.location = "/produk";
         }
-      })
-      .catch(error => console.log('error', error));
-      alert("internal server error"+error)
+      } else {
+        const error = result.response.error;
+        alert(error);
+        console.log("gagal", error);
+      }
+    })
+    .catch(error => {
+      console.log('error', error);
+      alert("internal server error" + error);
+    });
+  
   });
 }
 
