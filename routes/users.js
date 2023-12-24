@@ -71,5 +71,8 @@ router.get('/userWinda',(req,res)=>{
 router.get('/paketIndex',(req,res)=>{
   res.sendFile(link+'paket.html')
 })
+router.get('/rekapan',(req,res)=>{
+  res.sendFile(link+'kelolapenjualan.html')
+})
 
 module.exports = router;

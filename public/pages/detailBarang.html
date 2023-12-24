@@ -50,7 +50,11 @@
                             </div>
                             <div class="col">
                                 <span class="produk-name">Quantity</span>
-                                <input class="form-control rounded-pill my-3" type="number" name="jumlah" id="jumlah" required>
+                                <select class="form-control rounded-pill my-3" type="number" name="jumlah" id="jumlah"
+                                    required>
+                                    <option value="" disabled selected>pilih paket ( pilih ukuran terlbih dahulu )</option>
+                              
+                                </select>
                             </div>
                         </div>
                         <hr>
@@ -62,7 +66,7 @@
                                 <div class="button-cart">
                                     <button class="cart" type="submit">Add to Cart</button>
                                 </div>
-                            </div>
+                            </div>x
 
                         </div>
                     </form>
@@ -95,13 +99,13 @@
         var myHeaders = new Headers();
         myHeaders.append("authorization", "Bearer " + sessionStorage.getItem("token"));
         myHeaders.append("Content-Type", "application/json");
-    
-        const jmlPesanan = document.getElementById("jumlah").value
 
+        const Pesanan = document.getElementById("jumlah")
+        
         const produk_id = window.location.pathname.split("/")[2];
         const ukuran_id = document.getElementById("size_id").value
         var raw = JSON.stringify({
-            "jumlah_pesanan": jmlPesanan
+            "id_paket" : Pesanan.value,
         });
 
         var requestOptions = {
@@ -115,8 +119,14 @@
             .then(response => response.json())
             .then(result => {
                 console.log(result)
-                localStorage.setItem("flashMessage", result.success);
-                location.reload()
+                if(result.success){
+
+                    localStorage.setItem("flashMessage", result.success);
+                    location.reload()
+                }else if(result.error){
+                    alert("barang dengna jumlah yang di pilih sudah ada , \n hapus dulu bang di keranjang untuk mengganti jumlah pesanan")
+                }
+
             })
             .catch(error => console.log('error', error));
     })

@@ -22,7 +22,11 @@ function createUser() {
   register.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // Dapatkan data dari formulir HTML
+   
+  if (!validateForm()) {
+    return;
+  }
+
     const nama = document.getElementById("nama").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -35,7 +39,7 @@ function createUser() {
     formdata.append("password", password);
     formdata.append("telp", telp);
     formdata.append("alamat", alamat);
-
+    formdata.append("status","U")
     // Gantilah ini sesuai dengan elemen HTML yang digunakan untuk mengunggah gambar
     var fileInput = document.getElementById("picture");
     formdata.append("picture", fileInput.files[0]);
@@ -63,6 +67,28 @@ function createUser() {
         console.error("Error:", error);
       });
   });
+
+  function validateForm() {
+    const nama = document.getElementById("nama").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const telp = document.getElementById("telp").value;
+    const alamat = document.getElementById("alamat").value;
+    const fileInput = document.getElementById("picture");
+  
+    if (!nama || !email || !password || !telp || !alamat ||  !fileInput.files[0]) {
+      alert("Semua kolom harus diisi.");
+      return false;
+    }
+    const fileExtension = fileInput.files[0].name.split('.').pop().toLowerCase();
+  
+    if (!['jpg', 'jpeg', 'png'].includes(fileExtension)) {
+      alert("Pilih file gambar dengan format jpg, jpeg, atau png.");
+      return false;
+    }
+  
+    return true;
+  }
 }
 
 function profileUser() {

@@ -44,10 +44,22 @@ function adminHead() {
 
   // Create a link for "DetailItem"
   const detailItem = document.createElement("a");
-  detailItem.innerText = "Item";
-  detailItem.href = "/produk/detail"; // Link to the /produk/detail URL
+  detailItem.innerText = "DetailProduk";
+  detailItem.href = "/produk/detail"; 
   detailItem.className = "item";
   head.appendChild(detailItem);
+  
+  const rekapan = document.createElement("a");
+  rekapan.innerText = "Rekapan";
+  rekapan.href = "/rekapan"; 
+  rekapan.className = "item";
+  head.appendChild(rekapan);
+  const users = document.createElement("a");
+  users.innerText = "Users";
+  users.href = "/userWinda"; 
+  users.className = "item";
+  head.appendChild(users);
+
 }
 function generalHead() {
   const head = document.getElementById("generalHead");
@@ -57,8 +69,8 @@ function generalHead() {
     <div class="left-head">
     <a href="/home" style="text-decoration:none"> 
         <div class="beranda">
-            <h2 class="header-1">Q u a</h2>
-            <h2 class="header-2">k e t</h2>
+            <h2 class="header-1">L a p a c k</h2>
+            <h2 class="header-2">K e m a s a n</h2>
         </div>
     </a>
         <div class="beranda px-3 mx-3" id="navLinks">

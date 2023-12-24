@@ -21,7 +21,6 @@ const isAdmin= (req,res,next )=>{
    
             let    status = user.status
             if(status !='admin') return res.sendStatus(403)
-        console.log("AMAN ini token di middleware = "+"-"+user.user_id)
         req.user = user
         
         next()
@@ -40,7 +39,6 @@ const authenticateToken =(req, res, next)=> {
     const token = authHeader && authHeader.split(' ')[1]
     
     if (token == null){ 
-    console.log("middleware tidak ada token ="+token)
     return res.sendStatus(401)
     }
     jwt.verify(token, secret, async (err, user) => {
@@ -49,8 +47,7 @@ const authenticateToken =(req, res, next)=> {
         return res.json("Middleware salah")
         } else{
 
-        console.log("AMAN ini token di middleware = "+"-"+user.user_id)
-        req.user = user
+         req.user = user
         
         next()
     }

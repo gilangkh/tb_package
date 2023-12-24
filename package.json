@@ -26,5 +26,8 @@
   "main": "app.js",
   "author": "Gilang",
   "license": "ISC",
-  "description": "TB PPSI Kelompok 6"
+  "description": "TB PPSI Kelompok 6",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
 }

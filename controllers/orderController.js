@@ -1,15 +1,27 @@
+/** @format */
 
-
-const { DetailOrder, Order, DetailPengiriman, User } = require("../models/relation");
-const Pengiriman = require("../models/pengirimanModel")
-const Pembayaran = require("../models/pembayaranModel")
+const {
+  DetailOrder,
+  Order,
+  DetailPengiriman,
+  User,
+  DetailProduk,
+} = require("../models/relation");
+const Pengiriman = require("../models/pengirimanModel");
+const Pembayaran = require("../models/pembayaranModel");
+const Paket = require("../models/paketModel");
 // const Order = require("../models/relation")
 const success = "Data berhasil ditambahkan";
 const err = "Internal Server Error";
 
 const getAllOrder = async (req, res) => {
   try {
-    const orders = await Order.findAll();
+    const orders = await Order.findAll({
+      where:{status_order:"selesai"},
+      include:[{
+        model:User
+      }]
+    });
     console.log(orders);
     res.status(200).json(orders);
   } catch (error) {
@@ -20,75 +32,131 @@ const getAllOrder = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
-    const {
-      desain_produk,
-      jumlah_pesanan
-    } = req.body;
-    const user_id = req.user.user_id
+    const {  id_paket } = req.body;
+    const { ukuran_id, produk_id } = req.params;
+    const user_id = req.user.user_id;
+
+  
+    let pembayaran_id = 7;
+    let pengiriman_id = 9;
+    let jenis_pengiriman_id = 8;
+
+    const user = await User.findOne({where:{user_id:req.user.user_id}})
+    if(!user){
+      return res.status(404).json({error:"user belum login" +user + req.user.user_id})
+    }
+    const produk = await DetailProduk.findOne({
+      where: {
+        produk_id,
+        ukuran_id,
+        id_paket,
+      },
+    });
+
+    if (!produk) {
+      return res.status(400).json({ error: "Produk belum ditambahkan" });
+    }
+
+    const paket = await Paket.findOne({ where: { id_paket } });
+    if (!paket) {
+      return res.status(400).json({ error: "Tidak ada paket" });
+    }
+
+    const pengiriman = await DetailPengiriman.findOne({
+      where: { pengiriman_id, jenis_pengiriman_id },
+    });
+    if (!pengiriman) {
+      return res.status(400).json({ error: "Tidak ada pengiriman" });
+    }
+
+    let harga = produk.harga * paket.nama_paket;
+
     const existOrder = await Order.findOne({
       where: {
         status_order: "menunggu",
-        user_id: req.user.user_id
-      }
-    })
+        user_id: req.user.user_id,
+      },
+    });
+
     if (!existOrder) {
       const newOrder = await Order.create({
-        user_id: user_id,
-        pembayaran_id: 1,
-        pengiriman_id: 5,
-        jenis_pengiriman_id: 7,
-        desain_produk,
+        user_id,
+        pembayaran_id,
+        pengiriman_id,
+        jenis_pengiriman_id,
+        desain_produk:user.picture,
+        biaya_pengiriman: pengiriman.biaya_pengiriman,
         tanggal_order: "menunggu",
         status_order: "menunggu",
       });
+
       const newDetailOrder = await DetailOrder.create({
         order_id: newOrder.order_id,
-        produk_id: req.params.produk_id,
-        ukuran_id: req.params.ukuran_id,
-        jumlah_pesanan
+        produk_id,
+        ukuran_id,
+        id_paket,
+        jumlah_pesanan: paket.nama_paket,
+        harga_pembayaran: harga,
+      });
 
-      })
       let response = {
         order: newOrder,
         detailOrder: newDetailOrder,
-        success: success,
+        success: "Produk telah ditambhakan ke keranjang",
       };
+
       res.status(201).json(response);
       console.log(response);
     } else {
+      const existingDetailOrder = await DetailOrder.findOne({
+        where: {
+          order_id: existOrder.order_id,
+          produk_id,
+          ukuran_id,
+          id_paket,
+        },
+      });
+
+      if (existingDetailOrder) {
+        return res.status(400).json({ error: "Data sudah ditambahkan" });
+      }
+
       const newDetailOrder = await DetailOrder.create({
         order_id: existOrder.order_id,
-        produk_id: req.params.produk_id,
-        ukuran_id: req.params.ukuran_id,
-        jumlah_pesanan
+        produk_id,
+        ukuran_id,
+        id_paket,
+        jumlah_pesanan: paket.nama_paket,
+        harga_pembayaran: harga,
+      });
 
-      })
       let response = {
         detailOrder: newDetailOrder,
-        success: success,
+        success: "Produk telah ditambhakan ke keranjang", // Assuming success is a string
       };
+
       res.status(201).json(response);
       console.log(response);
     }
   } catch (error) {
     let response = {
-      error: err,
+      error,
     };
-    console.log("createOrder Error + ", error);
+    console.error("createOrder Error: ", error);
     res.status(500).json(response);
   }
 };
 
+
 const updateOrder = async (req, res) => {
   try {
-
     let data = req.body;
 
     const order = await Order.findOne({
       where: {
         status_order: "menunggu",
-        user_id: req.user.user_id
-      }
+        user_id: req.user.user_id,
+      },
     });
 
     if (!order) {
@@ -97,17 +165,17 @@ const updateOrder = async (req, res) => {
       };
       res.status(404).json(response);
     } else {
-      order.pembayaran_id = data.pembayaran_id
+      order.pembayaran_id = data.pembayaran_id;
       order.pengiriman_id = data.pengiriman_id;
-      order.jenis_pengiriman_id = 3
-      order.tanggal_order = new Date()
-      order.status_order = "selesai"
+      order.jenis_pengiriman_id = 3;
+      order.tanggal_order = new Date();
+      order.status_order = "selesai";
       order.tanggal_bayar = new Date();
       order.updated_at = new Date();
 
       await order.save();
       let response = {
-        success: "Data berhasil diupdate",
+        success: "order di check out",
         data: order,
       };
       res.status(200).json(response);
@@ -150,11 +218,11 @@ const deleteOrder = async (req, res) => {
 };
 
 const test = async (req, res) => {
-  const user_id = req.user.user_id
-  console.log(user_id)
+  const user_id = req.user.user_id;
+  console.log(user_id);
   try {
     const order = await Order.findOne({ where: { user_id: req.user.user_id } });
-    res.status(201).json(order)
+    res.status(201).json(order);
   } catch (error) {
     let response = {
       error: err,
@@ -162,11 +230,11 @@ const test = async (req, res) => {
     console.log("deleteOrder Error + ", error);
     res.status(500).json(response);
   }
-}
+};
 
 const Invoice = async (req, res) => {
   try {
-    const order_id = req.params.order_id
+    const order_id = req.params.order_id;
 
     const order = await Order.findOne({
       where: { order_id: order_id },
@@ -174,19 +242,21 @@ const Invoice = async (req, res) => {
         {
           model: DetailPengiriman,
           attributes: ["biaya_pengiriman"],
-          include: [{
-            model: Pengiriman,
-            attributes: ['nama']
-          }]
+          include: [
+            {
+              model: Pengiriman,
+              attributes: ["nama"],
+            },
+          ],
         },
         {
           model: Pembayaran,
-          attributes: ['metode'],
+          attributes: ["metode"],
         },
         {
           model: User,
-          attributes: ["alamat"]
-        }
+          attributes: ["alamat"],
+        },
       ],
     });
 
@@ -196,28 +266,29 @@ const Invoice = async (req, res) => {
       };
       res.status(404).json(response);
     } else {
-
       res.status(200).json(order);
     }
   } catch (error) {
     console.log("deleteOrder Error + ", error);
     res.status(500).json(response);
   }
-}
+};
 
 const getAllOrderHistory = async (req, res) => {
   try {
     const orders = await Order.findAll({
-      include: [{
-        model:User,
-        where:{user_id:req.user.user_id}
-      },{
-        model:DetailPengiriman,
-        attributes:['biaya_pengiriman']
-      }],
-      
+      include: [
+        {
+          model: User,
+          where: { user_id: req.user.user_id },
+        },
+        {
+          model: DetailPengiriman,
+          attributes: ["biaya_pengiriman"],
+        },
+      ],
+
       where: { status_order: "selesai" },
-      group: ['order_id'],
     });
 
     console.log(orders);
@@ -229,4 +300,14 @@ const getAllOrderHistory = async (req, res) => {
 };
 
 
-module.exports = { getAllOrderHistory, Invoice, getAllOrder, createOrder, updateOrder, deleteOrder, test };
+
+module.exports = {
+  getAllOrderHistory,
+  Invoice,
+  getAllOrder,
+  createOrder,
+  updateOrder,
+  deleteOrder,
+  test,
+
+};

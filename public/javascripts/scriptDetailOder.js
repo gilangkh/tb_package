@@ -36,16 +36,16 @@ function getAllDetailOrder() {
         };
 
         fetch(
-          `http://localhost:3000/detailProduk/${item.produk_id}/${item.ukuran_id}`,
+          `http://localhost:3000/detailProduk/${item.produk_id}/${item.ukuran_id}/${item.id_paket}`,
           requestOptions
         )
           .then((response) => response.json())
           .then((result) => {
             console.log(result);
             cell1.innerHTML = result.Produk.nama_produk;
-            harga = result.harga;
-            cell3.innerHTML = result.harga;
-            let itemSubtotal = item.jumlah_pesanan * harga;
+            harga =item.harga_pembayaran;
+            cell3.innerHTML = item.harga_pembayaran;
+            let itemSubtotal =  harga;
             subtotalHarga += itemSubtotal;
             const subTotal = document.getElementById("subTotal");
             const subTotal2 = document.getElementById("subTotal2");
@@ -78,6 +78,7 @@ function getAllDetailOrder() {
               produk_id: item.produk_id,
               ukuran_id: item.ukuran_id,
               order_id: item.order_id,
+              id_paket: item.id_paket
             });
 
             var requestOptions = {
@@ -209,11 +210,12 @@ function getAllDetailOrderPayment() {
   fetch("http://localhost:3000/order/detail", requestOptions)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data)
       let subtotalHarga = 0;
       let itemCount = 0;
       data.forEach((item) => {
         itemCount++;
-        let itemSubtotal = item.jumlah_pesanan * item.DetailProduk.harga;
+        let itemSubtotal = item.harga_pembayaran;
         subtotalHarga += itemSubtotal;
       });
 
@@ -239,9 +241,10 @@ function detailPayment() {
   fetch("http://localhost:3000/userLogin", requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      console.log("ini result");
+      console.log(result)
       document.getElementById("alamat").textContent = result.alamat;
-      const alamatArray = result.alamat.split(",");
+      const alamatArray = result.alamat
       let kota = document.getElementById("kota");
       let prov = document.getElementById("prov");
 
@@ -300,14 +303,14 @@ function detailPayment() {
 
   // Fetch data and populate the select options
   fetch("http://localhost:3000/distrikPengiriman", requestOptions)
-    .then((response) => response.json()) // Assuming the response is in JSON format
+    .then((response) => response.json()) 
     .then((data) => {
-      // Assuming data is an array of shipping methods
+   
       data.forEach((method) => {
         const option = document.createElement("option");
-        option.value = method.Pengiriman.nama; // Set the value for the option
-        option.textContent = method.Pengiriman.nama; // Set the text for the option
-        option.setAttribute("data-pengiriman-id", method.pengiriman_id); // Set a custom attribute to store the ID
+        option.value = method.Pengiriman.nama;
+        option.textContent = method.Pengiriman.nama; 
+        option.setAttribute("data-pengiriman-id", method.pengiriman_id); 
         selectElement.appendChild(option);
       });
     })
@@ -325,7 +328,7 @@ function detailPayment() {
   });
   const selectPembayaran = document.getElementById("list-pembayaran");
   const pembayaranElement = document.getElementById("pembayaran");
-  let selectedPaymentId = 0; // Variabel untuk menyimpan ID opsi yang dipilih
+  let selectedPaymentId = 0; 
 
   var requestOptions = {
     method: "GET",
@@ -436,17 +439,18 @@ function Invoice() {
           headers: myHeaders,
           redirect: "follow",
         };
-
+    
         fetch(
-          `http://localhost:3000/detailProduk/${item.produk_id}/${item.ukuran_id}`,
+          `http://localhost:3000/detailOrder/${order_id}/${item.produk_id}/${item.ukuran_id}/${item.id_paket}`,
           requestOptions
         )
           .then((response) => response.json())
           .then((result) => {
+            console.log("ini item barang")
             console.log(result);
             const imgElement = document.createElement("img");
             imgElement.id = "img_produk";
-            imgElement.src = `images/${result.Produk.gambar_produk}`;
+            imgElement.src = `images/${result.DetailProduk.Produk.gambar_produk}`;
             imgElement.alt = "";
 
             const imgText = document.createElement("div");
@@ -454,29 +458,30 @@ function Invoice() {
 
             const h1Element = document.createElement("h1");
             h1Element.id = "nama_produk";
-            h1Element.textContent = result.Produk.nama_produk;
+            h1Element.textContent = result.DetailProduk.Produk.nama_produk;
 
             const pUkuran = document.createElement("p");
             pUkuran.id = "ukuran";
-            pUkuran.textContent = `Size: ${result.Ukuran.ukuran}`;
+            pUkuran.textContent = `Size: ${result.DetailProduk.Ukuran.ukuran}`;
 
             const quantityOrder = document.createElement("div");
             quantityOrder.className = "quantity-order";
 
             const pJumlah = document.createElement("p");
             pJumlah.id = "jumlah";
-            pJumlah.textContent = `${item.jumlah_pesanan} pcs`;
+            pJumlah.textContent = `${item.jumlah_pesanan.toLocaleString()} pcs`;
 
             const priceOrder = document.createElement("div");
             priceOrder.className = "price-order";
 
             const pHarga = document.createElement("p");
             pHarga.id = "harga";
-            pHarga.textContent = `Rp ${result.harga}`;
+            pHarga.textContent = `Rp ${result.harga_pembayaran.toLocaleString()}`;
 
-            let sumHarga = result.harga * item.jumlah_pesanan;
+            let sumHarga = result.harga_pembayaran
             total += sumHarga;
-
+            total= total
+        
             detailImgOrder.appendChild(svgElement);
             detailImgOrder.appendChild(imgElement);
             imgText.appendChild(h1Element);
@@ -494,7 +499,7 @@ function Invoice() {
     
             listItemElement.appendChild(orderItem);
 
-            document.getElementById("biaya").textContent = total;
+            document.getElementById("biaya").textContent = total.toLocaleString();
             let subBiaya = document.getElementById("sub-biaya");
             subBiaya.value = total;
             console.log('ini sub biaya 1', subBiaya.value);
@@ -524,19 +529,23 @@ function Invoice() {
           let nama_pengiriman = document.getElementById("nama_pengiriman");
           let nama_pembayaran = document.getElementById("nama_pembayaran");
           let subtotal = document.getElementById("subtotal");
-          let biaya_pengiriman = result.DetailPengiriman.biaya_pengiriman;
-          tanggal.textContent = result.tanggal_order;
+          let biaya_pengiriman = result.biaya_pengiriman;
+          const orderDate = new Date(result.tanggal_order);
+          const formattedDate = `${orderDate.getDate().toString().padStart(2, '0')}-${(orderDate.getMonth() + 1).toString().padStart(2, '0')}-${orderDate.getFullYear()} ${orderDate.getHours().toString().padStart(2, '0')}:${orderDate.getMinutes().toString().padStart(2, '0')}`;
+          
+          tanggal.textContent = formattedDate;
+          
           alamat.textContent = result.User.alamat;
           nama_pengiriman.textContent = result.DetailPengiriman.Pengiriman.nama;
           nama_pembayaran.textContent = result.Pembayaran.metode;
-          subtotal.textContent = biaya_pengiriman;
+          subtotal.textContent = biaya_pengiriman.toLocaleString();
 
           let jumlah = parseFloat(document.getElementById("sub-biaya").value);
           let hasil = document.getElementById('biaya').innerHTML;
-          let total = biaya_pengiriman + jumlah;
+          let totalAkhir = biaya_pengiriman + total;
           console.log("ini biaya pengiriman = ", biaya_pengiriman);
           console.log("ini jumlah = ", hasil);
-          document.getElementById("total").textContent = total;
+          document.getElementById("total").textContent = totalAkhir.toLocaleString();
         })
         .catch((error) => console.log("error", error));
     });
@@ -580,10 +589,12 @@ function history() {
         orderId.textContent = "Order " + order.order_id; // Assuming the order ID is stored in the "id" property
 
         const tanggal = document.createElement("p");
-        tanggal.textContent = order.tanggal_order; // Update with your date property
-
+        const orderDate = new Date(order.tanggal_order);
+        const formattedDate = `${orderDate.getDate()}-${orderDate.getMonth() + 1}- ${orderDate.getFullYear()} ${orderDate.getHours()}:${orderDate.getMinutes()}`;
+        
+        tanggal.textContent = formattedDate;
         const total = document.createElement("h4");
-        total.textContent = "Total: Loading..."; // Initial value
+        total.textContent = "Total: Loading..."; 
 
         detailItemHistory.appendChild(orderId);
         detailItemHistory.appendChild(tanggal);
@@ -602,26 +613,31 @@ function history() {
 
         linkHistory.appendChild(link);
         itemHistory.appendChild(linkHistory);
-
         listHistory.appendChild(itemHistory);
 
         let harga = 0;
-        fetch(
-          `http://localhost:3000/order/detail/${order.order_id}`,
-          requestOptions
-        )
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result);
-            result.forEach((detail) => {
-              let sumHarga = detail.DetailProduk.harga * detail.jumlah_pesanan;
-              harga += sumHarga;
-            });
-
-            let totalHarga = harga + biayaPengiriman;
-            total.textContent = "Total: " + totalHarga;
+        
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+        
+        fetch(`http://localhost:3000/order/detail/${order.order_id}`, requestOptions)
+          .then(response => response.json())
+          .then(result =>{ 
+            console.log(result)
+            result.forEach(item=>{
+              console.log(item.harga_pembayaran)
+               harga += item.harga_pembayaran
+          
+            })
           })
-          .catch((error) => console.log("error", error));
+          .catch(error => console.log('error', error))
+          .finally(()=>{
+           total.textContent = `Rp ${harga.toLocaleString()}`
+          })
+
       });
     })
     .catch((error) => console.log("error", error));

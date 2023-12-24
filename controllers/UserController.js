@@ -17,7 +17,7 @@ const getAllUser = async (req, res) => {
 0;
 const createUser = async (req, res) => {
   try {
-    const { nama, email, password, telp, alamat } = req.body;
+    const { nama, email, password, telp, alamat,status } = req.body;
     const picture = req.file.filename;
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
       nama,
       email,
       password: hashedPassword,
-      status: "U",
+      status,
       telp,
       alamat,
       picture: picture,
@@ -192,6 +192,33 @@ const updatePassword = async (req,res) =>{
   }
 }
 
+const adminUpdatePassword = async(req,res)=>{
+  
+    try {
+      let password = req.body.password
+      let hashedPassword = await bcrypt.hash(password,10)
+      const {user_id} = req.params
+
+      const user = await User.findOne({where:{user_id}})
+
+      if(!user){
+       return  res.status(404).json({error:"user tidak terdaftar"})
+      }
+
+      user.password = hashedPassword
+      await user.save()
+
+      let response ={
+        data:user,
+        success:`password ${user.nama} telah di ubah`
+      }
+      res.status(201).json(response)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({error: error.message})
+    }
+} 
+
 module.exports = {
   updatePassword,
   updateProfile,
@@ -200,4 +227,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  adminUpdatePassword
 };

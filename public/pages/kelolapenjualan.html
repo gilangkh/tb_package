@@ -1,72 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekapan</title>
 
-    <link rel="stylesheets" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
+
 <body>
-    <div class="container">
+    <div class="pb-5">
+        <div class="" id="generalHead"></div>
+        <div id="flash-message"></div>
+    </div>
+    <div class="container my-5">
         <h2>Rekap Pemesanan</h2>
-        <table id="example" class="table table-striped" style="width:100%">
+        <input class="d-flex justify-content-end" type="text" name="search" id="search" placeholder="Search...">
+        <table class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Username</th>
+                    <th scope="col" id="orderIDHeader" >Order ID</th>
+                    <th scope="col" id="usernameHeader">Username</th>
                     <th scope="col">Logo</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1.</td>
-                    <td>00001</td>
-                    <td>nama</td>
-                    <td><a href="#"> download</a></td>
-                    <td>
-                        <span class="act_button">
-                            <a href="#">detail</a>
-                            <a href="#">print</a>
-                        </span>
-                    </td>
-                </tr>
+            <tbody id="orderTableBody">
+ 
             </tbody>
         </table>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script src="../javascripts/scriptGeneral.js"></script>
+    <script src="../javascripts/scriptUrl.js"></script>
+    <script src="../javascripts/scriptRekapan.js"></script>
+
+    <script>
+     verived();
+        generalHead();
+        generalNav();
+        adminHead();
+  
+    </script>
+
 </body>
-
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-<script>
-    $(document).ready(function () {
-        new DataTable('#example');
-    });
-</script>
-<script src="../javascripts/scriptGeneral.js"></script>
-<script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptProduk.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-<script>
-    verived()
-    getAllProducts();
-    generalHead();
-    generalNav();
-    createProduct();
-    adminHead();
-    document.getElementById("closeModalBtn").addEventListener("click", closeModal);
-    document.getElementById("closeBtn").addEventListener("click", closeModalImg);
-    document.getElementById("modalCloseBtn").addEventListener("click", closeModal)
-    document.getElementById("modalImgCloseBtn").addEventListener("click", closeModalImg)
-
-</script>
 
 </html>

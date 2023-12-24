@@ -110,7 +110,8 @@ module.exports = {
   Pembayaran,
   Order,
   DetailOrder,
-  User
+  User,
+  Paket
 };
 
 

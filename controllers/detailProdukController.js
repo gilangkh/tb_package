@@ -1,6 +1,6 @@
 const Paket = require("../models/paketModel");
-const { DetailProduk, Produk, Ukuran, } = require("../models/relation");
-
+const { DetailProduk, Produk, Ukuran,} = require("../models/relation");
+const {Sequelize} = require('sequelize')
 const success = "Data berhasil ditambahkan";
 const err = "Data gagal ditambahkan";
 
@@ -118,33 +118,37 @@ const DetailOneProduk = async (req, res) => {
     const produk = req.params.produk_id;
 
     const detailProduk = await DetailProduk.findAll({
-      where: {
+     where: {
         produk_id: produk,
       },
-        include: [{
+      include: [
+        {
           model: Produk,
           attributes: ['nama_produk', 'gambar_produk', 'deskripsi']
-        }, {
+        },
+        {
           model: Ukuran,
-          attributes: ['ukuran']
-        }]
-      }
-    );
+          attributes:["ukuran"]
+        }
+      ],
+      raw: true,
+      group: [ 'ukuran_id'],
+      attributes:['ukuran_id','produk_id',]
+    });
+
     if (!detailProduk) {
       let response = {
         error: "Data tidak ditemukan",
       };
-      res.status(404).json(response); // Menggunakan status 404 untuk Not Found
+      res.status(404).json(response);
     } else {
-
       res.status(200).json(detailProduk);
     }
   } catch (error) {
-    console.log("deleteDetailProduk Error + ", error);
-    res.status(500).json({ error: err }); // Menggunakan status 500 untuk Internal Server Error
-
+    console.log("DetailOneProduk Error + ", error);
+    res.status(500).json({ error: error.message });
   }
-}
+};
 
 
 
@@ -187,4 +191,40 @@ const DetailItemProduk = async (req, res) => {
   }
 }
 
-module.exports = { getAllDetailProduk, createDetailProduk, updateDetailProduk, deleteDetailProduk,DetailOneProduk ,DetailItemProduk};
+const DetailPaketProduk = async (req, res) => {
+  try {
+    const produk = req.params.produk_id;
+    const size = req.params.size;
+
+
+    const detailProduk = await DetailProduk.findAll({
+      where: {
+        produk_id: produk,
+        ukuran_id: size,
+      },
+        include: [{
+          model: Produk,
+            }, {
+          model: Ukuran,
+        },{
+          model:Paket
+        }]
+      }
+    );
+    if (!detailProduk) {
+      let response = {
+        error: "Data tidak ditemukan",
+      };
+      res.status(404).json(response); // Menggunakan status 404 untuk Not Found
+    } else {
+
+      res.status(200).json(detailProduk);
+    }
+  } catch (error) {
+    console.log("deleteDetailProduk Error + ", error);
+    res.status(500).json({ error: err }); // Menggunakan status 500 untuk Internal Server Error
+
+  }
+}
+
+module.exports = { DetailPaketProduk,getAllDetailProduk, createDetailProduk, updateDetailProduk, deleteDetailProduk,DetailOneProduk ,DetailItemProduk};

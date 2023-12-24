@@ -51,11 +51,11 @@ function authHead(){
   // Membuat elemen-elemen HTML yang akan ditambahkan ke dalam "authHead"
   const header1 = document.createElement("h2");
   header1.className = "header-1";
-  header1.textContent = "Q u a ";
+  header1.textContent = "Lapack ";
   
   const header2 = document.createElement("h2");
   header2.className = "header-2";
-  header2.textContent = "k e t";
+  header2.textContent = "Kemasan";
   
   // Menambahkan elemen-elemen tersebut ke dalam "authHead"
   head.appendChild(header1);

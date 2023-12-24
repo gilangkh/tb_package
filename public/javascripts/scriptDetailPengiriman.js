@@ -37,10 +37,6 @@ function getAllDetailPengiriman() {
         detailButton.textContent = "Detail";
         detailButton.className = "btn btn-warning";
 
-        const TypeButton = document.createElement("a");
-        TypeButton.textContent = "Deliver"; // Ganti detailButton menjadi TypeButton
-        TypeButton.className = "btn btn-info rounded-pill";
-        TypeButton.href = '/delivery';
         const raw = document.createElement('div')
         raw.className = 'flex-detail'
 
@@ -126,7 +122,6 @@ function getAllDetailPengiriman() {
 
 
         raw.appendChild(detailButton)
-        raw.appendChild(TypeButton)
 
         cellAction.appendChild(raw)
         // Add the cells to the row and the row to the table body

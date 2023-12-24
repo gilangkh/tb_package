@@ -1,4 +1,7 @@
 /** @format */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
   background-color: #9c795c;
@@ -1240,4 +1243,8 @@ thead {
   color: #fff;
   margin-bottom: 20px;
 
+}
+
+.item:hover{
+  color:#3498db
 }

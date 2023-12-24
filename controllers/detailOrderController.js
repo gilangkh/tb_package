@@ -1,93 +1,117 @@
+/** @format */
 
-const {  DetailOrder, } = require("../models/relation"); 
-const  User= require('../models/userModel')
-const Order= require("../models/orderModel")// Import model "DetailOrder" yang telah Anda definisikan
-const { DetailProduk, Produk, Ukuran, } = require("../models/relation");
+const { DetailOrder } = require("../models/relation");
+const User = require("../models/userModel");
+const Order = require("../models/orderModel"); // Import model "DetailOrder" yang telah Anda definisikan
+const { DetailProduk, Produk, Ukuran, Paket } = require("../models/relation");
 const { Sequelize } = require("sequelize");
 
 const success = "Data berhasil ditambahkan";
 const err = "Internal Server Error";
 
-  const getAllDetailOrder = async (req, res) => {
-    try {
-
-      const detailOrders = await DetailOrder.findAll({
-        include:[{
+const getAllDetailOrder = async (req, res) => {
+  try {
+    const detailOrders = await DetailOrder.findAll({
+      include: [
+        {
           model: DetailProduk,
-          include:[{
-            model:Produk,
-            attributes:["nama_produk",'gambar_produk','deskripsi']
-          },{
-            model:Ukuran,
-            attributes:['ukuran']
-          }]
-        },{
-          model:Order,
-          where:{status_order:"menunggu"},
-          include:[{
-            model:User,
-            where:{user_id:req.user.user_id}
-          }]
-        }]
-      });
-      console.log(detailOrders);
-      res.status(200).json(detailOrders);
-    } catch (error) {
-      console.log("getAllDetailOrderError = " + error);
-      res.status(500).json({ error: err });
-    }
+          include: [
+            {
+              model: Produk,
+              attributes: ["nama_produk", "gambar_produk", "deskripsi"],
+            },
+            {
+              model: Ukuran,
+              attributes: ["ukuran"],
+            },
+          ],
+        },
+        {
+          model: Order,
+          where: { status_order: "menunggu" },
+          include: [
+            {
+              model: User,
+              where: { user_id: req.user.user_id },
+            },
+          ],
+        },
+      ],
+    });
+    console.log(detailOrders);
+    res.status(200).json(detailOrders);
+  } catch (error) {
+    console.log("getAllDetailOrderError = " + error);
+    res.status(500).json({ error: err });
+  }
 };
-  const getAllDetailOrderDone = async (req, res) => {
-    try {
-      const order_id = req.params.order_id
-      const detailOrders = await DetailOrder.findAll({
-        include:[{
+const getAllDetailOrderDone = async (req, res) => {
+  try {
+    const order_id = req.params.order_id;
+    const detailOrders = await DetailOrder.findAll({
+      include: [
+        {
           model: DetailProduk,
-          attributes:['harga'],
-          include:[{
-            model:Produk,
-            attributes:["nama_produk",'gambar_produk','deskripsi']
-          },{
-            model:Ukuran,
-            attributes:['ukuran']
-          }]
-        },{
-          model:Order,
-          where:{status_order:"selesai",order_id:order_id},
-          include:[{
-            model:User,
-            where:{user_id:req.user.user_id}
-          }]
-        }]
-      });
-      console.log(detailOrders);
-      res.status(200).json(detailOrders);
-    } catch (error) {
-      console.log("getAllDetailOrderError = " + error);
-      res.status(500).json({ error: err });
-    }
+          attributes: ["harga"],
+          include: [
+            {
+              model: Produk,
+              attributes: ["nama_produk", "gambar_produk", "deskripsi"],
+            },
+            {
+              model: Ukuran,
+              attributes: ["ukuran"],
+            },
+          ],
+        },
+        {
+          model: Order,
+          where: { status_order: "selesai", order_id: order_id },
+          include: [
+            {
+              model: User,
+              where: { user_id: req.user.user_id },
+            },
+          ],
+        },
+      ],
+    });
+    console.log(detailOrders);
+    res.status(200).json(detailOrders);
+  } catch (error) {
+    console.log("getAllDetailOrderError = " + error);
+    res.status(500).json({ error: err });
+  }
 };
 const getAllDetailOrderInvoice = async (req, res) => {
   try {
-    const order_id = req.params.order_id
+    const order_id = req.params.order_id;
     const detailOrders = await DetailOrder.findAll({
-      include:[{
-        model: DetailProduk,
-        include:[{
-          model:Produk,
-          attributes:["nama_produk",'gambar_produk','deskripsi']
-        },{
-          model:Ukuran,
-          attributes:['ukuran']
-        }]
-      },{
-        model:Order,
-        where:{status_order:"selesai"},
-        include:[{
-          model:User,
-          where:{user_id:req.user.user_id}
-        }]
-      }]
+      include: [
+        {
+          model: DetailProduk,
+          include: [
+            {
+              model: Produk,
+              attributes: ["nama_produk", "gambar_produk", "deskripsi"],
+            },
+            {
+              model: Ukuran,
+              attributes: ["ukuran"],
+            },
+          ],
+        },
+        {
+          model: Order,
+          where: { status_order: "selesai" },
+          include: [
+            {
+              model: User,
+              where: { user_id: req.user.user_id },
+            },
+          ],
+        },
+      ],
     });
     console.log(detailOrders);
     res.status(200).json(detailOrders);
@@ -98,12 +122,7 @@ const getAllDetailOrderInvoice = async (req, res) => {
 };
 const createDetailOrder = async (req, res) => {
   try {
-    const {
-      order_id,
-      produk_id,
-      ukuran_id,
-      jumlah_pesanan,
-    } = req.body;
+    const { order_id, produk_id, ukuran_id, jumlah_pesanan } = req.body;
 
     const newDetailOrder = await DetailOrder.create({
       order_id,
@@ -132,7 +151,9 @@ const updateDetailOrder = async (req, res) => {
     const { order_id, produk_id, ukuran_id } = req.params;
     let data = req.body;
 
-    const detailOrder = await DetailOrder.findOne({ where: { order_id, produk_id, ukuran_id } });
+    const detailOrder = await DetailOrder.findOne({
+      where: { order_id, produk_id, ukuran_id },
+    });
 
     if (!detailOrder) {
       let response = {
@@ -160,43 +181,39 @@ const updateDetailOrder = async (req, res) => {
 };
 
 const deleteDetailOrder = async (req, res) => {
-try {
-  const order_id = req.body.order_id
-  const produk_id = req.body.produk_id
-  const ukuran_id = req.body.ukuran_id
-  const detailOrder = await DetailOrder.findOne({ where: { order_id:order_id, produk_id:produk_id,   ukuran_id    :ukuran_id } });
-  if(!detailOrder){
-    console.log("oke")
-    res.json({gagal:"data tidak ditemukan"})
-  }else{
-    await detailOrder.destroy();
-    let response = {
-      success: "Data berhasil dihapus",
-    
-    };
-    res.status(200).json(response);
-  }
-  
-  console.log(detailOrder)
-} catch (error) {
-  
-}
- 
+  try {
+    const order_id = req.body.order_id;
+    const produk_id = req.body.produk_id;
+    const ukuran_id = req.body.ukuran_id;
+    const detailOrder = await DetailOrder.findOne({
+      where: { order_id: order_id, produk_id: produk_id, ukuran_id: ukuran_id },
+    });
+    if (!detailOrder) {
+      console.log("oke");
+      res.json({ gagal: "data tidak ditemukan" });
+    } else {
+      await detailOrder.destroy();
+      let response = {
+        success: "Data berhasil dihapus",
+      };
+      res.status(200).json(response);
+    }
+
+    console.log(detailOrder);
+  } catch (error) {}
 };
 
-const getUserLogin = async (req,res)=>{
-
+const getUserLogin = async (req, res) => {
   try {
-    const user_id = req.user.user_id
-    const user =await User.findOne({where:{user_id:user_id}})
+    const user_id = req.user.user_id;
+    const user = await User.findOne({ where: { user_id: user_id } });
 
-    if(!user){
+    if (!user) {
       let response = {
         error: "Data tidak ditemukan",
       };
       res.status(404).json(response);
-    }else{
-  
+    } else {
       res.status(201).json(user);
     }
   } catch (error) {
@@ -206,22 +223,20 @@ const getUserLogin = async (req,res)=>{
     console.log("deleteDetailOrder Error + ", error);
     res.status(500).json(response);
   }
-
-}
-const updateUserLogin = async (req,res)=>{
-
+};
+const updateUserLogin = async (req, res) => {
   try {
-    const user_id = req.user.user_id
-    const alamat = req.body.alamat
-    const user =await User.findOne({where:{user_id:user_id}})
+    const user_id = req.user.user_id;
+    const alamat = req.body.alamat;
+    const user = await User.findOne({ where: { user_id: user_id } });
 
-    if(!user){
+    if (!user) {
       let response = {
         error: "Data tidak ditemukan",
       };
       res.status(404).json(response);
-    }else{
-      user.alamat = alamat
+    } else {
+      user.alamat = alamat;
 
       await user.save();
       let response = {
@@ -237,31 +252,24 @@ const updateUserLogin = async (req,res)=>{
     console.log("deleteDetailOrder Error + ", error);
     res.status(500).json(response);
   }
-
-}
+};
 const keranjang = async (req, res) => {
   try {
-
     const detailOrders = await DetailOrder.findAll({
       include: [
-
         {
           model: Order,
           where: { status_order: "menunggu" },
           include: [
             {
               model: User,
-              where: { user_id: req.user.user_id }
-            }
-          ]
-        }
+              where: { user_id: req.user.user_id },
+            },
+          ],
+        },
       ],
     });
 
-    
-    
-    
-    
     console.log(detailOrders);
     res.status(200).json(detailOrders);
   } catch (error) {
@@ -272,16 +280,20 @@ const keranjang = async (req, res) => {
 
 const getAllOrderInvoice = async (req, res) => {
   try {
-    const order_id = req.params.order_id
+    const order_id = req.params.order_id;
     const detailOrders = await DetailOrder.findAll({
-      include:[{
-        model:Order,
-        where:{status_order:"selesai",order_id:order_id},
-        include:[{
-          model:User,
-          where:{user_id:req.user.user_id}
-        }]
-      }]
+      include: [
+        {
+          model: Order,
+          where: { status_order: "selesai", order_id: order_id },
+          include: [
+            {
+              model: User,
+              where: { user_id: req.user.user_id },
+            },
+          ],
+        },
+      ],
     });
     console.log(detailOrders);
     res.status(200).json(detailOrders);
@@ -291,5 +303,55 @@ const getAllOrderInvoice = async (req, res) => {
   }
 };
 
+const getDetailOrder = async (req, res) => {
+  try {
+    const { order_id, produk_id, ukuran_id, id_paket } = req.params;
 
-module.exports = {getAllOrderInvoice,keranjang,getAllDetailOrderInvoice,getAllDetailOrderDone,updateUserLogin,getUserLogin, getAllDetailOrder, createDetailOrder, updateDetailOrder, deleteDetailOrder };
+    const existingOrder = await DetailOrder.findOne({
+      where: {
+        order_id,
+        produk_id,
+        ukuran_id,
+        id_paket,
+      },
+      include: [
+        {
+          model: Order,
+        },
+        {
+          model: DetailProduk,
+          include:[{
+            model:Produk
+          },{
+            model:Ukuran,
+          },{
+            model:Paket
+          }]
+        },
+      ],
+    });
+
+    if (!existingOrder) {
+      return res.status(403).json({ error: "detail order tidak ditemukan" });
+    }
+
+    res.status(200).json(existingOrder);
+  } catch (error) {
+    console.log("getAllDetailOrderError = " + error);
+    res.status(500).json({ error: err });
+  }
+};
+
+module.exports = {
+  getDetailOrder,
+  getAllOrderInvoice,
+  keranjang,
+  getAllDetailOrderInvoice,
+  getAllDetailOrderDone,
+  updateUserLogin,
+  getUserLogin,
+  getAllDetailOrder,
+  createDetailOrder,
+  updateDetailOrder,
+  deleteDetailOrder,
+};

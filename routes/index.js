@@ -3,15 +3,15 @@ var router = express.Router();
 
 const { login } = require('../controllers/AuthController')
 
-const { getAllUser, createUser, updateUser, deleteUser, profileUser, updateProfile, updatePassword } = require('../controllers/UserController')
+const { getAllUser, createUser, updateUser, deleteUser, profileUser, updateProfile, updatePassword, adminUpdatePassword } = require('../controllers/UserController')
 const { getAllOrder, updateOrder, createOrder, deleteOrder, test, Invoice, getAllOrderHistory } = require('../controllers/orderController')
 const { getAllProducts, updateProduct, createProduct, deleteProduct, updateProductImg, getOneProduk } = require('../controllers/produkController');
 const { getAllPengiriman, updatePengiriman, createPengiriman, deletePengiriman } = require('../controllers/pengirimanController');
 const { getAllSizes, updateSize, createSize, deleteSize } = require('../controllers/ukuranController');
 const { getAllJenisPengiriman, updateJenisPengiriman, createJenisPengiriman, deleteJenisPengiriman } = require('../controllers/jenisPengirimanController');
-const { getAllDetailProduk, updateDetailProduk, createDetailProduk, deleteDetailProduk, DetailOneProduk, DetailItemProduk, cartProduk } = require('../controllers/detailProdukController');
+const { getAllDetailProduk, updateDetailProduk, createDetailProduk, deleteDetailProduk, DetailOneProduk, DetailItemProduk, cartProduk, DetailPaketProduk } = require('../controllers/detailProdukController');
 const { getAllDetailPengiriman, updateDetailPengiriman, createDetailPengiriman, deleteDetailPengiriman, getDistrikPengiriman } = require('../controllers/detailPengirimanController');
-const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder, getUserLogin, updateUserLogin, getAllDetailOrderDone, getAllDetailOrderInvoice, keranjang, getAllOrderInvoice } = require('../controllers/detailOrderController');
+const { getAllDetailOrder, updateDetailOrder, createDetailOrder, deleteDetailOrder, getUserLogin, updateUserLogin, getAllDetailOrderDone, getAllDetailOrderInvoice, keranjang, getAllOrderInvoice, getDetailOrder } = require('../controllers/detailOrderController');
 const { getAllPayments, createPayment, updatePayment, deletePayment } = require('../controllers/pembayaranController');
 const { authenticateToken, isAdmin } = require('../middleware/authToken')
 const multer = require('multer');
@@ -103,6 +103,7 @@ router.post("/detailProduk/create", createDetailProduk)
 router.post("/detailProduk/:produk_id/:ukuran_id/:paket/update", updateDetailProduk)
 router.post("/detailProduk/:produk_id/:ukuran_id/:paket/delete", deleteDetailProduk)
 router.get("/detailProduk/:produk_id", DetailOneProduk)
+router.get("/detailProduk/:produk_id/:size", DetailPaketProduk)
 router.get("/detailProduk/:produk_id/:size/:paket", DetailItemProduk)
 
 router.get('/order/detail',keranjang)
@@ -116,11 +117,13 @@ router.post('/paket/:id_paket/update', updatePaket);
 router.post('/paket/:id_paket/delete', deletePaket);
 router.get('/paket/:id_paket', getPaket);
 
+router.get('/detailOrder/:order_id/:produk_id/:ukuran_id/:id_paket',getDetailOrder)
 
 
 router.get('/profileUser',profileUser)
 router.post('/updateProfile',updateProfile)
 router.post('/updatePassword',updatePassword)
+router.post('/adminPassword/:user_id',adminUpdatePassword)
 
 
 module.exports = router;

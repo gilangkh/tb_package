@@ -56,64 +56,6 @@ function createOrder() {
     .catch((error) => console.log("error", error));
 }
 
-function updateOrder() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append("authorization", "Bearer " + token);
-
-  let order_id = document.getElementById("order_id").value;
-  let pembayaran_id = document.getElementById("pembayaran_id").value;
-  let user_id = document.getElementById("user_id").value;
-  let pengiriman_id = document.getElementById("pengiriman_id").value;
-  let jenis_pengiriman_id = document.getElementById(
-    "jenis_pengiriman_id"
-  ).value;
-  let desain_produk = document.getElementById("desain_produk").value;
-  let tanggal_order = document.getElementById("tanggal_order").value;
-  let status_order = document.getElementById("status_order").value;
-  let tanggal_bayar = document.getElementById("tanggal_bayar").value;
-
-  var formData = new FormData();
-  formData.append("pembayaran_id", pembayaran_id);
-  formData.append("user_id", user_id);
-  formData.append("pengiriman_id", pengiriman_id);
-  formData.append("jenis_pengiriman_id", jenis_pengiriman_id);
-  formData.append("desain_produk", desain_produk);
-  formData.append("tanggal_order", tanggal_order);
-  formData.append("status_order", status_order);
-  formData.append("tanggal_bayar", tanggal_bayar);
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: formData,
-    redirect: "follow",
-  };
-
-  fetch(`http://localhost:3000/order/${order_id}/update`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
-
-function deleteOrder() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append("authorization", "Bearer " + token);
-  let order_id = document.getElementById("order_id").value;
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    redirect: "follow",
-  };
-
-  fetch(url + `/order/${order_id}/delete`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
-
 function itemOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -126,17 +68,14 @@ function itemOrder() {
 
   const produk_id = window.location.pathname.split("/")[2];
 
-  var ukuran_id = null; 
+
 
   fetch(`http://localhost:3000/detailProduk/${produk_id}`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
-      const listSize = document.getElementById("listSize"); // Get the container
-
-      // Create a unique name for the radio button group
+      const listSize = document.getElementById("listSize");
       const groupName = "sizeGroup";
 
-      // Loop through the data and create radio buttons with labels
       data.forEach((size) => {
         const radioButton = document.createElement("div");
         radioButton.classList.add("form-check", "my");
@@ -145,21 +84,21 @@ function itemOrder() {
         inputElement.classList.add("form-check-input");
         inputElement.type = "radio";
         inputElement.name = groupName;
-        inputElement.value = size.Ukuran.ukuran;
+        inputElement.value = size['Ukuran.ukuran'];
         inputElement.id = size.ukuran_id;
 
         const labelElement = document.createElement("label");
         labelElement.classList.add("form-check-label");
         labelElement.htmlFor = size.ukuran_id;
-        labelElement.textContent = size.Ukuran.ukuran;
+        labelElement.textContent = size['Ukuran.ukuran'];
 
         radioButton.appendChild(inputElement);
         radioButton.appendChild(labelElement);
 
-               inputElement.addEventListener("change", () => {
-          ukuran_id = size.ukuran_id;
-          const ukuraasdn_id = document.getElementById("size_id");
-          ukuraasdn_id.value = size.ukuran_id;
+        inputElement.addEventListener("change", () => {
+          var ukuran_id = size.ukuran_id;
+          var ukuran_id = document.getElementById("size_id");
+          ukuran_id.value = size.ukuran_id;
 
           var requestOptions = {
             method: "GET",
@@ -168,15 +107,14 @@ function itemOrder() {
           };
 
           fetch(
-            `http://localhost:3000/detailProduk/${produk_id}/${ukuran_id}`,
+            `http://localhost:3000/detailProduk/${produk_id}/${ukuran_id.value}`,
             requestOptions
           )
             .then((response) => response.json())
             .then((result) => {
-              const harga = document.getElementById("harga");
-              harga.innerHTML = `Rp ${result.harga}/pcs`;
-              const total = document.getElementById("total");
-              total.innerHTML = `Rp ${result.harga}`;
+          
+              mapPaketOrder(result, produk_id, ukuran_id.value);
+          
             })
             .catch((error) => console.log("error", error));
         });
@@ -212,3 +150,56 @@ function itemOrder() {
     .catch((error) => console.log("error", error));
 }
 
+function mapPaketOrder(result,produk_id,ukuran_id) {
+  const inputPaket = document.getElementById('jumlah')
+  inputPaket.innerHTML=` <option value="" disabled selected>pilih paket ( pilih ukuran terlbih dahulu )</option>`
+  result.forEach((data) => {
+    const pilihanPaket = document.createElement('option')
+    const { id_paket,produk_id,ukuran_id } = data;
+    console.log(id_paket)
+    
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `bearer ${sessionStorage.getItem("token")}`)
+    myHeaders.append("Content-Type", "application/json");
+    
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    
+    fetch(`http://localhost:3000/paket/${id_paket}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result)
+          pilihanPaket.value = result.id_paket
+          pilihanPaket.textContent = result.nama_paket
+         
+    
+      })
+      .catch(error => console.log('error', error));
+      inputPaket.appendChild(pilihanPaket)
+  });
+
+  inputPaket.addEventListener("change",()=>{
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `bearer ${sessionStorage.getItem("token")}`)
+    myHeaders.append("Content-Type", "application/json");
+    
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    fetch(`http://localhost:3000/detailProduk/${produk_id}/${ukuran_id}/${inputPaket.value}`, requestOptions)
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+      const subTotal = document.getElementById("total")
+      subTotal.textContent = result.harga * result.Paket.nama_paket
+    })
+    .catch(error => console.log('error', error));
+    
+  })
+}

@@ -22,6 +22,7 @@ const DetailOrder = sequelize.define(
     id_paket: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey:true
     },
     jumlah_pesanan: {
       type: DataTypes.INTEGER,
