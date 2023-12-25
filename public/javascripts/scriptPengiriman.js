@@ -1,7 +1,8 @@
+import { apiUrl } from './config.js';
 
 let token = sessionStorage.getItem('token')
 
-function getAllPengiriman() {
+export function getAllPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
   myHeaders.append('authorization', 'Bearer ' + token)
@@ -11,7 +12,7 @@ function getAllPengiriman() {
     headers: myHeaders,
   };
 
-  fetch(url + "/pengiriman", requestOptions)
+  fetch(`${apiUrl}/pengiriman`, requestOptions)
     .then(response => response.json())
     .then(data => {
       console.log(data)
@@ -58,7 +59,7 @@ function getAllPengiriman() {
               redirect: 'follow'
             };
 
-            fetch(`http://localhost:3000/pengiriman/${deliver.pengiriman_id}/update`, requestOptions)
+            fetch(`${apiUrl}/pengiriman/${deliver.pengiriman_id}/update`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -68,6 +69,7 @@ function getAllPengiriman() {
                   location.reload();
                 } else if (result.error) {
                   result.error
+                  alert("gagal")
                 }
               })
               .catch(error => {
@@ -86,7 +88,7 @@ function getAllPengiriman() {
               redirect: 'follow'
             };
 
-            fetch(`http://localhost:3000/pengiriman/${pengiriman_id}/delete`, requestOptions)
+            fetch(`${apiUrl}/pengiriman/${pengiriman_id}/delete`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -122,7 +124,7 @@ function getAllPengiriman() {
 }
 
 
-function createPengiriman() {
+export function createPengiriman() {
 
   document.getElementById("deliver").addEventListener('submit', (event) => {
     event.preventDefault();
@@ -143,7 +145,7 @@ function createPengiriman() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/pengiriman/create", requestOptions)
+    fetch(`${apiUrl}/pengiriman/create`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);
@@ -162,5 +164,3 @@ function createPengiriman() {
 
   })
 }
-
-

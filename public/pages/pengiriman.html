@@ -216,15 +216,17 @@
 
 </html>
 
-<script src="../javascripts/scriptGeneral.js"></script>
-<script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptPengiriman.js"></script>
-<script src="../javascripts/scriptJenisPengiriman.js"></script>
+ 
+<script type="module" src="../javascripts/scriptPengiriman.js"></script>
+<script type="module" src="../javascripts/scriptJenisPengiriman.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
 
-<script>
+<script type="module">
+    import { generalHead, generalNav, verived,toggleDropdown,logout,adminHead } from '../javascripts/scriptGeneral.js';
+    import { getAllPengiriman, createPengiriman } from '../javascripts/scriptPengiriman.js';
+    import { getAllJenisPengiriman, createJenisPengiriman } from '../javascripts/scriptJenisPengiriman.js';
     verived()
     getAllPengiriman();
     generalHead();
@@ -233,7 +235,8 @@
     createPengiriman();
     getAllJenisPengiriman();
     createJenisPengiriman();
-
+    toggleDropdown()
+    logout()
     document.getElementById("closeModalBtn").addEventListener("click", closeModal);
     document.getElementById("closeModal").addEventListener("click", closeModal);
     document.getElementById("closeModalBtnType").addEventListener("click", closeModalType);

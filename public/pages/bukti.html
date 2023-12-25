@@ -132,10 +132,15 @@
 <script src="../javascripts/scriptUrl.js"></script>
 <script src="../javascripts/scriptDetailOder.js"></script>
 
-<script>
+<script type="module">
+
+    import { generalHead, generalNav, verived,toggleDropdown,logout } from '../javascripts/scriptGeneral.js';
+    import { Invoice } from '../javascripts/scriptDetailOder.js';
     verived();
     generalHead();
     generalNav();
+    toggleDropdown()
+    logout()
     Invoice();
 </script>
 

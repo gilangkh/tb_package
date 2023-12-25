@@ -1,8 +1,9 @@
 /** @format */
+import {apiUrl} from './config.js'
 
 let token = sessionStorage.getItem("token");
 
-function getAllDetailProduk() {
+export function getAllDetailProduk() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -12,7 +13,7 @@ function getAllDetailProduk() {
     headers: myHeaders,
   };
 
-  fetch("http://localhost:3000/detailProduk", requestOptions)
+  fetch(`${apiUrl}/detailProduk`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -34,7 +35,7 @@ function getAllDetailProduk() {
         const cellPaket = document.createElement("td");
         cellPaket.textContent = detail.Paket.nama_paket;
         const cellHarga = document.createElement("td");
-        cellHarga.textContent = detail.harga;
+        cellHarga.textContent = detail.harga.toLocaleString();
         const cellAction = document.createElement("td");
         const detailButton = document.createElement("button");
         detailButton.textContent = "Detail";
@@ -73,7 +74,7 @@ function getAllDetailProduk() {
               };
 
               fetch(
-                `http://localhost:3000/detailProduk/${detail.produk_id}/${detail.ukuran_id}/${detail.id_paket}/update`,
+                `${apiUrl}/detailProduk/${detail.produk_id}/${detail.ukuran_id}/${detail.id_paket}/update`,
                 requestOptions
               )
                 .then((response) => response.json())
@@ -106,7 +107,7 @@ function getAllDetailProduk() {
               };
 
               fetch(
-                `http://localhost:3000/detailProduk/${detail.produk_id}/${detail.ukuran_id}/${detail.id_paket}/delete`,
+                `${apiUrl}/detailProduk/${detail.produk_id}/${detail.ukuran_id}/${detail.id_paket}/delete`,
                 requestOptions
               )
                 .then((response) => response.json())
@@ -144,7 +145,7 @@ function getAllDetailProduk() {
     .catch((error) => console.log("error", error));
 }
 
-function createDetailProduk() {
+export function createDetailProduk() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -154,7 +155,7 @@ function createDetailProduk() {
     headers: myHeaders,
   };
 
-  fetch("http://localhost:3000/product", requestOptions)
+  fetch(`${apiUrl}/product`, requestOptions)
     .then((response) => response.json()) // Assuming the response is JSON
     .then((data) => {
       console.log(data);
@@ -184,7 +185,7 @@ function createDetailProduk() {
     headers: myHeaders,
   };
 
-  fetch("http://localhost:3000/size", requestOptions)
+  fetch(`${apiUrl}/size`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
       const ukuranSelect = document.getElementById("ukuran");
@@ -232,7 +233,7 @@ function createDetailProduk() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:3000/detailProduk/create", requestOptions)
+    fetch(`${apiUrl}/detailProduk/create`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
@@ -252,7 +253,7 @@ function createDetailProduk() {
   });
 }
 
-function displayDetailProduk() {
+export function displayDetailProduk() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -262,7 +263,7 @@ function displayDetailProduk() {
     headers: myHeaders,
   };
 
-  fetch("http://localhost:3000/detailProduk", requestOptions)
+  fetch(`${apiUrl}/detailProduk`, requestOptions)
     .then((response) => response.json()) // Assuming the response is in JSON format
     .then((data) => {
       console.log(data);
@@ -308,7 +309,7 @@ function displayDetailProduk() {
     .catch((error) => console.log("error", error));
 }
 
-function displayDetailItem() {
+export function displayDetailItem() {
   var myHeaders = new Headers();
   myHeaders.append("authorization", "Bearer " + token);
   myHeaders.append("Content-Type", "application/json");
@@ -318,16 +319,13 @@ function displayDetailItem() {
     headers: myHeaders,
   };
 
-  fetch("http://localhost:3000/detailProduk", requestOptions)
-    .then((response) => response.json()) // Pastikan responsenya adalah JSON
+  fetch(`${apiUrl}/detailProduk`, requestOptions)
+    .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      // Ambil elemen dengan ID "itemBarang" dari DOM
       const itemBarang = document.getElementById("itemBarang");
       itemBarang.innerHTML = ``;
-      // Loop melalui data yang diterima
       data.forEach((detail) => {
-        // Buat elemen-elemen HTML
         const barangItem = document.createElement("a");
         barangItem.href = `/barang/${detail.produk_id}`;
         barangItem.className = "barang-item";
@@ -353,20 +351,19 @@ function displayDetailItem() {
 
         const produkName = document.createElement("span");
         produkName.className = "produk-name";
-        produkName.textContent = detail.Produk.nama_produk; // Isi dengan data yang sesuai
+        produkName.textContent = detail.Produk.nama_produk;
 
         const col2 = document.createElement("div");
         col2.className = "col-sm-8 px-3";
 
         const produkPrize = document.createElement("span");
         produkPrize.className = "produk-prize";
-        produkPrize.textContent = `Rp ${detail.harga} /pcs`; // Isi dengan data yang sesuai
+        produkPrize.textContent = `Rp ${detail.harga} /pcs`;
 
         const produkDesc = document.createElement("span");
         produkDesc.className = "produk-desc";
-        produkDesc.textContent = detail.Produk.deskripsi; // Isi dengan data yang sesuai
+        produkDesc.textContent = detail.Produk.deskripsi;
 
-        // Strukturkan elemen-elemen HTML
         col1.appendChild(produkName);
         col2.appendChild(produkPrize);
         innerRow.appendChild(col1);
@@ -378,12 +375,12 @@ function displayDetailItem() {
         barangDetail1.appendChild(img);
         barangItem.appendChild(row);
 
-        // Tambahkan barangItem ke dalam itemBarang
         itemBarang.appendChild(barangItem);
       });
     })
     .catch((error) => console.log("error", error));
 }
+
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `bearer ${sessionStorage.getItem("token")}`);
@@ -395,7 +392,7 @@ var requestOptions = {
   redirect: "follow",
 };
 
-fetch("http://localhost:3000/paket", requestOptions)
+fetch(`${apiUrl}/paket`, requestOptions)
   .then((response) => response.json())
   .then((result) => {
     console.log(result);

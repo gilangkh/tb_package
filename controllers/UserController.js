@@ -14,7 +14,7 @@ const getAllUser = async (req, res) => {
     console.log("getAllUserError = " + error);
   }
 };
-0;
+
 const createUser = async (req, res) => {
   try {
     const { nama, email, password, telp, alamat,status } = req.body;
@@ -205,7 +205,7 @@ const adminUpdatePassword = async(req,res)=>{
        return  res.status(404).json({error:"user tidak terdaftar"})
       }
 
-      user.password = hashedPassword
+      user.password = has
       await user.save()
 
       let response ={

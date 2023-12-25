@@ -1,5 +1,8 @@
+import { apiUrl } from './config.js';
+
 let token = sessionStorage.getItem('token')
-function getAllDetailPengiriman() {
+
+export function getAllDetailPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append('authorization', 'Bearer ' + token)
@@ -10,7 +13,7 @@ function getAllDetailPengiriman() {
 
   };
 
-  fetch("http://localhost:3000/detailPengiriman", requestOptions)
+  fetch(`${apiUrl}/detailPengiriman`, requestOptions)
     .then(response => response.json()) // Parse the response as JSON
     .then(data => {
       const detailTableBody = document.getElementById("detailTableBody");
@@ -69,7 +72,7 @@ function getAllDetailPengiriman() {
               redirect: 'follow'
             };
 
-            fetch(`http://localhost:3000/detailPengiriman/${detail.pengiriman_id}/${detail.jenis_pengiriman_id}/update`, requestOptions)
+            fetch(`${apiUrl}/detailPengiriman/${detail.pengiriman_id}/${detail.jenis_pengiriman_id}/update`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -96,7 +99,7 @@ function getAllDetailPengiriman() {
               headers: myHeaders
             };
 
-            fetch(`http://localhost:3000/detailPengiriman/${detail.pengiriman_id}/${detail.jenis_pengiriman_id}/delete`, requestOptions)
+            fetch(`${apiUrl}/detailPengiriman/${detail.pengiriman_id}/${detail.jenis_pengiriman_id}/delete`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -138,7 +141,7 @@ function getAllDetailPengiriman() {
 }
 
 
-function createDetailPengiriman() {
+export function createDetailPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append('authorization', 'Bearer ' + token)
@@ -148,7 +151,7 @@ function createDetailPengiriman() {
     headers: myHeaders
   };
 
-  fetch("http://localhost:3000/jenis_pengiriman", requestOptions)
+  fetch(`${apiUrl}/jenis_pengiriman`, requestOptions)
     .then(response => response.json())
     .then(data => {
       const selectElement = document.getElementById("jenis_pengiriman");
@@ -179,7 +182,7 @@ function createDetailPengiriman() {
     headers: myHeaders
   };
 
-  fetch("http://localhost:3000/pengiriman", requestOptions)
+  fetch(`${apiUrl}/pengiriman`, requestOptions)
     .then(response => response.json())
     .then(data => {
 
@@ -224,10 +227,10 @@ function createDetailPengiriman() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/detailPengiriman/create", requestOptions)
+    fetch(`${apiUrl}/detailPengiriman/create`, requestOptions)
       .then(response => response.json())
       .then(result => {
-  
+
         console.log(result);
         if (result.success) {
           localStorage.setItem("flashMessage", result.success);
@@ -242,49 +245,4 @@ function createDetailPengiriman() {
       });
   })
 }
-
-function updateDetailPengiriman() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
-  
-  let detail_pengiriman_id = document.getElementById("detail_pengiriman_id").value;
-  let pengiriman_id = document.getElementById("pengiriman_id").value;
-  let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
-  let biaya_pengiriman = document.getElementById("biaya_pengiriman").value;
-
-  var formData = new FormData();
-  formData.append("pengiriman_id", pengiriman_id);
-  formData.append("jenis_pengiriman_id", jenis_pengiriman_id);
-  formData.append("biaya_pengiriman", biaya_pengiriman);
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: formData,
-    redirect: 'follow'
-  };
-
-  fetch(url + `/detail_pengiriman/${detail_pengiriman_id}/update`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-}
-
-function deleteDetailPengiriman() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  let detail_pengiriman_id = document.getElementById("detail_pengiriman_id").value;
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
-
-  fetch(url + `/detail_pengiriman/${detail_pengiriman_id}/delete`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-}
+ 

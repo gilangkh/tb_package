@@ -1,7 +1,8 @@
+import { apiUrl } from './config.js';
 
 let token = sessionStorage.getItem('token')
 
-function getAllPayments() {
+export function getAllPayments() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append('authorization', 'Bearer ' + token)
@@ -11,7 +12,7 @@ function getAllPayments() {
     headers: myHeaders
   };
 
-  fetch("http://localhost:3000/payment", requestOptions)
+  fetch(`${apiUrl}/payment`, requestOptions)
     .then(response => response.json())  // Assuming the response is JSON
     .then(data => {
       const paymentTableBody = document.getElementById("paymentTableBody");
@@ -59,7 +60,7 @@ function getAllPayments() {
               redirect: 'follow'
             };
 
-            fetch(`http://localhost:3000/payment/${payment.pembayaran_id}/update`, requestOptions)
+            fetch(`${apiUrl}/payment/${payment.pembayaran_id}/update`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -88,7 +89,7 @@ function getAllPayments() {
               headers: myHeaders
             };
 
-            fetch(`http://localhost:3000/payment/${payment.pembayaran_id}/delete`, requestOptions)
+            fetch(`${apiUrl}/payment/${payment.pembayaran_id}/delete`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -121,16 +122,16 @@ function getAllPayments() {
 }
 
 
-function createPayment() {
+export function createPayment() {
   document.getElementById('addPayment').addEventListener('submit', (event) => {
     event.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append('authorization', 'Bearer ' + token)
 
-    const medote = document.getElementById('metode').value
+    const metode = document.getElementById('metode').value
     var raw = JSON.stringify({
-      "metode": medote
+      "metode": metode
     });
 
     var requestOptions = {
@@ -140,7 +141,7 @@ function createPayment() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/payment/create", requestOptions)
+    fetch(`${apiUrl}/payment/create`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);

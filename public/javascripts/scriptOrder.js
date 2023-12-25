@@ -1,8 +1,9 @@
 /** @format */
+import {apiUrl} from './config.js'
 
 const token = sessionStorage.getItem("token");
 
-function getAllOrder() {
+export function getAllOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
   myHeaders.append("authorization", "Bearer " + token);
@@ -18,7 +19,7 @@ function getAllOrder() {
     .catch((error) => console.log("error", error));
 }
 
-function createOrder() {
+export function createOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
   myHeaders.append("authorization", "Bearer " + token);
@@ -56,7 +57,7 @@ function createOrder() {
     .catch((error) => console.log("error", error));
 }
 
-function itemOrder() {
+export function itemOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);

@@ -74,15 +74,18 @@
 
     </div>
 </body>
-<script src="../javascripts/scriptGeneral.js"></script>
-<script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptDetailOder.js"></script>
-<script>
+ 
+ 
+<script type="module">
+
+import { generalHead, generalNav, verived,toggleDropdown,logout } from '../javascripts/scriptGeneral.js';
+import { getAllDetailOrder } from '../javascripts/scriptDetailOder.js';
     verived()
     generalHead();
     generalNav();
-
+    toggleDropdown()
     getAllDetailOrder()
+    logout()
 
 </script>
 

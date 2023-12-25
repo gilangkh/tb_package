@@ -1,6 +1,7 @@
+import { apiUrl } from './config.js';
+let token = sessionStorage.getItem('token')
 
-
-function getAllJenisPengiriman() {
+export function getAllJenisPengiriman() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
   myHeaders.append('authorization', 'Bearer ' + token)
@@ -10,7 +11,7 @@ function getAllJenisPengiriman() {
     headers: myHeaders,
   };
 
-  fetch(url + "/jenis_pengiriman", requestOptions)
+  fetch(`${apiUrl}/jenis_pengiriman`, requestOptions)
     .then(response => response.json())
     .then(data => {
       console.log(data)
@@ -57,7 +58,7 @@ function getAllJenisPengiriman() {
               redirect: 'follow'
             };
 
-            fetch(`http://localhost:3000/jenis_pengiriman/${jenis_pengiriman_id}/update`, requestOptions)
+            fetch(`${apiUrl}/jenis_pengiriman/${jenis_pengiriman_id}/update`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -83,7 +84,7 @@ function getAllJenisPengiriman() {
               headers:myHeaders
             };
 
-            fetch(`http://localhost:3000/jenis_pengiriman/${jenis_pengiriman_id}/delete`, requestOptions)
+            fetch(`${apiUrl}/jenis_pengiriman/${jenis_pengiriman_id}/delete`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -116,7 +117,7 @@ function getAllJenisPengiriman() {
     .catch(error => console.log('error', error));
 }
 
-function createJenisPengiriman() {
+export function createJenisPengiriman() {
   document.getElementById("deliverType").addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -136,7 +137,7 @@ function createJenisPengiriman() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/jenis_pengiriman/create", requestOptions)
+    fetch(`${apiUrl}/jenis_pengiriman/create`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);
@@ -153,47 +154,4 @@ function createJenisPengiriman() {
         alert(error)
       });
   })
-}
-
-function updateJenisPengiriman() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
-
-  let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
-  let jenis = document.getElementById("jenis").value;
-
-  var formData = new FormData();
-  formData.append("jenis", jenis);
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: formData,
-    redirect: 'follow'
-  };
-
-  fetch(url + `/jenis_pengiriman/${jenis_pengiriman_id}/update`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-}
-
-function deleteJenisPengiriman() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
-
-  let jenis_pengiriman_id = document.getElementById("jenis_pengiriman_id").value;
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
-
-  fetch(url + `/jenis_pengiriman/${jenis_pengiriman_id}/delete`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
 }

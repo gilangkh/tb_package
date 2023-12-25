@@ -75,16 +75,19 @@
         </div>
     </div>
 </body>
-<script src="../javascripts/scriptGeneral.js"></script>
 
-<script src="../javascripts/scriptOrder.js"></script>
-<script>
+<script type="module">
+
+import { generalHead, generalNav, verived,toggleDropdown,logout } from '../javascripts/scriptGeneral.js';
+import { itemOrder } from '../javascripts/scriptOrder.js';
+
     verived();
     generalHead();
     generalNav();
-
+    toggleDropdown()
 
     itemOrder()
+    logout()
 
     const sizeBarang = document.getElementById("size")
     sizeBarang.addEventListener('change', () => {

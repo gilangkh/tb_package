@@ -81,11 +81,12 @@
 </body>
 
 </html>
-<script src="../javascripts/scriptUrl.js"></script>
-<script src="../javascripts/scriptUser.js"></script>
-<script src="../javascripts/scriptAuth.js"></script>
-<script>
-authHead()
+
+<script type="module">
+
+import { createUser } from '../javascripts/scriptUser.js';
+
+
 createUser()
     
 </script>

@@ -1,17 +1,18 @@
+import { apiUrl } from './config.js';
 
-let token = sessionStorage.getItem('token')
+let token = sessionStorage.getItem('token');
 
-function getAllSizes() {
+export function getAllSizes() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  myHeaders.append('authorization', 'Bearer ' + token)
+  myHeaders.append('authorization', 'Bearer ' + token);
   var requestOptions = {
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'
   };
 
-  fetch(url + "/size", requestOptions)
+  fetch(`${apiUrl}/size`, requestOptions)
     .then(response => response.json())
     .then(data => {
       console.log(data)
@@ -30,7 +31,6 @@ function getAllSizes() {
         const detailButton = document.createElement("button")
         detailButton.textContent = "Detail";
         detailButton.className = "btn btn-warning rounded-pill"
-
 
         detailButton.addEventListener("click", async () => {
           document.getElementById("myModal").style.display = "block";
@@ -58,7 +58,7 @@ function getAllSizes() {
               redirect: 'follow'
             };
 
-            fetch(`http://localhost:3000/size/${size_id}/update`, requestOptions)
+            fetch(`${apiUrl}/size/${size_id}/update`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -84,10 +84,10 @@ function getAllSizes() {
             var requestOptions = {
               method: 'POST',
               redirect: 'follow',
-              headers:myHeaders
+              headers: myHeaders
             };
 
-            fetch(`http://localhost:3000/size/${size_id}/delete`, requestOptions)
+            fetch(`${apiUrl}/size/${size_id}/delete`, requestOptions)
               .then(response => response.json())
               .then(result => {
                 console.log(result);
@@ -120,15 +120,13 @@ function getAllSizes() {
     .catch(error => console.log('error', error));
 }
 
-
-
-function createSize() {
+export function createSize() {
   document.getElementById("addSize").addEventListener('submit', (event) => {
     event.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append('authorization', 'Bearer ' + token)
-    
+
     const panjang = document.getElementById("panjang").value
     const lebar = document.getElementById("lebar").value
     const tinggi = document.getElementById("tinggi").value
@@ -138,7 +136,6 @@ function createSize() {
       "ukuran": ukuran
     });
 
-
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -146,7 +143,7 @@ function createSize() {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3000/size/create", requestOptions)
+    fetch(`${apiUrl}/size/create`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result);
@@ -164,16 +161,4 @@ function createSize() {
       });
 
   })
-}
-
-
-// modalProduk
-function openModal() {
-  document.getElementById("myModal").style.display = "block";
-  console.log("id : ", produk.produk_id)
-}
-
-// Function to close the modal
-function closeModal() {
-  document.getElementById("myModal").style.display = "none";
 }

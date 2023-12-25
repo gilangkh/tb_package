@@ -1,4 +1,5 @@
 /** @format */
+import { apiUrl } from './config.js';
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", `bearer ${sessionStorage.getItem("token")}`);
@@ -10,7 +11,7 @@ var requestOptions = {
   redirect: "follow",
 };
 
-fetch("http://localhost:3000/user", requestOptions)
+fetch(`${apiUrl}/user`, requestOptions)
   .then((response) => response.json())
   .then((users) => {
     var originalUsers = users;
@@ -25,21 +26,21 @@ fetch("http://localhost:3000/user", requestOptions)
         if (user.status === "u") {
           user.status = "user";
         }
-      
+
         var row = tableBody.insertRow(index);
-      
-        const cell1 = row.insertCell(0)
-        const cell2 = row.insertCell(1)
-        const cell3 = row.insertCell(2)
-        const cell4 = row.insertCell(3)
-        const cell5 = row.insertCell(4)
-        const cell6 = row.insertCell(5)
-        const cell7 = row.insertCell(6)
-        const cell8 = row.insertCell(7)
-        cell1.innerHTML = index + 1
+
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        const cell4 = row.insertCell(3);
+        const cell5 = row.insertCell(4);
+        const cell6 = row.insertCell(5);
+        const cell7 = row.insertCell(6);
+        const cell8 = row.insertCell(7);
+        cell1.innerHTML = index + 1;
         cell2.innerHTML = user.nama;
         cell3.innerHTML = user.email;
-       
+
         cell5.innerHTML = user.telp;
         cell6.innerHTML = user.alamat;
         cell7.innerHTML = user.status;
@@ -47,18 +48,17 @@ fetch("http://localhost:3000/user", requestOptions)
           '<button class="btn btn-danger text-white" onclick="editUser(' +
           user.user_id +
           ')"><i class="bi bi-trash3"></i></button>';
-      
-        const editPasswordBtn = document.createElement("button")
-        editPasswordBtn.classList = `btn btn-link text-orange`
-        editPasswordBtn.style = `color :#FFB137`
-        editPasswordBtn.textContent = 'edit password'
+
+        const editPasswordBtn = document.createElement("button");
+        editPasswordBtn.classList = `btn btn-link text-orange`;
+        editPasswordBtn.style = `color :#FFB137`;
+        editPasswordBtn.textContent = 'edit password';
         editPasswordBtn.addEventListener("click", () => {
-          editPassword(user.user_id)
+          editPassword(user.user_id);
         });
-      
-        cell4.appendChild(editPasswordBtn)
+
+        cell4.appendChild(editPasswordBtn);
       });
-      
     }
 
     populateTable(users);
@@ -95,26 +95,26 @@ function editUser(userId) {
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      redirect: 'follow'
+      redirect: 'follow',
     };
-    
-    fetch(`http://localhost:3000/user/${userId}/delete`, requestOptions)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("HTTP Error: " + response.statusText);
-      }
-      return response.json();
-    })
-    .then((result) => {
-      localStorage.setItem("flashMessage", result.success);
 
-      window.location.reload();
-      console.log(result);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert(error)
-    });
+    fetch(`${apiUrl}/user/${userId}/delete`, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("HTTP Error: " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((result) => {
+        localStorage.setItem("flashMessage", result.success);
+
+        window.location.reload();
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert(error);
+      });
   } else {
     alert("tidak jadi");
   }
@@ -122,53 +122,50 @@ function editUser(userId) {
 
 function editPassword(userId) {
   console.log("Editing user with ID:", userId);
-  document.getElementById("myModal").style.display="block"
-  document.getElementById("formPasssword").addEventListener('submit',(event)=>{
-    event.preventDefault()
+  document.getElementById("myModal").style.display = "block";
+  document.getElementById("formPasssword").addEventListener('submit', (event) => {
+    event.preventDefault();
 
-    const newPassword = document.getElementById('updatePasswordUser')
+    const newPassword = document.getElementById('updatePasswordUser');
     var raw = JSON.stringify({
-      "password": newPassword.value
+      "password": newPassword.value,
     });
-    
+
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: 'follow',
     };
-    
-    fetch(`http://localhost:3000/adminPassword/${userId}`, requestOptions)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("HTTP Error: " + response.statusText);
-      }
-      return response.json();
-    })
-    .then((result) => {
-      localStorage.setItem("flashMessage", result.success);
 
-      window.location.reload();
-      console.log(result);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-  })
+    fetch(`${apiUrl}/adminPassword/${userId}`, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("HTTP Error: " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((result) => {
+        localStorage.setItem("flashMessage", result.success);
+
+        window.location.reload();
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
 }
 
 function closeModal() {
   document.getElementById("myModal").style.display = "none";
-
 }
 
 document.getElementById("closeModalBtn").addEventListener("click", closeModal);
 document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
 
-
 document.getElementById("createUser").addEventListener("submit", (event) => {
   event.preventDefault();
-
 
   if (!validateForm()) {
     return;
@@ -197,8 +194,7 @@ document.getElementById("createUser").addEventListener("submit", (event) => {
     redirect: "follow",
   };
 
-
-  fetch("http://localhost:3000/user/create", requestOptions)
+  fetch(`${apiUrl}/user/create`, requestOptions)
     .then((response) => {
       if (!response.ok) {
         throw new Error("HTTP Error: " + response.error);
@@ -215,7 +211,6 @@ document.getElementById("createUser").addEventListener("submit", (event) => {
       console.error("Error:", error);
     });
 });
-
 
 function validateForm() {
   const nama = document.getElementById("nama").value;
@@ -239,4 +234,3 @@ function validateForm() {
 
   return true;
 }
-

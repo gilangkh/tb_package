@@ -1,3 +1,6 @@
+
+import {apiUrl} from './config.js'
+
 function login() {
   const formLogin = document.getElementById("login");
   formLogin.addEventListener('submit', async (event) => {
@@ -22,7 +25,7 @@ function login() {
     };
 
     // Mengirim permintaan POST ke server
-    fetch("http://localhost:3000/login", requestOptions)
+    fetch(`${apiUrl}/login`, requestOptions)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -72,4 +75,5 @@ function authHead(){
   head.appendChild(header1);
   head.appendChild(header2);
 }
-
+authHead()
+login()

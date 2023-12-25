@@ -1,4 +1,5 @@
 /** @format */
+import { apiUrl } from './config.js';
 
 document.getElementById("closeModalBtn").addEventListener("click", closeModal);
 document.getElementById("closeModal").addEventListener("click", closeModal);
@@ -21,7 +22,7 @@ var requestOptions = {
   redirect: "follow",
 };
 
-fetch("http://localhost:3000/paket", requestOptions)
+fetch(`${apiUrl}/paket`, requestOptions)
   .then((response) => response.json())
   .then((result) => {
     console.log(result);
@@ -29,109 +30,106 @@ fetch("http://localhost:3000/paket", requestOptions)
   })
   .catch((error) => console.log("error", error));
 
-  function fetchPaket(paket) {
-    const tbody = document.getElementById("paketTableBody");
-    tbody.innerHTML = "";
+function fetchPaket(paket) {
+  const tbody = document.getElementById("paketTableBody");
+  tbody.innerHTML = "";
 
-    paket.sort((a, b) => a.nama_paket.localeCompare(b.nama_paket));
+  paket.sort((a, b) => a.nama_paket.localeCompare(b.nama_paket));
 
-    paket.forEach((data, index) => {
-        let {id_paket, nama_paket} = data;
-        const row = document.createElement("tr");
-        const numberCell = document.createElement("td");
-        numberCell.textContent = index + 1;
-        const nameCell = document.createElement("td");
-        nameCell.textContent = nama_paket;
-        const detailCell = document.createElement("td");
-        const buttonDetail = document.createElement("button");
-        buttonDetail.textContent = "Detail ";
-        buttonDetail.classList = "btn btn-warning";
+  paket.forEach((data, index) => {
+    let { id_paket, nama_paket } = data;
+    const row = document.createElement("tr");
+    const numberCell = document.createElement("td");
+    numberCell.textContent = index + 1;
+    const nameCell = document.createElement("td");
+    nameCell.textContent = nama_paket;
+    const detailCell = document.createElement("td");
+    const buttonDetail = document.createElement("button");
+    buttonDetail.textContent = "Detail ";
+    buttonDetail.classList = "btn btn-warning";
 
-        detailCell.appendChild(buttonDetail);
-        row.appendChild(numberCell);
-        row.appendChild(nameCell);
-        row.appendChild(detailCell);
-        tbody.appendChild(row);
+    detailCell.appendChild(buttonDetail);
+    row.appendChild(numberCell);
+    row.appendChild(nameCell);
+    row.appendChild(detailCell);
+    tbody.appendChild(row);
 
-        row.addEventListener("click", () => {
-            handleRowClick(id_paket, nama_paket);
-        });
+    row.addEventListener("click", () => {
+      handleRowClick(id_paket, nama_paket);
     });
+  });
 }
 
+function handleRowClick(id, nama) {
+  openModal();
+  console.log("Baris diklik:", id);
 
-function handleRowClick(id,nama) {
-    openModal()
-    console.log("Baris diklik:", id);
+  const updateNama = document.getElementById("update_nama_paket");
+  updateNama.value = nama;
 
-    const updateNama=  document .getElementById("update_nama_paket")
-    updateNama.value = nama
+  document.getElementById("updatepaket").addEventListener("submit", (event) => {
+    event.preventDefault();
 
-
-    document.getElementById('updatepaket').addEventListener('submit',(event)=>{
-        event.preventDefault();
-
-        var raw = JSON.stringify({
-            "nama_paket": updateNama.value
-          });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-          };
-          
-          fetch(`http://localhost:3000/paket/${id}/update`, requestOptions)
-          .then(response => response.json())
-          .then(result => {
-            console.log(result);
-            if (result.success) {
-              localStorage.setItem("flashMessage", result.success);
-
-              location.reload();
-            } else if (result.error) {
-              result.error
-              alert("gagal")
-            }
-          })
-          .catch(error => {
-            console.log('error', error)
-            alert(error)
-          });
-    })
-
-}
-
-document.getElementById('addpaket').addEventListener('submit',(event)=>{
-    event.preventDefault()
-    const nama_paket = document.getElementById('nama_paket')
     var raw = JSON.stringify({
-        "nama_paket": nama_paket.value
-      });
-      
-      var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-      
-      fetch("http://localhost:3000/paket/create", requestOptions)
-      .then(response => response.json())
-      .then(result => {
+      nama_paket: updateNama.value,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${apiUrl}/paket/${id}/update`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
         console.log(result);
         if (result.success) {
           localStorage.setItem("flashMessage", result.success);
 
           location.reload();
         } else if (result.error) {
-          result.error
-          alert("gagal")
+          result.error;
+          alert("gagal");
         }
       })
-      .catch(error => {
-        console.log('error', error)
-        alert(error)
+      .catch((error) => {
+        console.log("error", error);
+        alert(error);
       });
-})
+  });
+}
+
+document.getElementById("addpaket").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const nama_paket = document.getElementById("nama_paket");
+  var raw = JSON.stringify({
+    nama_paket: nama_paket.value,
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch(`${apiUrl}/paket/create`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+      if (result.success) {
+        localStorage.setItem("flashMessage", result.success);
+
+        location.reload();
+      } else if (result.error) {
+        result.error;
+        alert("gagal");
+      }
+    })
+    .catch((error) => {
+      console.log("error", error);
+      alert(error);
+    });
+});

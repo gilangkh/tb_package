@@ -1,33 +1,38 @@
 /** @format */
+import { apiUrl } from "./config.js";
 
-function verived() {
+export function verived() {
   const token = sessionStorage.getItem("token");
 
   if (!token) {
     window.location.href = "/login";
   }
 }
-function toggleDropdown() {
-  var dropdown = document.querySelector(".dropdown-content");
-  if (dropdown.style.display === "block") {
-    dropdown.style.display = "none";
-  } else {
-    dropdown.style.display = "block";
-  }
+export function toggleDropdown() {
+  document.getElementById("dropDownBtn").addEventListener("click", () => {
+    var dropdown = document.querySelector(".dropdown-content");
+    if (dropdown.style.display === "block") {
+      dropdown.style.display = "none";
+    } else {
+      dropdown.style.display = "block";
+    }
+  });
 }
 
-function logout() {
-  if (window.confirm("apakah anda ingin logout")) {
-    sessionStorage.removeItem("token");
-    window.location.reload();
-  } else {
-    console.log("tidak jadi logout");
-  }
+export function logout() {
+  document.getElementById("btnLogout").addEventListener("click", () => {
+    if (window.confirm("apakah anda ingin logout")) {
+      sessionStorage.removeItem("token");
+      window.location.reload();
+    } else {
+      console.log("tidak jadi logout");
+    }
+  });
 }
-function adminHead() {
+export function adminHead() {
   const head = document.getElementById("navLinks"); // Corrected the element ID
 
-  head.innerHTML=``
+  head.innerHTML = ``;
   // Create a link for "Delivery"
   const deliver = document.createElement("a");
   deliver.innerText = "Shipping";
@@ -45,23 +50,22 @@ function adminHead() {
   // Create a link for "DetailItem"
   const detailItem = document.createElement("a");
   detailItem.innerText = "DetailProduk";
-  detailItem.href = "/produk/detail"; 
+  detailItem.href = "/produk/detail";
   detailItem.className = "item";
   head.appendChild(detailItem);
-  
+
   const rekapan = document.createElement("a");
   rekapan.innerText = "Rekapan";
-  rekapan.href = "/rekapan"; 
+  rekapan.href = "/rekapan";
   rekapan.className = "item";
   head.appendChild(rekapan);
   const users = document.createElement("a");
   users.innerText = "Users";
-  users.href = "/userWinda"; 
+  users.href = "/userWinda";
   users.className = "item";
   head.appendChild(users);
-
 }
-function generalHead() {
+export function generalHead() {
   const head = document.getElementById("generalHead");
 
   head.innerHTML = `
@@ -81,7 +85,7 @@ function generalHead() {
     </div>
     <div class="right-head">
         <div class="dropdown">
-            <button class="dropdown-btn" onclick="toggleDropdown()">
+            <button class="dropdown-btn" id="dropDownBtn" onclick="toggleDropdown()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -91,7 +95,7 @@ function generalHead() {
             </button>
             <ul class="dropdown-content">
                 <li><a style="text-decoration :none; color:black; " href="/profile">Profile</a></li>
-                <li><button onclick="logout()">Logout</button></li>
+                <li><button id="btnLogout" onclick="logout()">Logout</button></li>
             </ul>
         </div>
         <div>
@@ -120,7 +124,7 @@ function generalHead() {
   }
 }
 
-function generalNav() {
+export function generalNav() {
   const home = document.getElementById("home");
   const produk = document.getElementById("produk");
   const order = document.getElementById("order");

@@ -1,8 +1,9 @@
 /** @format */
+import {apiUrl} from './config.js'
 
 let token = sessionStorage.getItem("token");
 
-function getAllDetailOrder() {
+export function getAllDetailOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -12,7 +13,7 @@ function getAllDetailOrder() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/order/detail", requestOptions)
+  fetch(apiUrl+"/order/detail", requestOptions)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -36,7 +37,7 @@ function getAllDetailOrder() {
         };
 
         fetch(
-          `http://localhost:3000/detailProduk/${item.produk_id}/${item.ukuran_id}/${item.id_paket}`,
+          `${apiUrl}/detailProduk/${item.produk_id}/${item.ukuran_id}/${item.id_paket}`,
           requestOptions
         )
           .then((response) => response.json())
@@ -44,16 +45,16 @@ function getAllDetailOrder() {
             console.log(result);
             cell1.innerHTML = result.Produk.nama_produk;
             harga =item.harga_pembayaran;
-            cell3.innerHTML = item.harga_pembayaran;
+            cell3.innerHTML = item.harga_pembayaran.toLocaleString();
             let itemSubtotal =  harga;
             subtotalHarga += itemSubtotal;
             const subTotal = document.getElementById("subTotal");
             const subTotal2 = document.getElementById("subTotal2");
             const itemCountText = document.getElementById("itemCount");
             const total = document.getElementById("total");
-            subTotal.textContent = `Rp ${subtotalHarga}`;
-            subTotal2.textContent = `Rp ${subtotalHarga}`;
-            total.textContent = `Rp ${subtotalHarga}`;
+            subTotal.textContent = `Rp ${subtotalHarga.toLocaleString()}`;
+            subTotal2.textContent = `Rp ${subtotalHarga.toLocaleString()}`;
+            total.textContent = `Rp ${subtotalHarga.toLocaleString()}`;
             itemCountText.textContent = `Summey ${itemCount} item`;
           })
           .catch((error) => console.log("error", error));
@@ -88,7 +89,7 @@ function getAllDetailOrder() {
               redirect: "follow",
             };
 
-            fetch("http://localhost:3000/order/delete", requestOptions)
+            fetch(apiUrl+"/order/delete", requestOptions)
               .then((response) => response.json())
               .then((result) => {
                 console.log(result);
@@ -115,7 +116,7 @@ function getAllDetailOrder() {
     .catch((error) => console.log("error", error));
 }
 
-function createDetailOrder() {
+export function createDetailOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -144,7 +145,7 @@ function createDetailOrder() {
     .catch((error) => console.log("error", error));
 }
 
-function updateDetailOrder() {
+export function updateDetailOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -173,7 +174,7 @@ function updateDetailOrder() {
     .catch((error) => console.log("error", error));
 }
 
-function deleteDetailOrder() {
+export function deleteDetailOrder() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -197,7 +198,7 @@ function deleteDetailOrder() {
     .catch((error) => console.log("error", error));
 }
 
-function getAllDetailOrderPayment() {
+export function getAllDetailOrderPayment() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("authorization", "Bearer " + token);
@@ -207,7 +208,7 @@ function getAllDetailOrderPayment() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/order/detail", requestOptions)
+  fetch(`${apiUrl}/order/detail`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
       console.log(data)
@@ -229,7 +230,7 @@ function getAllDetailOrderPayment() {
     .catch((error) => console.log("error", error));
 }
 
-function detailPayment() {
+export function detailPayment() {
   var myHeaders = new Headers();
   myHeaders.append("authorization", "Bearer " + token);
   var requestOptions = {
@@ -238,7 +239,7 @@ function detailPayment() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/userLogin", requestOptions)
+  fetch(`${apiUrl}/userLogin`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
       console.log("ini result");
@@ -272,7 +273,7 @@ function detailPayment() {
         redirect: "follow",
       };
 
-      fetch("http://localhost:3000/updateUser", requestOptions)
+      fetch(`${apiUrl}/updateUser`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           console.log(result);
@@ -302,7 +303,7 @@ function detailPayment() {
   let pengirimanId = 0;
 
   // Fetch data and populate the select options
-  fetch("http://localhost:3000/distrikPengiriman", requestOptions)
+  fetch(`${apiUrl}/distrikPengiriman`, requestOptions)
     .then((response) => response.json()) 
     .then((data) => {
    
@@ -336,7 +337,7 @@ function detailPayment() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/payment", requestOptions)
+  fetch(`${apiUrl}/payment`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
       data.forEach((payment) => {
@@ -377,7 +378,7 @@ function detailPayment() {
       redirect: "follow",
     };
 
-    fetch("http://localhost:3000/order/update", requestOptions)
+    fetch(`${apiUrl}/order/update`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
@@ -397,7 +398,7 @@ function detailPayment() {
   });
 }
 
-function Invoice() {
+export function Invoice() {
   var myHeaders = new Headers();
   myHeaders.append("authorization", "Bearer " + token);
 
@@ -412,7 +413,7 @@ function Invoice() {
   const listItemElement = document.getElementById("list-item");
 
   let total = 0;
-  fetch(`http://localhost:3000/order/detail/${order_id}`, requestOptions)
+  fetch(`${apiUrl}/order/detail/${order_id}`, requestOptions)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -441,7 +442,7 @@ function Invoice() {
         };
     
         fetch(
-          `http://localhost:3000/detailOrder/${order_id}/${item.produk_id}/${item.ukuran_id}/${item.id_paket}`,
+          `${apiUrl}/detailOrder/${order_id}/${item.produk_id}/${item.ukuran_id}/${item.id_paket}`,
           requestOptions
         )
           .then((response) => response.json())
@@ -520,7 +521,7 @@ function Invoice() {
         redirect: "follow",
       };
 
-      fetch(`http://localhost:3000/invoice/${order_id}`, requestOptions)
+      fetch(`${apiUrl}/invoice/${order_id}`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
           console.log(result);
@@ -552,7 +553,7 @@ function Invoice() {
 }
 
 
-function history() {
+export function history() {
   var myHeaders = new Headers();
   myHeaders.append("authorization", "Bearer " + token);
 
@@ -562,7 +563,7 @@ function history() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3000/orderHistory", requestOptions)
+  fetch(`${apiUrl}/orderHistory`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
       console.log(result);
@@ -623,7 +624,7 @@ function history() {
           redirect: 'follow'
         };
         
-        fetch(`http://localhost:3000/order/detail/${order.order_id}`, requestOptions)
+        fetch(`${apiUrl}/order/detail/${order.order_id}`, requestOptions)
           .then(response => response.json())
           .then(result =>{ 
             console.log(result)
