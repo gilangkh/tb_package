@@ -85,7 +85,7 @@ export function generalHead() {
     </div>
     <div class="right-head">
         <div class="dropdown">
-            <button class="dropdown-btn" id="dropDownBtn" onclick="toggleDropdown()">
+            <button class="dropdown-btn" id="dropDownBtn" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -95,7 +95,7 @@ export function generalHead() {
             </button>
             <ul class="dropdown-content">
                 <li><a style="text-decoration :none; color:black; " href="/profile">Profile</a></li>
-                <li><button id="btnLogout" onclick="logout()">Logout</button></li>
+                <li><button id="btnLogout">Logout</button></li>
             </ul>
         </div>
         <div>

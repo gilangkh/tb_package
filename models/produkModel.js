@@ -1,5 +1,15 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize("mysql://root@localhost/package");
+const dotenv = require('dotenv');
+
+// Load environment variables from .env file
+dotenv.config();
+
+const sequelize = new Sequelize({
+  dialect: process.env.DB_DIALECT || 'mysql',
+  host: process.env.DB_HOST || 'localhost',
+  username: process.env.DB_USERNAME || 'root',
+  database: process.env.DB_DATABASE || 'package',
+});
 
 const Produk = sequelize.define(
   "Produk", 
