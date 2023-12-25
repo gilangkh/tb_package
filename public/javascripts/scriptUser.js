@@ -52,7 +52,8 @@ export function createUser() {
     fetch(`${apiUrl}/user/create`, requestOptions)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("HTTP Error: " + response.error);
+          alert(response.statusText)
+          throw new Error("HTTP Error: " + response.statusText);
         }
         return response.json();
       })
@@ -62,6 +63,7 @@ export function createUser() {
         console.log(result);
       })
       .catch((error) => {
+        alert(error)
         console.error("Error:", error);
       });
   });
